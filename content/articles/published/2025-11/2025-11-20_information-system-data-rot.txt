@@ -1,0 +1,36 @@
+Topic: Information System Data Rot
+Date: 11/20/2025
+
+Everyone's obsessing over TPRM frameworks and risk methodologies, but no one mentions the biggest threat to your program: vendor data integrity degrading over time.
+
+You've got elegant frameworks and comprehensive policies that satisfy regulator expectations. But the data that drives those frameworks is slowly rotting away.
+
+🔍 Here's how this actually happens:
+
+Critical vendor with full NPPI access performing internal audit functions. Business unit wrote "consulting services" on the intake form. Gets classified as medium-risk based on that description. The risk tier is meaningless because the intake data was incomplete from day one.
+
+Or: Vendor contact who left 18 months ago still listed as primary. Risk rating from initial onboarding three years ago—nobody refreshed it. The relationship evolved—they added services, changed subcontractors, got new data access—but nobody updated the record.
+
+Programs look sophisticated on paper. The data underneath is garbage.
+
+🛑 Here's why this goes unnoticed:
+
+Auditors and regulators examine outputs—risk reports, board presentations, monitoring results. They don't audit vendor database fields. Banks build elegant risk assessments on top of stale data, and nobody catches it until an auditor asks "how did you determine this vendor's risk rating?"
+By then, fixing it isn't a quick update—it's forensic investigation across hundreds of vendor records.
+
+The root cause? You build capture processes, not maintenance processes.
+
+Everyone focuses on intake questionnaires and initial due diligence. But even good questionnaires fail when business units write vague descriptions without detail. And nobody builds the unglamorous work of keeping it accurate over time — no validation cadence, no ownership for currency, no alerts when critical data hasn't been verified in 18 months.
+
+The assumption is once you capture the data, it stays good. It doesn't.
+
+💡 What actually works? 
+
+Treat data maintenance with the same rigor as initial collection. Scheduled validation cycles — not just risk reviews, actual verification that contacts still work, descriptions still match reality, relationships haven't materially changed. Field-level aging alerts flagging when critical data hasn't been touched in 12+ months. Clear ownership for keeping records current.
+
+Audit data integrity separately from program outputs. Catch the rot before it corrupts risk assessments and board reports.
+
+The alternative is discovering your vendor data is fiction when auditors start asking questions.
+
+
+What's been your experience—do you have systematic processes for keeping vendor data current, or are you discovering staleness the hard way?

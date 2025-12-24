@@ -1,0 +1,39 @@
+Topic: Development of Third-Party Risk (Part 1)
+Date: 12/16/2025
+
+You approved the vendor. But did you approve what they're actually doing?
+
+This is the disconnect I see constantly: a business unit wants to onboard a new product or service from an existing vendor and pushes back with "but they're already approved!"
+
+They are. What you're buying from them today isn't.
+
+🔴 Vendors are containers, not risks
+
+You onboard Microsoft for Office 365. Low-risk productivity tools, standard due diligence, done. Six months later, the same business unit wants to move core platform data into Azure.
+
+That's not the same risk. That vendor just went from low to critical. But if your program only tracks at the vendor level, you'd miss it entirely. Microsoft is already "approved."
+
+The vendor didn't change. What you're buying from them did. And that's where the risk actually lives.
+
+⚠️ Scope creep is invisible at the vendor level
+
+Vendor relationships expand over time. One product becomes two. A small engagement grows into a dependency. Each addition carries its own risk profile — different data access, different integrations, different failure impacts.
+
+But if your inventory just says "Vendor: Approved" with no visibility into what's underneath, you're flying blind. You assessed the container once. You never assessed what's been added to it since.
+
+📋 The business unit doesn't see this
+
+When someone pushes back with "the vendor is already approved," they're not being difficult. They genuinely don't understand that vendors are just containers for risk items.
+
+The risk isn't the company name on the contract. It's what you're buying, how it's being used, and what it touches. Two products from the same vendor can have completely different risk profiles.
+
+Your job is to make that visible — to them and to your program.
+
+💡 Approve products and services, not just vendors
+
+Your TPRM inventory should track what you're actually using, not just who you're using it from. Each product or service needs its own assessment, its own risk rating, its own ongoing monitoring.
+
+The vendor is just the container. What's inside is what matters.
+
+
+How does your program handle this — do you track at the vendor level or the product/service level?

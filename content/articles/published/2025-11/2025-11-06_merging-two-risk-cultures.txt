@@ -1,0 +1,21 @@
+Topic: Merging Two Risk Cultures
+Date: 11/6/2025
+
+The M&A Integration Challenge Nobody Warns You About: Merging Two Risk Cultures
+
+Everyone obsesses over the technical integration. Which GRC platform survives? How do we consolidate policies? What's the timeline for systems integration and conversion? Those are the easy parts.
+
+The real challenge? You're merging two risk teams that have spent years building completely different relationships with their business lines, operating under different risk tolerances, and developing distinct approaches to the same regulatory requirements.
+
+Here is a prime example: Bank A's BSA team flags every transaction over $5K for manual review because "that's what the examiners expect." Bank B's team uses $25K thresholds with analytics because "we're risk-based, not risk-averse." Both passed their last exams. Both think the other is wrong. Now they're one department.
+
+Someone's worldview has to change, and that's not a policy decision—it's a culture shift. Maybe the acquired bank adopts the acquiring bank's approach, maybe vice versa, or—in the most successful integrations—a combination that takes the best from both. But that evolution doesn't happen just because you merged the org charts.
+
+The relationship problem is worse. Established relationships get disrupted regardless of direction. Risk staff from the acquired bank might lose the business partners they've spent years building credibility with—or find themselves serving entirely new business lines they don't know. Either way, trust has to be rebuilt from scratch, and that takes time no integration timeline accounts for.
+
+What works in practice? Decide who's in charge early—not "we'll collaborate" but actual authority. Use what both teams know. Talk straight about risk appetite instead of hiding behind "the regulators made us."
+
+The consequences of misintegration? You can consolidate every policy and integrate every system, but if your risk organization is still "us vs. them" 18 months later, you've failed. And you can't throw consulting dollars at culture problems.
+
+
+What's been your experience? What has made the difference between a smooth experience and disaster?

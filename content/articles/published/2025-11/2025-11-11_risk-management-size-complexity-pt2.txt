@@ -1,0 +1,40 @@
+Topic: Risk Management Commensurate with Size and Complexity (Part 2)
+Date: 11/11/2025
+
+I keep seeing two types of institutions: ones that think a $10B bank needs a $100B program, and ones that think a $5B program is good enough.
+
+Both are wrong. Here's why.
+
+A few weeks ago I posted about the $10B regulatory wall and why your TPRM program doesn't need to look like JPMorgan's. This isn't contradicting that — but it is adding nuance. The risks of under-engineering can be just as catastrophic as over-engineering.
+
+TD Bank learned this the hard way. Their $13.4 billion First Horizon acquisition — the largest bank deal in recent history — died in 2023 after regulators found their BSA/AML program hadn't scaled with their growth. The OCC was damning: TD "pursued growth" without a compliance program "commensurate with its risk profile."
+
+The cost? $225 million breakup fee. $3.09 billion in penalties. An asset cap that killed future growth.
+
+This isn't an outlier. M&T Bank's Hudson City acquisition took 39 months to close while regulators forced compliance rebuilding—Hudson City lost 28% of deposits waiting. BancorpSouth was frozen out of M&A entirely for 3+ years due to BSA/AML and CRA issues. Between 2009-2012, 233 bank merger applications were withdrawn due to compliance deficiencies.
+
+Regulators call this 'commensurate with'—programs must match your size, complexity, and risk profile. It appears in every enforcement action.
+
+💡 So what's the answer?
+
+United Bankshares: 34 acquisitions, no major delays. They built infrastructure that doesn't slow them down.
+It's not regulatory floor vs. gold-plating—there's an optimal band in between. And it depends entirely on where you're headed, not just where you are.
+
+The way I think about it: current size + growth over 2-3 years + any planned M&A. That's your target.
+
+So a $10B bank growing 15% annually? You'll be around $14.5B in three years — build for that. An $8B bank planning a $4B acquisition is really a $12B+ institution once the deal closes, so build for $14B capabilities now. But a $10B bank with no growth plans? Stay at $10B. Right-sized is right.
+
+⏳ When should you actually build ahead?
+
+If you're growing 10%+ annually and will hit the next regulatory threshold in 2-3 years, you're better off building now than scrambling later when examiners are already looking.
+
+If M&A is part of your strategy, regulatory scrutiny during deal review is real—and regulators explicitly look for programs that match your ambitions, not just your current state.
+
+Being ahead gives you credibility when opportunities come up.
+
+⭐ Your job shouldn't be remediating findings — it should be staying ahead of them.
+
+Where's your institution headed? That should determine your risk management investment today.
+
+
+What's been your experience with this?

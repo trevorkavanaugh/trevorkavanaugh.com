@@ -1,0 +1,35 @@
+Topic: Vendor Portfolio Concentration Optimization
+Date: 11/27/2025
+
+Post-CrowdStrike, everyone's instinct is to diversify vendor concentrations.
+
+That instinct has costs nobody's calculating.
+
+Vendor concentration works like an investment portfolio. Diversification reduces risk — until it doesn't. Over-diversify and you're paying transaction costs, losing returns, and creating complexity that becomes its own risk.
+
+Same with vendors.
+
+🔴 Over-concentration (the risk everyone talks about):
+
+One critical vendor handles most of your outsourcing. They fail or get breached — material impact across the institution. No fallback, no leverage, complete dependency.
+
+CrowdStrike made this real for a lot of banks this year.
+
+🔴 Under-concentration (the risk nobody talks about):
+
+20 vendors doing 20 things that could be 5 vendors doing 20 things. Now you've got integration complexity between systems that don't talk to each other. Data silos across platforms. No vendor owning problems end-to-end. 20 contracts, 20 renewals, 20 relationship managers. More surface area, not less risk.
+
+🔴 Fourth-party concentration (the risk you can't see):
+
+Your vendors look diversified. But half of them use the same cloud provider, the same payroll processor, the same authentication service. One fourth-party incident ripples across your "diversified" portfolio.
+
+You didn't reduce concentration. You just hid it one layer down.
+
+💡 The optimization isn't "minimize concentration." It's finding the right balance for your risk appetite.
+
+Questions that actually matter: Which vendors could cause material harm if they failed tomorrow? Where does apparent diversification mask shared dependencies? What's the real cost of fragmentation you're tolerating to avoid concentration?
+
+Concentration risk isn't a dial you turn to zero. It's a portfolio you manage.
+
+
+What's been your experience — have you seen fragmentation create as many problems as concentration?

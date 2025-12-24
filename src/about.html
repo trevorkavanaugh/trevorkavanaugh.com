@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Trevor Kavanaugh is a banking industry TPRM specialist with deep expertise in third-party risk management, regulatory compliance, and building scalable risk programs for financial institutions.">
+    <title>About | Trevor Kavanaugh</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* About Page Specific Styles */
+        .about-hero {
+            padding: var(--spacing-2xl) 0;
+            background-color: var(--color-white);
+            text-align: center;
+        }
+
+        .about-hero h1 {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .about-hero p {
+            font-size: 20px;
+            color: var(--color-text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Profile Section */
+        .profile-section {
+            padding: var(--spacing-3xl) 0;
+            background-color: var(--color-light-grey);
+        }
+
+        .profile-container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: var(--spacing-2xl);
+            align-items: start;
+        }
+
+        .profile-image-wrapper {
+            position: sticky;
+            top: calc(var(--header-height) + var(--spacing-md));
+        }
+
+        .profile-image {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-slate) 100%);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-image::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .profile-placeholder-text {
+            color: var(--color-white);
+            font-size: 16px;
+            font-weight: 500;
+            text-align: center;
+            padding: var(--spacing-lg);
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-content h2 {
+            font-size: 32px;
+            margin-bottom: var(--spacing-lg);
+            color: var(--color-navy);
+        }
+
+        .profile-bio {
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .profile-bio p {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .profile-bio strong {
+            color: var(--color-navy);
+            font-weight: 600;
+        }
+
+        /* Expertise Section */
+        .expertise-section {
+            padding: var(--spacing-3xl) 0;
+            background-color: var(--color-white);
+        }
+
+        .expertise-section h2 {
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-lg);
+        }
+
+        .expertise-card {
+            background-color: var(--color-white);
+            padding: var(--spacing-xl);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            transition: all var(--transition-speed) var(--transition-easing);
+            position: relative;
+        }
+
+        .expertise-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 0;
+            background-color: var(--color-blue);
+            border-radius: var(--radius-md) 0 0 var(--radius-md);
+            transition: height var(--transition-speed) var(--transition-easing);
+        }
+
+        .expertise-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .expertise-card:hover::before {
+            height: 100%;
+        }
+
+        .expertise-icon {
+            width: 56px;
+            height: 56px;
+            background-color: var(--color-blue);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--spacing-md);
+            font-size: 28px;
+            color: var(--color-white);
+        }
+
+        .expertise-card h3 {
+            font-size: 20px;
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-navy);
+        }
+
+        .expertise-card p {
+            font-size: 16px;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+
+        /* Background Section */
+        .background-section {
+            padding: var(--spacing-3xl) 0;
+            background-color: var(--color-light-grey);
+        }
+
+        .background-section h2 {
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .background-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: var(--spacing-xl);
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            bottom: 8px;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--color-blue), var(--color-navy));
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: var(--spacing-xl);
+            padding-left: var(--spacing-lg);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -33px;
+            top: 4px;
+            width: 12px;
+            height: 12px;
+            background-color: var(--color-blue);
+            border: 3px solid var(--color-white);
+            border-radius: 50%;
+            box-shadow: 0 0 0 2px var(--color-blue);
+        }
+
+        .timeline-item h3 {
+            font-size: 22px;
+            margin-bottom: var(--spacing-xs);
+            color: var(--color-navy);
+        }
+
+        .timeline-role {
+            font-size: 16px;
+            color: var(--color-blue);
+            font-weight: 500;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .timeline-description {
+            font-size: 16px;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+
+        .timeline-description strong {
+            color: var(--color-navy);
+        }
+
+        /* Connect Section */
+        .connect-section {
+            padding: var(--spacing-3xl) 0;
+            background-color: var(--color-white);
+        }
+
+        .connect-section h2 {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .connect-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .connect-content p {
+            font-size: 18px;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .connect-links {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Responsive - Tablet */
+        @media (max-width: 1024px) {
+            .profile-container {
+                grid-template-columns: 250px 1fr;
+                gap: var(--spacing-xl);
+            }
+
+            .profile-image {
+                width: 250px;
+                height: 250px;
+            }
+
+            .profile-image-wrapper {
+                position: static;
+            }
+
+            .expertise-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Responsive - Mobile */
+        @media (max-width: 768px) {
+            .about-hero {
+                padding: var(--spacing-xl) 0;
+            }
+
+            .about-hero h1 {
+                font-size: 32px;
+            }
+
+            .about-hero p {
+                font-size: 17px;
+            }
+
+            .profile-section {
+                padding: var(--spacing-2xl) 0;
+            }
+
+            .profile-container {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-lg);
+            }
+
+            .profile-image {
+                width: 100%;
+                max-width: 300px;
+                height: auto;
+                aspect-ratio: 1;
+                margin: 0 auto;
+            }
+
+            .profile-content h2 {
+                font-size: 24px;
+                text-align: center;
+            }
+
+            .profile-bio {
+                font-size: 17px;
+            }
+
+            .expertise-section {
+                padding: var(--spacing-2xl) 0;
+            }
+
+            .expertise-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .background-section {
+                padding: var(--spacing-2xl) 0;
+            }
+
+            .timeline {
+                padding-left: var(--spacing-md);
+            }
+
+            .timeline-item {
+                padding-left: var(--spacing-md);
+            }
+
+            .timeline-item::before {
+                left: -22px;
+            }
+
+            .connect-section {
+                padding: var(--spacing-2xl) 0;
+            }
+
+            .connect-links {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .connect-links .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header -->
+    <header class="site-header" id="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">TK</div>
+                <span class="logo-text">Trevor Kavanaugh</span>
+            </a>
+
+            <nav class="main-nav" aria-label="Main navigation">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html" class="active">About</a></li>
+                    <li><a href="insights.html">Insights</a></li>
+                    <li><a href="index.html#speaking">Speaking</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+
+            <button class="menu-toggle" aria-label="Open navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <button class="menu-close" aria-label="Close navigation menu">
+            <span>&times;</span>
+        </button>
+        <nav aria-label="Mobile navigation">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="insights.html">Insights</a></li>
+                <li><a href="index.html#speaking">Speaking</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu-contact">
+                <a href="mailto:trevor@trevorkavanaugh.com">trevor@trevorkavanaugh.com</a>
+                <a href="https://www.linkedin.com/in/trevorskavanaugh/" target="_blank">LinkedIn</a>
+            </div>
+        </nav>
+    </div>
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+
+    <!-- Main Content -->
+    <main id="main-content">
+
+        <!-- Hero Section -->
+        <section class="about-hero">
+            <div class="container">
+                <h1>About</h1>
+                <p>Building practical, scalable risk management frameworks for financial institutions.</p>
+            </div>
+        </section>
+
+        <!-- Profile Section -->
+        <section class="profile-section">
+            <div class="container">
+                <div class="profile-container">
+                    <div class="profile-image-wrapper">
+                        <div class="profile-image">
+                            <div class="profile-placeholder-text">
+                                Professional<br>Headshot<br>Coming Soon
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile-content">
+                        <h2>Trevor Kavanaugh</h2>
+                        <div class="profile-bio">
+                            <p><strong>[Replace with your professional introduction - 2-3 paragraphs about your background, expertise, and approach to TPRM]</strong></p>
+
+                            <p>Example: I specialize in helping financial institutions build third-party risk management programs that are both comprehensive and practical. With [X years] of experience in banking risk management, I focus on creating frameworks that meet regulatory expectations while remaining operationally feasible.</p>
+
+                            <p>My approach centers on understanding that effective TPRM isn't about copying enterprise-level frameworks regardless of institutional size. It's about building programs that match your actual risk profile, regulatory expectations, and resource constraints. I share these perspectives through articles, speaking engagements, and direct collaboration with risk professionals across the banking industry.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Expertise Section -->
+        <section class="expertise-section">
+            <div class="container">
+                <h2>Areas of Expertise</h2>
+                <div class="expertise-grid">
+
+                    <div class="expertise-card">
+                        <div class="expertise-icon">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+                                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3>Third-Party Risk Management</h3>
+                        <p>Building comprehensive vendor risk frameworks that scale with institutional complexity, from initial assessment through ongoing monitoring and lifecycle management.</p>
+                    </div>
+
+                    <div class="expertise-card">
+                        <div class="expertise-icon">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+                                <path d="M9 11L12 14L22 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M21 12V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3>Vendor Due Diligence</h3>
+                        <p>Designing risk-based assessment methodologies that identify actual threats while eliminating checkbox exercises that waste resources without improving outcomes.</p>
+                    </div>
+
+                    <div class="expertise-card">
+                        <div class="expertise-icon">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+                                <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M14 2V8H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M16 13H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M16 17H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3>Regulatory Compliance</h3>
+                        <p>Navigating OCC, FFIEC, and regulatory expectations while building programs that treat compliance as a baseline rather than a ceiling for risk management maturity.</p>
+                    </div>
+
+                    <div class="expertise-card">
+                        <div class="expertise-icon">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+                                <path d="M21 16V8C20.9996 7.64927 20.9071 7.30481 20.7315 7.00116C20.556 6.69751 20.3037 6.44536 20 6.27L13 2.27C12.696 2.09446 12.3511 2.00205 12 2.00205C11.6489 2.00205 11.304 2.09446 11 2.27L4 6.27C3.69626 6.44536 3.44398 6.69751 3.26846 7.00116C3.09294 7.30481 3.00036 7.64927 3 8V16C3.00036 16.3507 3.09294 16.6952 3.26846 16.9988C3.44398 17.3025 3.69626 17.5546 4 17.73L11 21.73C11.304 21.9055 11.6489 21.9979 12 21.9979C12.3511 21.9979 12.696 21.9055 13 21.73L20 17.73C20.3037 17.5546 20.556 17.3025 20.7315 16.9988C20.9071 16.6952 20.9996 16.3507 21 16Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M7.5 4.21L12 6.81L16.5 4.21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M7.5 19.79V14.6L3 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M21 12L16.5 14.6V19.79" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M3.27 6.96L12 12.01L20.73 6.96" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 22.08V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3>Risk Assessment Frameworks</h3>
+                        <p>Developing risk rating methodologies that accurately differentiate vendor criticality and focus resources where they create the most value for the institution.</p>
+                    </div>
+
+                    <div class="expertise-card">
+                        <div class="expertise-icon">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                                <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h3>M&A Risk Integration</h3>
+                        <p>Assessing third-party risk portfolios during banking mergers and acquisitions, with focus on risk culture alignment and post-close integration planning.</p>
+                    </div>
+
+                    <div class="expertise-card">
+                        <div class="expertise-icon">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+                                <path d="M3 3V21H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M7 12L11 8L15 12L21 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3>Building Scalable Programs</h3>
+                        <p>Creating risk management frameworks that match institutional size and complexity, avoiding the trap of replicating enterprise solutions at community bank scale.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Background Section -->
+        <section class="background-section">
+            <div class="container">
+                <h2>Professional Background</h2>
+                <div class="background-content">
+                    <div class="timeline">
+
+                        <div class="timeline-item">
+                            <h3>[Current Role Title]</h3>
+                            <div class="timeline-role">[Organization Name] | [Start Year] - Present</div>
+                            <p class="timeline-description">
+                                <strong>[Replace with description of your current role, key responsibilities, and notable achievements]</strong>
+                                <br><br>
+                                Example: Leading third-party risk management program development for [organization type]. Built comprehensive vendor assessment frameworks serving [scope/scale]. Manage risk portfolio of [X] critical vendors across [domains].
+                            </p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <h3>Speaking Engagement</h3>
+                            <div class="timeline-role">Global Association of Risk Professionals (GARP) | 2025</div>
+                            <p class="timeline-description">
+                                Invited to speak at GARP event after 1.5 months of LinkedIn thought leadership posting, demonstrating rapid recognition of expertise in third-party risk management within the banking industry.
+                            </p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <h3>[Previous Role Title]</h3>
+                            <div class="timeline-role">[Organization Name] | [Start Year] - [End Year]</div>
+                            <p class="timeline-description">
+                                <strong>[Replace with description of previous role and key accomplishments]</strong>
+                                <br><br>
+                                Example: Developed and implemented [specific programs/frameworks]. Led [initiatives] resulting in [measurable outcomes]. Specialized in [specific areas of expertise].
+                            </p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <h3>Education & Certifications</h3>
+                            <div class="timeline-role">[Institutions & Credentials]</div>
+                            <p class="timeline-description">
+                                <strong>[Replace with your education background and relevant certifications]</strong>
+                                <br><br>
+                                Example: [Degree] in [Field] from [University] | [Relevant Certifications: CRCM, CRISC, etc.]
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Connect Section -->
+        <section class="connect-section">
+            <div class="container">
+                <div class="connect-content">
+                    <h2>Let's Connect</h2>
+                    <p>Interested in discussing third-party risk management, exploring speaking opportunities, or collaborating on banking risk initiatives?</p>
+                    <div class="connect-links">
+                        <a href="https://www.linkedin.com/in/trevorskavanaugh/" target="_blank" class="btn btn-primary">Connect on LinkedIn</a>
+                        <a href="insights.html" class="btn btn-secondary">Read My Insights</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <div class="logo-icon">TK</div>
+                <span>Trevor Kavanaugh</span>
+            </div>
+
+            <div class="footer-columns">
+                <div class="footer-col">
+                    <h3>Navigation</h3>
+                    <nav aria-label="Footer navigation">
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="insights.html">Insights</a></li>
+                            <li><a href="index.html#speaking">Speaking</a></li>
+                            <li><a href="index.html#contact">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Connect</h3>
+                    <ul class="contact-info">
+                        <li><a href="mailto:trevor@trevorkavanaugh.com">trevor@trevorkavanaugh.com</a></li>
+                        <li><a href="https://www.linkedin.com/in/trevorskavanaugh/" target="_blank">LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2026 Trevor Kavanaugh</p>
+                <nav class="legal-nav" aria-label="Legal navigation">
+                    <a href="#">Privacy Policy</a>
+                    <span>•</span>
+                    <a href="#">Terms of Service</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

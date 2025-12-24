@@ -1,0 +1,51 @@
+Topic: Transparency with Auditors and Regulators (Part 1)
+Date: 11/25/2025
+
+Last week we talked about transparency with examiners. Here's what determines if they believe your program is mature: the ratio of control gaps YOU identify versus gaps THEY identify.
+
+Self-identify 90%? Maturity. Examiners find 95%? Performative.
+
+Having worked in both internal audit and risk management, the difference isn't framework sophistication - it's when you discover problems. 
+
+You can over-engineer a framework to death. Sophistication without execution is just complexity. What matters is your self-identification ratio.
+
+⚠️ Where most banks actually are:
+
+Level 1: Auditor/Examiner-Discovered
+Your internal audit finds everything. Examiners read those reports and validate findings, occasionally discovering their own gaps.
+Ratio: ~1:9 (you find 10%, they find 90%)
+What they think: "This program is really immature. Without us, they'd never identify control gaps."
+
+Level 2: Exam-Driven Discovery
+Either during the exam itself (auditors ask questions that make you look) or during prep 30-60 days out (you proactively find gaps before they arrive). Both scenarios are reactive - triggered by the exam cycle, not routine monitoring.
+Ratio: ~2:8 to 4:6 (you're finding 20-40%)
+What they think: "Cooperative and want to fix things when we're in the building, but they wouldn't find these issues without us showing up."
+
+📊 Reality Check:
+
+Most banks operate at Level 1-2 and wonder why examiners question their monitoring.
+
+Your policy says quarterly vendor reviews. But in reality? You're 8 months behind catching up during exam prep. That's not monitoring - that's archaeology.
+
+Here's the thing: a 1:0 ratio is impossible. Even the most mature programs have auditors and examiners find things. That's their value - they have time and perspective to dig into edge cases you haven't reached yet.
+
+But moving from a 1:9 ratio to 8:2 changes everything. At 8:2, audit and exam become assets finding edge cases - not adversaries discovering systemic failures you missed.
+
+💡 What actually works:
+
+Level 3: Routine Testing
+Scheduled testing catches issues 3-6 months before exams, independent of exam cycles. Most programs claim quarterly testing - reality is annual at best and not comprehensive enough.
+Ratio: ~7:3 to 8:2
+What they think: "Pretty mature. We're confident they'd be adequate without us."
+
+Getting here requires discipline: schedule testing independent of exams, test comprehensively (timeliness, completeness, all risk factors), and test documented controls - not aspirational ones.
+
+Level 4: Real-Time Monitoring
+Real-time automated monitoring. Requires investment in technology and dedicated resources.
+Ratio: ~9:1 or better
+What they think: "So mature we're just here because we have to be."
+
+Most banks fail because they're stuck at Level 1 pretending their policies reflect Level 3.
+
+
+Where does your program actually operate - where your policy says, or where your last audit results show you are?

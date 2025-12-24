@@ -1,0 +1,30 @@
+Topic: Defining Vendor Risk Accurately
+Date: 12/4/2025
+
+Most banks define "critical vendors" wrong. And both directions hurt you.
+
+Over-designate and everything's critical — which means nothing's prioritized. Your team drowns in enhanced due diligence for vendors that couldn't actually cause material harm.
+
+Under-designate and you miss real exposure. That vendor providing "just consulting services" actually has full NPPI access and performs internal audit functions. Medium risk tier. Nobody caught it until exam prep.
+
+The problem? There's no regulatory magic number. No threshold that says "above this = critical." So banks default to proxies that don't actually correlate with risk:
+
+→ Spend ("they're expensive, must be important") 
+→ Relationship tenure ("we've used them forever") 
+→ Strategic importance ("the business loves them") 
+→ Contract complexity ("it took legal 6 months")
+
+None of these answer the only question that matters: Can this vendor cause material harm if they fail, get breached, or disappear?
+
+Material harm means: regulatory violation, significant financial loss, operational disruption you can't work around, reputational damage that hits the balance sheet.
+
+That's it. Everything else is noise.
+
+A $50K vendor with access to your core banking system is more critical than a $2M vendor providing marketing analytics. But most tiering methodologies would flip that.
+
+The fix isn't complicated — it's just uncomfortable. Stop using spend as a proxy. Start with data access, system connectivity, and substitutability. Then ask: if this vendor vanished tomorrow, what actually happens?
+
+Some $5M relationships become medium risk. Some $100K relationships become critical. That's not a bug — that's accuracy.
+
+
+What's been your experience — has your program moved past spend-based tiering?

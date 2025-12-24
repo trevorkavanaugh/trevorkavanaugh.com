@@ -1,0 +1,39 @@
+Topic: Transparency with Auditors and Regulators (Part 1)
+Date: 11/18/2025
+
+When auditors and regulators discover a control gap you didn't disclose, there are only two interpretations: You're not competent enough to identify your own problems, or you were hiding them.
+
+Both are worse than transparency.
+
+I spent two years in internal audit before returning to risk management. The biggest thing that surprised me during that time? Every business unit I walked into to audit seemed scared of me.
+
+But I was really just there to help.
+
+That fear? It shows up in every audit and exam I've seen since. And it costs banks credibility they don't realize they're losing.
+
+⏰ Here's what actually happens when you don't disclose known control gaps:
+
+Your auditors and examiners have 40-60 hours to assess your entire program. Every hour they spend rediscovering issues you already identified is an hour they're not spending finding the gaps you missed.
+
+Staying quiet doesn't protect you. It just wastes their time and signals one of two things: Either your internal monitoring isn't mature enough to catch problems, or you knew and chose not to say anything.
+
+Neither builds trust.
+
+💡 From the auditor and examiner side of the table, I can tell you what credibility looks like:
+
+It's not a perfect program. It's self-awareness.
+
+Walk in with documented gaps, what caused them, and your remediation timeline — that's what credibility looks like. You're showing them a risk function that can identify and address issues on its own.
+
+When they have to discover everything themselves? That's the opposite signal.
+
+Banks that treat examiners and auditors as adversaries waste everyone's time. The ones that treat them as quality assurance reviews get better findings.
+
+Your auditors and examiners aren't there to catch you. They're there because they have more time than you do to find problems in your program — and that's valuable if you let it be.
+
+This isn't about making examiners happy. It's about using their time well and showing you can identify problems on your own.
+
+The control gaps are getting found either way. You're just choosing how you want to look when they do.
+
+
+What's been your experience with audit and examination transparency? Have you seen this dynamic play out differently?

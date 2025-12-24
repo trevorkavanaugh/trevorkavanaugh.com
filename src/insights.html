@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Practical perspectives on third-party risk management, regulatory compliance, and building scalable risk programs for financial institutions.">
+    <title>Insights | Trevor Kavanaugh</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Insights Page Specific Styles */
+        .insights-hero {
+            padding: var(--spacing-2xl) 0 var(--spacing-xl);
+            background-color: var(--color-white);
+            text-align: center;
+        }
+
+        .insights-hero h1 {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .insights-hero p {
+            font-size: 20px;
+            color: var(--color-text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Category Filter Bar */
+        .category-filter {
+            background-color: var(--color-light-grey);
+            padding: var(--spacing-lg) 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .category-pills {
+            display: flex;
+            gap: var(--spacing-sm);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .category-pill {
+            padding: 10px 24px;
+            background-color: var(--color-white);
+            color: var(--color-navy);
+            border: 2px solid var(--color-border);
+            border-radius: 24px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-speed) var(--transition-easing);
+        }
+
+        .category-pill:hover {
+            border-color: var(--color-blue);
+            color: var(--color-blue);
+        }
+
+        .category-pill.active {
+            background-color: var(--color-blue);
+            color: var(--color-white);
+            border-color: var(--color-blue);
+        }
+
+        /* Articles Grid Section */
+        .articles-section {
+            padding: var(--spacing-2xl) 0 var(--spacing-3xl);
+            background-color: var(--color-white);
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-xl);
+        }
+
+        /* Article Card */
+        .article-card {
+            background-color: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            transition: all var(--transition-speed) var(--transition-easing);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .article-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+        }
+
+        .article-card:focus-within {
+            outline: 2px solid var(--color-blue);
+            outline-offset: 2px;
+        }
+
+        .article-content {
+            padding: var(--spacing-lg);
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .article-category {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 16px;
+            margin-bottom: var(--spacing-md);
+            align-self: flex-start;
+        }
+
+        .article-category.tprm {
+            background-color: #E3F2FD;
+            color: #1976D2;
+        }
+
+        .article-category.regulatory {
+            background-color: #F3E5F5;
+            color: #7B1FA2;
+        }
+
+        .article-category.ma {
+            background-color: #FFF3E0;
+            color: #E65100;
+        }
+
+        .article-category.leadership {
+            background-color: #E8F5E9;
+            color: #388E3C;
+        }
+
+        .article-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--color-navy);
+            margin-bottom: var(--spacing-sm);
+            line-height: 1.3;
+        }
+
+        .article-excerpt {
+            font-size: 16px;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+            margin-bottom: var(--spacing-md);
+            flex: 1;
+        }
+
+        .article-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: var(--spacing-md);
+            border-top: 1px solid var(--color-border);
+        }
+
+        .article-date {
+            font-size: 14px;
+            color: var(--color-slate);
+        }
+
+        .article-link {
+            color: var(--color-blue);
+            font-weight: 500;
+            font-size: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: gap var(--transition-speed) var(--transition-easing);
+        }
+
+        .article-link:hover {
+            gap: 8px;
+        }
+
+        .article-card:hover .article-link {
+            gap: 8px;
+        }
+
+        /* Responsive - Tablet */
+        @media (max-width: 1024px) {
+            .articles-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .insights-hero p {
+                font-size: 18px;
+            }
+        }
+
+        /* Responsive - Mobile */
+        @media (max-width: 768px) {
+            .insights-hero {
+                padding: var(--spacing-xl) 0;
+            }
+
+            .insights-hero h1 {
+                font-size: 32px;
+            }
+
+            .insights-hero p {
+                font-size: 17px;
+            }
+
+            .category-filter {
+                padding: var(--spacing-md) 0;
+            }
+
+            .category-pills {
+                justify-content: flex-start;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+
+            .category-pills::-webkit-scrollbar {
+                display: none;
+            }
+
+            .category-pill {
+                white-space: nowrap;
+            }
+
+            .articles-section {
+                padding: var(--spacing-xl) 0 var(--spacing-2xl);
+            }
+
+            .articles-grid {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-lg);
+            }
+
+            .article-title {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header -->
+    <header class="site-header" id="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">TK</div>
+                <span class="logo-text">Trevor Kavanaugh</span>
+            </a>
+
+            <nav class="main-nav" aria-label="Main navigation">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="insights.html" class="active">Insights</a></li>
+                    <li><a href="index.html#speaking">Speaking</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+
+            <button class="menu-toggle" aria-label="Open navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <button class="menu-close" aria-label="Close navigation menu">
+            <span>&times;</span>
+        </button>
+        <nav aria-label="Mobile navigation">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="insights.html">Insights</a></li>
+                <li><a href="index.html#speaking">Speaking</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu-contact">
+                <a href="mailto:trevor@trevorkavanaugh.com">trevor@trevorkavanaugh.com</a>
+                <a href="https://www.linkedin.com/in/trevorskavanaugh/" target="_blank">LinkedIn</a>
+            </div>
+        </nav>
+    </div>
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+
+    <!-- Main Content -->
+    <main id="main-content">
+
+        <!-- Hero Section -->
+        <section class="insights-hero">
+            <div class="container">
+                <h1>Insights</h1>
+                <p>Practical perspectives on third-party risk management, regulatory compliance, and building scalable risk programs.</p>
+            </div>
+        </section>
+
+        <!-- Category Filter -->
+        <section class="category-filter">
+            <div class="container">
+                <div class="category-pills">
+                    <button class="category-pill active" data-category="all">All</button>
+                    <button class="category-pill" data-category="tprm">TPRM</button>
+                    <button class="category-pill" data-category="regulatory">Regulatory</button>
+                    <button class="category-pill" data-category="ma">M&A</button>
+                    <button class="category-pill" data-category="leadership">Leadership</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Articles Grid -->
+        <section class="articles-section">
+            <div class="container">
+                <div class="articles-grid">
+
+                    <!-- Article 1 -->
+                    <article class="article-card" data-category="tprm">
+                        <div class="article-content">
+                            <span class="article-category tprm">TPRM</span>
+                            <h3 class="article-title"><a href="articles/development-third-party-risk-pt2.html">Development of Third-Party Risk (Part 2): The Layers Beneath the Product</a></h3>
+                            <p class="article-excerpt">Understanding the hidden infrastructure layers that create real third-party risk, beyond the vendor products you can see.</p>
+                            <div class="article-footer">
+                                <span class="article-date">December 23, 2025 • 5 min read</span>
+                                <a href="articles/development-third-party-risk-pt2.html" class="article-link">Read more →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Article 2 -->
+                    <article class="article-card" data-category="tprm">
+                        <div class="article-content">
+                            <span class="article-category tprm">TPRM</span>
+                            <h3 class="article-title"><a href="articles/optimizing-tprm-efficiency.html">Optimizing TPRM Efficiency Under Increasing Requirements</a></h3>
+                            <p class="article-excerpt">Practical strategies to streamline vendor assessments while meeting escalating regulatory expectations without cutting corners on risk management.</p>
+                            <div class="article-footer">
+                                <span class="article-date">December 18, 2025 • 5 min read</span>
+                                <a href="articles/optimizing-tprm-efficiency.html" class="article-link">Read more →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Article 3 -->
+                    <article class="article-card" data-category="tprm">
+                        <div class="article-content">
+                            <span class="article-category tprm">TPRM</span>
+                            <h3 class="article-title"><a href="articles/development-third-party-risk-pt1.html">Development of Third-Party Risk (Part 1): Vendors Are Containers, Not Risks</a></h3>
+                            <p class="article-excerpt">Shifting perspective from vendor entities to the actual risk elements they contain and deliver to your organization.</p>
+                            <div class="article-footer">
+                                <span class="article-date">December 16, 2025 • 4 min read</span>
+                                <a href="articles/development-third-party-risk-pt1.html" class="article-link">Read more →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Article 4 -->
+                    <article class="article-card" data-category="regulatory">
+                        <div class="article-content">
+                            <span class="article-category regulatory">Regulatory</span>
+                            <h3 class="article-title"><a href="articles/regulatory-compliance-minimum-not-goal.html">Compliance as Baseline, Not Goal</a></h3>
+                            <p class="article-excerpt">Why treating regulatory compliance as your risk management ceiling instead of your floor creates dangerous blind spots.</p>
+                            <div class="article-footer">
+                                <span class="article-date">December 11, 2025 • 4 min read</span>
+                                <a href="articles/regulatory-compliance-minimum-not-goal.html" class="article-link">Read more →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Article 5 -->
+                    <article class="article-card" data-category="tprm">
+                        <div class="article-content">
+                            <span class="article-category tprm">TPRM</span>
+                            <h3 class="article-title"><a href="articles/beyond-4th-party-risk-pt2.html">Beyond 4th Party Risk: The Convergence Problem</a></h3>
+                            <p class="article-excerpt">When multiple critical vendors share hidden dependencies, your diversification strategy becomes an illusion. Understanding concentration risk in distributed systems.</p>
+                            <div class="article-footer">
+                                <span class="article-date">December 9, 2025 • 4 min read</span>
+                                <a href="articles/beyond-4th-party-risk-pt2.html" class="article-link">Read more →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Article 6 -->
+                    <article class="article-card" data-category="tprm">
+                        <div class="article-content">
+                            <span class="article-category tprm">TPRM</span>
+                            <h3 class="article-title"><a href="articles/defining-vendor-risk-accurately.html">Defining Vendor Risk Accurately</a></h3>
+                            <p class="article-excerpt">Moving past surface-level vendor categorization to identify what actually creates risk in your third-party relationships.</p>
+                            <div class="article-footer">
+                                <span class="article-date">December 4, 2025 • 4 min read</span>
+                                <a href="articles/defining-vendor-risk-accurately.html" class="article-link">Read more →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Article 7 -->
+                    <article class="article-card" data-category="tprm">
+                        <div class="article-content">
+                            <span class="article-category tprm">TPRM</span>
+                            <h3 class="article-title"><a href="articles/4th-party-risk-pt1.html">4th Party Risk: The Reseller Shell Game</a></h3>
+                            <p class="article-excerpt">When your vendor is just a middleman, understanding where the actual risk lives and how to assess it.</p>
+                            <div class="article-footer">
+                                <span class="article-date">December 2, 2025 • 4 min read</span>
+                                <a href="articles/4th-party-risk-pt1.html" class="article-link">Read more →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Article 8 -->
+                    <article class="article-card" data-category="tprm">
+                        <div class="article-content">
+                            <span class="article-category tprm">TPRM</span>
+                            <h3 class="article-title"><a href="articles/vendor-portfolio-concentration.html">Vendor Portfolio Concentration Optimization</a></h3>
+                            <p class="article-excerpt">Identifying dangerous concentration patterns in your vendor portfolio before they create cascading failure scenarios.</p>
+                            <div class="article-footer">
+                                <span class="article-date">November 27, 2025 • 4 min read</span>
+                                <a href="articles/vendor-portfolio-concentration.html" class="article-link">Read more →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Article 9 -->
+                    <article class="article-card" data-category="regulatory">
+                        <div class="article-content">
+                            <span class="article-category regulatory">Regulatory</span>
+                            <h3 class="article-title"><a href="articles/transparency-auditors-regulators-pt2.html">The Maturity Matrix: Self-Identification Ratios</a></h3>
+                            <p class="article-excerpt">How the ratio between self-identified and auditor-identified issues reveals your true risk program maturity to regulators.</p>
+                            <div class="article-footer">
+                                <span class="article-date">November 25, 2025 • 5 min read</span>
+                                <a href="articles/transparency-auditors-regulators-pt2.html" class="article-link">Read more →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Article 10 -->
+                    <article class="article-card" data-category="tprm">
+                        <div class="article-content">
+                            <span class="article-category tprm">TPRM</span>
+                            <h3 class="article-title"><a href="articles/information-system-data-rot.html">Information System Data Rot: The Hidden Threat</a></h3>
+                            <p class="article-excerpt">When your vendor data becomes outdated faster than your review cycles, you're managing ghosts instead of actual risk.</p>
+                            <div class="article-footer">
+                                <span class="article-date">November 20, 2025 • 4 min read</span>
+                                <a href="articles/information-system-data-rot.html" class="article-link">Read more →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Article 11 -->
+                    <article class="article-card" data-category="regulatory">
+                        <div class="article-content">
+                            <span class="article-category regulatory">Regulatory</span>
+                            <h3 class="article-title"><a href="articles/transparency-auditors-regulators-pt1.html">Transparency with Auditors and Regulators</a></h3>
+                            <p class="article-excerpt">Building credibility through proactive disclosure of gaps and challenges instead of defensive posturing during examinations.</p>
+                            <div class="article-footer">
+                                <span class="article-date">November 18, 2025 • 4 min read</span>
+                                <a href="articles/transparency-auditors-regulators-pt1.html" class="article-link">Read more →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Article 12 -->
+                    <article class="article-card" data-category="tprm">
+                        <div class="article-content">
+                            <span class="article-category tprm">TPRM</span>
+                            <h3 class="article-title"><a href="articles/vendor-outreach-what-not-to-do.html">The Vendor Outreach Playbook (What Not To Do)</a></h3>
+                            <p class="article-excerpt">Common vendor communication mistakes that waste time, damage relationships, and still fail to get the information you need.</p>
+                            <div class="article-footer">
+                                <span class="article-date">November 13, 2025 • 4 min read</span>
+                                <a href="articles/vendor-outreach-what-not-to-do.html" class="article-link">Read more →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Article 13 -->
+                    <article class="article-card" data-category="tprm">
+                        <div class="article-content">
+                            <span class="article-category tprm">TPRM</span>
+                            <h3 class="article-title"><a href="articles/risk-management-size-complexity-pt2.html">Building for Growth: When Risk Programs Should Scale</a></h3>
+                            <p class="article-excerpt">Understanding the inflection points where your risk management approach needs to evolve with organizational growth and complexity.</p>
+                            <div class="article-footer">
+                                <span class="article-date">November 11, 2025 • 5 min read</span>
+                                <a href="articles/risk-management-size-complexity-pt2.html" class="article-link">Read more →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Article 14 -->
+                    <article class="article-card" data-category="ma">
+                        <div class="article-content">
+                            <span class="article-category ma">M&A</span>
+                            <h3 class="article-title"><a href="articles/merging-two-risk-cultures.html">Merging Two Risk Cultures: The M&A Challenge</a></h3>
+                            <p class="article-excerpt">Risk culture misalignment kills more banking mergers post-close than technical integration failures. What to assess during due diligence.</p>
+                            <div class="article-footer">
+                                <span class="article-date">November 6, 2025 • 3 min read</span>
+                                <a href="articles/merging-two-risk-cultures.html" class="article-link">Read more →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Article 15 -->
+                    <article class="article-card" data-category="tprm">
+                        <div class="article-content">
+                            <span class="article-category tprm">TPRM</span>
+                            <h3 class="article-title"><a href="articles/risk-management-size-complexity-pt1.html">The $10 Billion Wall: TPRM at Different Scales</a></h3>
+                            <p class="article-excerpt">Why regional banks waste resources replicating enterprise TPRM frameworks. Building programs that match your actual risk profile and regulatory expectations.</p>
+                            <div class="article-footer">
+                                <span class="article-date">November 4, 2025 • 4 min read</span>
+                                <a href="articles/risk-management-size-complexity-pt1.html" class="article-link">Read more →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <div class="logo-icon">TK</div>
+                <span>Trevor Kavanaugh</span>
+            </div>
+
+            <div class="footer-columns">
+                <div class="footer-col">
+                    <h3>Navigation</h3>
+                    <nav aria-label="Footer navigation">
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="insights.html">Insights</a></li>
+                            <li><a href="index.html#speaking">Speaking</a></li>
+                            <li><a href="index.html#contact">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Connect</h3>
+                    <ul class="contact-info">
+                        <li><a href="mailto:trevor@trevorkavanaugh.com">trevor@trevorkavanaugh.com</a></li>
+                        <li><a href="https://www.linkedin.com/in/trevorskavanaugh/" target="_blank">LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2026 Trevor Kavanaugh</p>
+                <nav class="legal-nav" aria-label="Legal navigation">
+                    <a href="#">Privacy Policy</a>
+                    <span>•</span>
+                    <a href="#">Terms of Service</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Category filter functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoryPills = document.querySelectorAll('.category-pill');
+            const articleCards = document.querySelectorAll('.article-card');
+
+            categoryPills.forEach(pill => {
+                pill.addEventListener('click', function() {
+                    const selectedCategory = this.getAttribute('data-category');
+
+                    // Update active pill
+                    categoryPills.forEach(p => p.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Filter articles
+                    articleCards.forEach(card => {
+                        const cardCategory = card.getAttribute('data-category');
+
+                        if (selectedCategory === 'all' || cardCategory === selectedCategory) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

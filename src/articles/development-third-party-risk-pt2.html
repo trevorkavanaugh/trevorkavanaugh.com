@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Understanding how supply chain dependencies, software delivery, and cloud hosting create residual risk below the application layer.">
+    <title>Development of Third-Party Risk (Part 2): The Layers Beneath the Product | Risk Management Consulting</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/articles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header -->
+    <header class="site-header" id="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">TK</div>
+                <span class="logo-text">Trevor Kavanaugh</span>
+            </a>
+
+            <nav class="main-nav" aria-label="Main navigation">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#about">About</a></li>
+                    <li><a href="../insights.html" class="active">Insights</a></li>
+                    <li><a href="../index.html#speaking">Speaking</a></li>
+                    <li><a href="../index.html#speaking">Speaking</a></li>
+                            <li><a href="../index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+
+            <button class="menu-toggle" aria-label="Open navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <button class="menu-close" aria-label="Close navigation menu">
+            <span>&times;</span>
+        </button>
+        <nav aria-label="Mobile navigation">
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../insights.html">Insights</a></li>
+                <li><a href="../index.html#speaking">Speaking</a></li>
+                    <li><a href="../index.html#speaking">Speaking</a></li>
+                <li><a href="../index.html#speaking">Speaking</a></li>
+                            <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu-contact">
+                <a href="mailto:trevor@trevorkavanaugh.com">trevor@trevorkavanaugh.com</a>
+                <a href="https://www.linkedin.com/in/trevorskavanaugh/" target="_blank">LinkedIn</a>
+            </div>
+        </nav>
+    </div>
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+
+    <!-- Main Content -->
+    <main id="main-content">
+
+        <!-- Article Hero -->
+        <article class="article-page">
+            <header class="article-hero">
+                <div class="article-hero-container">
+                    <span class="article-category category-tprm">TPRM</span>
+                    <h1>Development of Third-Party Risk (Part 2): The Layers Beneath the Product</h1>
+                    <div class="article-meta-line">
+                        <time datetime="2025-12-23">December 23, 2025</time>
+                        <span class="separator">•</span>
+                        <span class="read-time">5 min read</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Article Body -->
+            <div class="article-content-wrapper">
+                <div class="article-content">
+                    <p>Last week we talked about how vendors aren't the unit of risk — products and services are. But even that doesn't go deep enough.</p>
+
+                    <p>Two products that do the exact same thing can have vastly different risk profiles. The difference isn't what they do. It's how they're built, delivered, and hosted.</p>
+
+                    <h2>The layers beneath the product</h2>
+
+                    <p>When you assess a SaaS product, you're usually evaluating what it does. Does it handle sensitive data? Does it integrate with critical systems? That's the starting point.</p>
+
+                    <p>But underneath that product are decisions the vendor made that you probably never asked about — and each one carries risk you're not seeing.</p>
+
+                    <h3>Supply chain — what's in the product</h3>
+
+                    <p>Every modern application is built on dependencies. Open source libraries, third-party components, code the vendor didn't write but shipped anyway. Log4j proved what happens when one compromised dependency ripples across thousands of products overnight.</p>
+
+                    <p>One vendor built lean. Another pulled in everything. Same functionality. Completely different exposure. You'd never know from a feature comparison.</p>
+
+                    <h3>Software delivery — how it gets updated</h3>
+
+                    <p>How does that product get patched? Automatic updates you can't control? Manual releases you have to schedule? A CI/CD pipeline that pushes code daily?</p>
+
+                    <p>Each model carries different risk. SolarWinds wasn't a product failure — it was a delivery pipeline failure. The product worked fine. The update was poisoned. A compromised update mechanism turns routine patching into an attack vector.</p>
+
+                    <h3>Cloud outsourcing — where it runs</h3>
+
+                    <p>One product runs on dedicated infrastructure with redundancy across regions. Another runs on shared cloud resources in a single availability zone. Same application layer. Completely different resilience.</p>
+
+                    <p>One vendor's outage is an inconvenience. The other's is a business disruption.</p>
+
+                    <h2>Residual risk lives below the surface</h2>
+
+                    <p>You assess inherent risk based on what a product does — data access, integration points, business criticality.</p>
+
+                    <p>But residual risk depends on how the vendor built it, maintains it, and hosts it.</p>
+
+                    <p>Two products with identical inherent risk can carry vastly different residual risk based on decisions made in layers your due diligence never reached.</p>
+
+                    <blockquote>
+                        "Two products with identical inherent risk can carry vastly different residual risk based on decisions made in layers your due diligence never reached."
+                    </blockquote>
+
+                    <h2>The questions most assessments miss</h2>
+
+                    <p>Your vendor questionnaire probably asks what the product does. Does it ask:</p>
+
+                    <ul>
+                        <li>What dependencies are embedded in your codebase, and how do you monitor them for vulnerabilities?</li>
+                        <li>How do you secure your build and deployment pipeline?</li>
+                        <li>Where does this run, and what's the redundancy model?</li>
+                    </ul>
+
+                    <p>If not, you're assessing the surface and missing what's underneath.</p>
+
+                    <p>The risk isn't just in what the product does. It's in how it was built, how it gets updated, and where it runs. Those layers determine whether inherent risk becomes residual exposure — or stays contained.</p>
+                </div>
+            </div>
+
+            <!-- Author Box -->
+            <section class="author-box">
+                <div class="author-box-container">
+                    <div class="author-info">
+                        <div class="author-avatar">RM</div>
+                        <div class="author-details">
+                            <h3>About the Author</h3>
+                            <p class="author-title">Risk Management Consultant</p>
+                            <p class="author-bio">With over 15 years of experience in financial services risk management, I help regional banks and credit unions build TPRM frameworks that actually work—without the enterprise overhead. My approach focuses on practical solutions that satisfy regulators while respecting your institution's resources and capabilities.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Related Articles -->
+            <section class="related-articles">
+                <div class="container">
+                    <h2>Continue Reading</h2>
+                    <div class="related-articles-grid">
+                        <article class="article-card">
+                            <div class="article-card-image">
+                                <div class="placeholder-image">
+                                    <svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="400" height="250" fill="#F8F9FA"/>
+                                        <text x="200" y="125" font-family="Inter" font-size="14" fill="#4C607B" text-anchor="middle">Article Image</text>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="article-card-content">
+                                <span class="article-category category-tprm">TPRM</span>
+                                <h3 class="article-title">Development of Third-Party Risk (Part 1)</h3>
+                                <p class="article-excerpt">Understanding why vendors are containers, not risks - tracking products and services instead of just vendor names.</p>
+                                <div class="article-meta">
+                                    <span class="article-date">December 16, 2025</span>
+                                    <span class="article-read-more">Read more →</span>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="article-card">
+                            <div class="article-card-image">
+                                <div class="placeholder-image">
+                                    <svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="400" height="250" fill="#F8F9FA"/>
+                                        <text x="200" y="125" font-family="Inter" font-size="14" fill="#4C607B" text-anchor="middle">Article Image</text>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="article-card-content">
+                                <span class="article-category category-tprm">TPRM</span>
+                                <h3 class="article-title">Fourth-Party Risk Management (Part 1)</h3>
+                                <p class="article-excerpt">Understanding the hidden dependencies in your vendor ecosystem and why they matter.</p>
+                                <div class="article-meta">
+                                    <span class="article-date">December 2, 2025</span>
+                                    <span class="article-read-more">Read more →</span>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="article-card">
+                            <div class="article-card-image">
+                                <div class="placeholder-image">
+                                    <svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="400" height="250" fill="#F8F9FA"/>
+                                        <text x="200" y="125" font-family="Inter" font-size="14" fill="#4C607B" text-anchor="middle">Article Image</text>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="article-card-content">
+                                <span class="article-category category-tprm">TPRM</span>
+                                <h3 class="article-title">Defining Vendor Risk Accurately</h3>
+                                <p class="article-excerpt">Moving beyond surface-level vendor categorization to understand true risk exposure.</p>
+                                <div class="article-meta">
+                                    <span class="article-date">December 4, 2025</span>
+                                    <span class="article-read-more">Read more →</span>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <!-- CTA Section -->
+        <section class="cta" id="contact">
+            <div class="container">
+                <h2>Let's Discuss Your Risk Management Needs</h2>
+                <p>Ready to build a TPRM framework that fits your institution? Schedule a free consultation to explore how we can help.</p>
+                <a href="mailto:trevor@trevorkavanaugh.com" class="btn btn-cta">Schedule Consultation →</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <div class="logo-icon">TK</div>
+                <span>Trevor Kavanaugh</span>
+            </div>
+
+            <div class="footer-columns">
+                <div class="footer-col">
+                    <h3>Navigation</h3>
+                    <nav aria-label="Footer navigation">
+                        <ul>
+                            <li><a href="../index.html">Home</a></li>
+                            <li><a href="../index.html#about">About</a></li>
+                            <li><a href="../insights.html">Insights</a></li>
+                <li><a href="../index.html#speaking">Speaking</a></li>
+                    <li><a href="../index.html#speaking">Speaking</a></li>
+                            <li><a href="../index.html#speaking">Speaking</a></li>
+                            <li><a href="../index.html#contact">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Connect</h3>
+                    <ul class="contact-info">
+                        <li><a href="mailto:trevor@trevorkavanaugh.com">trevor@trevorkavanaugh.com</a></li>
+                        <li><a href="https://www.linkedin.com/in/trevorskavanaugh/" target="_blank">LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <div class="copyright">
+                <p>&copy; 2026 Trevor Kavanaugh</p>
+                <nav class="legal-nav" aria-label="Legal navigation">
+                    <a href="#">Privacy Policy</a>
+                    <span>•</span>
+                    <a href="#">Terms of Service</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

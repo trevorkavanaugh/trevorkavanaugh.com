@@ -1,0 +1,43 @@
+Topic: [Beyond] 4th Party Risk (Part 2)
+Date: 12/09/2025
+
+Last week we discussed the fourth-party risk problem where actual exposure lives in a company you never assessed — but fourth-party isn't the end of the chain.
+
+Your vendors have vendors. And their vendors have vendors. At some point, they all converge on the same foundation.
+
+🔴 The convergence problem
+
+You look at your vendor portfolio and see diversity. Fifty vendors, different products, different companies. Feels distributed.
+
+But trace it down a layer or two. How many of those vendors run on AWS? How many use the same authentication provider? The same payment processor? The same cloud infrastructure?
+
+Your "diversified" vendor base funnels down to a handful of providers you never assessed, never onboarded, and might not even know exist in your ecosystem.
+
+⚠️ Fifth-party isn't theoretical
+
+Fourth-party is your vendor's vendors. Fifth-party is your vendor's vendor's vendors. That sounds like overkill until you trace the dependency chain.
+
+Your vendor uses a payroll provider. That payroll provider uses a cloud hosting service. That cloud hosting service uses a DNS provider. One outage at the fifth-party level cascades up through layers you didn't know were connected.
+
+The CrowdStrike outage made this real. One company, multiple layers deep in thousands of vendor relationships, takes down industries.
+
+📋 Nobody's aggregating this
+
+Even banks with mature fourth-party programs aren't mapping fifth-party convergence. And honestly? The data doesn't exist in a usable form.
+
+Your vendor might tell you their critical subcontractors. They probably don't know their subcontractors' critical subcontractors. And even if everyone disclosed everything, no one's aggregating across the portfolio to find the convergence points.
+
+So you can't see where your entire vendor ecosystem depends on the same three infrastructure providers. The systemic risk is invisible.
+
+💡 There's no playbook for this yet
+
+I'm not going to pretend there's a five-step framework to solve fifth-party concentration. There isn't. The industry hasn't built the tools, the standards, or the transparency mechanisms to make this visible.
+
+But that doesn't mean we ignore it.
+
+Start by acknowledging the dependency chains don't stop where our assessments stop. Push vendors for more transparency about their own dependencies. Build the conversation at the industry level — because no single bank is solving this alone.
+
+This is the next frontier. And we need to figure it out together.
+
+
+Where do you think the industry needs to start — better vendor transparency, shared infrastructure mapping, or something else entirely?

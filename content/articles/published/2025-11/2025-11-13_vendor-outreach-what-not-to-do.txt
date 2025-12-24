@@ -1,0 +1,62 @@
+Topic: The Vendor Outreach Playbook (For What Not To Do)
+Date: 11/13/2025
+
+THE VENDOR OUTREACH PLAYBOOK (FOR WHAT NOT TO DO)
+
+A vendor rep reached out yesterday. This is a masterclass in how to permanently blacklist your company.
+
+📛 The opening:
+"I was recently in contact with [your colleague] and he mentioned he was retiring."
+
+Translation: He cold-called my colleague, got rejected, and is now framing it like there was actual interest.
+
+I asked my colleague. He accidentally answered a cold call.
+
+Starting with deception isn't bold — it's disqualifying.
+
+🧻 The pitch:
+"We help compliance teams reduce workload by 70% on average. We just raised a massive Series A."
+
+70% reduction in what workflows? And I don't care about your Series A. I care whether your product solves problems I have.
+
+❓ The follow-up:
+"95% reduction in false positives through NLP. 50-60% faster turnaround."
+
+What false positives? What turnaround? Buzzword bingo using percentages that could mean anything.
+
+⏰ The closer:
+"If you're free next Friday at 2pm, I think it's worth connecting."
+
+I just told him our context makes this a non-starter.
+
+This is the pattern: ignore what the prospect says, push for the meeting anyway.
+
+His response after I told him off? A thumbs-up emoji.
+
+
+💡 WHAT ACTUALLY WORKS:
+
+Do your homework. Figure out who owns the problem your product solves before reaching out. Don't shotgun 4 people at the same bank—we talk to each other.
+
+Skip the theatrics. No fake warm intros. Just: "We solve [specific problem] for banks your size. Here's how." Honesty is disarming. Deception is disqualifying.
+
+Explain what you actually do. "AI-powered" and "70% reduction" mean nothing without specifics. Tell me what manual process your tool eliminates. What report it generates. What compliance requirement it streamlines.
+
+Respect context. Bank in major transaction? Not buying. Budget freeze? No deal. "Timing doesn't work" isn't "convince me harder" — it's no.
+
+Know when to stop. One "no" = stop. Persistence isn't determination. It's harassment.
+
+Build relationships, not transactions. The best vendor conversations start with: "Not trying to sell anything, but thought this might be useful." Then they send something genuinely valuable. Six months later when we had budget? I called them.
+
+I get it — sales is hard. Quotas are real.
+
+But in banking, trust is currency. Burn it with deception, and you've lost more than one deal — you've lost access to an entire network.
+
+We all know each other. That reputation spreads.
+
+
+What's your experience with vendor outreach?
+
+🤝 Buyers: What gets your attention?
+
+✅ Sellers: What's worked without burning bridges?

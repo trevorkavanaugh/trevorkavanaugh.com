@@ -1,0 +1,38 @@
+Topic: Risk Management Commensurate with Size and Complexity (Part 1)
+Date: 11/4/2025
+
+The $10 Billion Wall: Why Your TPRM Program Doesn't Need to Look Like JPMorgan's
+
+I keep having the same conversation with other risk managers: "Are we doing enough? Should our program look more like [insert money center bank]?"
+And honestly, probably not. Here's why.
+
+Regulators expect different things at different scales.
+That sounds obvious, but I see so many shops trying to build enterprise-level sophistication at $2 billion in assets because they read about best practices from institutions 50x their size.
+
+The regulatory threshold that actually matters? $10 billion.
+That's where Dodd-Frank's enhanced prudential standards kick in. Cross that line and suddenly you're dealing with DFAST, more intensive supervision cycles, and materially different expectations across your entire risk and compliance infrastructure.
+
+Below it? Examiners want to see a program that's appropriate for your current footprint—not a BMW engine in a Honda Civic.
+
+What does this actually look like?
+Take TPRM since that's what I live in:
+
+$500M Bank: Vendor list in Excel, standard due diligence packets, someone coordinating part-time. Get annual SOC reports from critical vendors, verify insurance, done. That's not lazy—that's proportionate.
+
+$5B Bank: Formalized tiering methodology, built templates, light contract repository. Reviewing vendors on a schedule based on risk tier. Still might be one person wearing the TPRM hat among other duties. And that's fine.
+
+$10B+ Bank: The conversation changes. Now examiners expect continuous monitoring, board-level reporting, actual dedicated headcount, probably a GRC platform, real fourth-party oversight framework. Not because best practices say so—because the regulatory regime literally changed.
+
+$100B Bank: Full enterprise stack—specialized teams, advanced analytics, real-time dashboards, the works. That's not gold-plating, that's table stakes at that scale.
+
+This isn't just a TPRM thing.
+
+BSA/AML program sophistication, model risk management depth, cybersecurity frameworks, internal audit scope—all of it scales the same way.
+The expectations at $50 billion are fundamentally different than at $5 billion, and regulators know it.
+
+The trap I see people fall into:
+They're at $3 billion growing 15% annually, so they start building for $10 billion today. That's strategic planning, not compliance. Your next exam is going to judge you against where you are now, not where you'll be in three years.
+
+Bottom line: Build programs that fit your current balance sheet. Absolutely plan for maturation as you scale—but don't confuse the roadmap with the current requirement.
+
+What's been your experience with this? I'm curious if others have hit regulatory inflection points at different thresholds.

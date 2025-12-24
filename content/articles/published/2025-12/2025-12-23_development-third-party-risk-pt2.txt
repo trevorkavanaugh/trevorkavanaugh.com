@@ -1,0 +1,51 @@
+Topic: Development of Third-Party Risk (Part 2)
+Date: 12/23/2025
+
+Last week we talked about how vendors aren't the unit of risk — products and services are. But even that doesn't go deep enough.
+
+Two products that do the exact same thing can have vastly different risk profiles. The difference isn't what they do. It's how they're built, delivered, and hosted.
+
+🔴 The layers beneath the product
+
+When you assess a SaaS product, you're usually evaluating what it does. Does it handle sensitive data? Does it integrate with critical systems? That's the starting point.
+
+But underneath that product are decisions the vendor made that you probably never asked about — and each one carries risk you're not seeing.
+
+Supply chain — what's in the product
+
+Every modern application is built on dependencies. Open source libraries, third-party components, code the vendor didn't write but shipped anyway. Log4j proved what happens when one compromised dependency ripples across thousands of products overnight.
+
+One vendor built lean. Another pulled in everything. Same functionality. Completely different exposure. You'd never know from a feature comparison.
+
+Software delivery — how it gets updated
+
+How does that product get patched? Automatic updates you can't control? Manual releases you have to schedule? A CI/CD pipeline that pushes code daily?
+
+Each model carries different risk. SolarWinds wasn't a product failure — it was a delivery pipeline failure. The product worked fine. The update was poisoned. A compromised update mechanism turns routine patching into an attack vector.
+
+Cloud outsourcing — where it runs
+
+One product runs on dedicated infrastructure with redundancy across regions. Another runs on shared cloud resources in a single availability zone. Same application layer. Completely different resilience.
+
+One vendor's outage is an inconvenience. The other's is a business disruption.
+
+⚠️ Residual risk lives below the surface
+
+You assess inherent risk based on what a product does — data access, integration points, business criticality.
+
+But residual risk depends on how the vendor built it, maintains it, and hosts it.
+
+Two products with identical inherent risk can carry vastly different residual risk based on decisions made in layers your due diligence never reached.
+
+💡 The questions most assessments miss
+
+Your vendor questionnaire probably asks what the product does. Does it ask:
+
+→ What dependencies are embedded in your codebase, and how do you monitor them for vulnerabilities?
+→ How do you secure your build and deployment pipeline?
+→ Where does this run, and what's the redundancy model?
+
+If not, you're assessing the surface and missing what's underneath.
+
+
+When's the last time your due diligence went below the application layer?

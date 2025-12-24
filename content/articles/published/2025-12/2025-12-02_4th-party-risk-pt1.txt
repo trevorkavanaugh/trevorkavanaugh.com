@@ -1,0 +1,45 @@
+Topic: 4th Party Risk (Part 1)
+Date: 12/2/2025
+
+Your vendor contract says one company. Your actual risk exposure is with a company you've never assessed.
+
+You buy software through a reseller, the reseller disclaims all warranties about the product, and the actual manufacturer never got onboarded as a vendor.
+
+So, who did you actually assess? The middleman.
+
+🔴 The reseller shell game
+
+Your contract is with the reseller. But read the fine print — they're not guaranteeing the product works, only that they'll deliver it. Product liability? That's the manufacturer's problem. Security? Check with the manufacturer. Uptime? Not their responsibility.
+
+Except you have no relationship with the manufacturer. No contract. No due diligence. No SOC 2. No right to audit. Nothing.
+
+The vendor you onboarded has no accountability for the product. The vendor accountable for the product was never onboarded.
+
+⚠️ It gets messier
+
+Not all resellers are pure pass-through. Some are "value-added" — they have network access for implementation, maintenance, configuration. Now you've got risk in both places: the reseller with access to your environment AND the manufacturer whose code you're running.
+
+Did you assess both? Most banks didn't. They onboarded whoever sent the invoice.
+
+And then there's the exclusive distributor model. One company sells the product but outsources development entirely. They don't write the code — they contract that out. So, your "vendor" is really a sales and support wrapper around software built by developers you've never heard of.
+
+Who's conducting SOC 2 audits on that code development? Who's assessing those developers' security practices? Usually no one.
+
+📋 The SOC 2 gap
+
+You requested a SOC 2 and got one. Feels like due diligence, right?
+
+Look closer. Is it an infrastructure SOC 2 covering the cloud hosting? Or does it cover the actual application — the code, the development practices, the change management?
+
+Most of the time it's infrastructure. Azure or AWS did their audit. Great. That tells you data at rest is secure. But your data passes through the application layer before it ever reaches that infrastructure. The code your data flows through on the way there? Nobody audited that. Or they did, and you never received it because your contract is with the reseller.
+
+You've got a SOC 2 that covers the destination but not the journey.
+
+💡 The question you should be asking
+
+When you buy through a reseller, trace where the actual risk lives: Who built the software? Who maintains it? Who has access to your data or environment? Which of those parties did you actually assess? And which ones are you just assuming someone else vetted?
+
+The invoice doesn't tell you where the risk is. It just tells you who to pay.
+
+
+What's been your experience with reseller relationships — do you onboard the manufacturer separately, or just the company you're buying from?
