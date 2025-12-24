@@ -10,3 +10,9 @@ Thumbs.db
 
 # Local development
 *.log
+
+# Claude-specific documents (context only, not for public repo)
+CLAUDE.md
+HANDOFF*.md
+SESSION*.md
+STATUS.md
