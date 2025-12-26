@@ -108,6 +108,18 @@
     border-color: var(--color-blue);
 }
 
+/* Article Card Link - Makes entire card clickable */
+.article-card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    height: 100%;
+}
+
+.article-card-link:hover {
+    text-decoration: none;
+}
+
 /* Article Card Image */
 .article-card-image {
     width: 100%;
