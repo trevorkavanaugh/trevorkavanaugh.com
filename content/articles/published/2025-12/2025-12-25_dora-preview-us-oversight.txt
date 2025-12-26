@@ -1,0 +1,37 @@
+Title: DORA: A Preview of Where US Oversight Is Headed
+Date: 12/25/2025
+
+DORA went live in the EU almost a year ago. If you haven't been paying attention, you're missing where US TPRM is headed.
+
+The EU's Digital Operational Resilience Act addresses technical gaps that US frameworks have been dancing around for years. Here's what stands out.
+
+🔴 Direct oversight of critical third-party providers
+
+Current US approach: Regulators examine banks. Banks examine vendors. Regulators never touch the vendor directly.
+
+DORA: Regulators can directly oversee critical ICT providers — cloud platforms, core processors, major software vendors. The middleman is removed. If your vendor serves enough financial institutions, they answer to regulators directly.
+
+This solves the accountability gap we've been working around. No more "we assessed them, but we can't make them do anything."
+
+⚠️ Concentration risk is explicit
+
+We've talked about how vendor diversification can hide concentration at the infrastructure layer. DORA makes concentration risk assessment mandatory — not suggested, required.
+
+Financial entities must identify dependencies on critical third-party providers and assess what happens if that provider fails or gets breached. The fifth-party convergence problem? DORA sees it.
+
+📋 Subcontracting chains can't hide anymore
+
+DORA requires visibility into subcontracting arrangements. Vendors can't just hand you a sanitized list — there are explicit requirements around material subcontractors and the risks they introduce.
+
+The reseller shell game gets harder to play when regulators expect you to trace where the actual risk lives.
+
+💡 Exit strategies with teeth
+
+US guidance says "maintain exit strategies." DORA specifies what that means — transition plans, data portability, continuity arrangements. Not a document that sits in a drawer. An actual executable capability.
+
+This isn't about Europe vs. US. It's about where the regulatory conversation is going. The gaps we work around today are being closed elsewhere. The questions DORA answers are the same ones US examiners are starting to ask.
+
+Pay attention to what's happening across the Atlantic. It's coming here.
+
+
+What's your take — should US regulators adopt similar direct oversight of critical vendors, or is the current model sufficient?
