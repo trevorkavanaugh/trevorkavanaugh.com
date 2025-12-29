@@ -773,8 +773,9 @@ ul {
     color: inherit;
     transition: transform 0.2s ease;
     border-radius: 12px;
-    padding: var(--spacing-md);
-    margin: calc(-1 * var(--spacing-md));
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .announcement-link:hover {
