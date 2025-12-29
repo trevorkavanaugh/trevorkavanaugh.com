@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Research paper examining how rational vendor decisions create collective fragility in software supply chains. Explores the gap between entity-focused TPRM frameworks and dependency-level risks.">
+    <meta name="keywords" content="TPRM, third-party risk management, software supply chain, SBOM, Log4j, SolarWinds, CrowdStrike, vendor risk, financial services">
+    <title>The Collective Fragility Paradox | Trevor Kavanaugh</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Research Paper Page Specific Styles */
+
+        .paper-hero {
+            background: linear-gradient(135deg, #1a2a3a 0%, #0d1820 100%);
+            color: white;
+            padding: 100px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .paper-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234A90E2' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .paper-hero .container {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+        }
+
+        .paper-badge {
+            display: inline-block;
+            background: rgba(74, 144, 226, 0.2);
+            border: 1px solid rgba(74, 144, 226, 0.4);
+            color: #6bb3ff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+        }
+
+        .paper-hero h1 {
+            font-size: 42px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            color: white;
+        }
+
+        .paper-subtitle {
+            font-size: 22px;
+            color: #a0b4c8;
+            font-weight: 400;
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        .paper-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin-bottom: 40px;
+            font-size: 15px;
+            color: #8899aa;
+        }
+
+        .paper-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .paper-meta-item svg {
+            width: 18px;
+            height: 18px;
+            color: #4A90E2;
+        }
+
+        .paper-cta-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #4A90E2;
+            color: white;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 14px rgba(74, 144, 226, 0.4);
+        }
+
+        .btn-download:hover {
+            background: #3a7bc8;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(74, 144, 226, 0.5);
+        }
+
+        .btn-download svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .btn-download.disabled {
+            background: #3d5a73;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .btn-download.disabled:hover {
+            transform: none;
+            background: #3d5a73;
+        }
+
+        .btn-secondary-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: transparent;
+            color: #a0b4c8;
+            padding: 15px 31px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            border: 1px solid rgba(160, 180, 200, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .btn-secondary-outline:hover {
+            border-color: #4A90E2;
+            color: #4A90E2;
+        }
+
+        /* Abstract Section */
+        .paper-abstract {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .paper-abstract .container {
+            max-width: 800px;
+        }
+
+        .section-label {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #4A90E2;
+            margin-bottom: 16px;
+        }
+
+        .paper-abstract h2 {
+            font-size: 32px;
+            color: #1a2a3a;
+            margin-bottom: 24px;
+        }
+
+        .paper-abstract p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #4a5568;
+            margin-bottom: 20px;
+        }
+
+        .paper-abstract blockquote {
+            border-left: 4px solid #4A90E2;
+            padding-left: 24px;
+            margin: 32px 0;
+            font-size: 20px;
+            font-style: italic;
+            color: #2d3748;
+            line-height: 1.6;
+        }
+
+        /* Key Findings */
+        .key-findings {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .key-findings .container {
+            max-width: 1100px;
+        }
+
+        .key-findings h2 {
+            font-size: 32px;
+            color: #1a2a3a;
+            margin-bottom: 48px;
+            text-align: center;
+        }
+
+        .findings-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .finding-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 32px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s ease;
+        }
+
+        .finding-card:hover {
+            border-color: #4A90E2;
+            box-shadow: 0 8px 24px rgba(74, 144, 226, 0.1);
+        }
+
+        .finding-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: #4A90E2;
+            color: white;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .finding-card h3 {
+            font-size: 20px;
+            color: #1a2a3a;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .finding-card p {
+            font-size: 15px;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        /* Incidents Examined */
+        .incidents-section {
+            padding: 80px 0;
+            background: #1a2a3a;
+            color: white;
+        }
+
+        .incidents-section .container {
+            max-width: 1100px;
+        }
+
+        .incidents-section h2 {
+            font-size: 32px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .incidents-section .section-intro {
+            text-align: center;
+            color: #a0b4c8;
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 48px;
+        }
+
+        .incidents-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .incident-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 24px;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .incident-card:hover {
+            background: rgba(74, 144, 226, 0.1);
+            border-color: rgba(74, 144, 226, 0.3);
+        }
+
+        .incident-year {
+            font-size: 13px;
+            color: #4A90E2;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .incident-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .incident-type {
+            font-size: 13px;
+            color: #8899aa;
+        }
+
+        /* Table of Contents */
+        .toc-section {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .toc-section .container {
+            max-width: 900px;
+        }
+
+        .toc-section h2 {
+            font-size: 32px;
+            color: #1a2a3a;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .toc-parts {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .toc-part {
+            background: white;
+            border-radius: 12px;
+            padding: 28px 32px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .toc-part-title {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #4A90E2;
+            margin-bottom: 16px;
+        }
+
+        .toc-chapters {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .toc-chapter {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            font-size: 16px;
+            color: #2d3748;
+        }
+
+        .toc-chapter-num {
+            color: #8899aa;
+            font-weight: 500;
+            min-width: 24px;
+        }
+
+        /* Author Section */
+        .author-section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .author-section .container {
+            max-width: 800px;
+        }
+
+        .author-card {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        .author-image {
+            flex-shrink: 0;
+        }
+
+        .author-image img {
+            width: 160px;
+            height: 160px;
+            border-radius: 12px;
+            object-fit: cover;
+            object-position: center 25%;
+        }
+
+        .author-info h2 {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #4A90E2;
+            margin-bottom: 12px;
+        }
+
+        .author-info h3 {
+            font-size: 28px;
+            color: #1a2a3a;
+            margin-bottom: 8px;
+        }
+
+        .author-title {
+            font-size: 16px;
+            color: #4A90E2;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .author-info p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #4a5568;
+            margin-bottom: 16px;
+        }
+
+        .author-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #4A90E2;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .author-link:hover {
+            text-decoration: underline;
+        }
+
+        /* CTA Section */
+        .paper-cta-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #4A90E2 0%, #357abd 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .paper-cta-section h2 {
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+
+        .paper-cta-section p {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 32px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-download-light {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            color: #4A90E2;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-download-light:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-download-light.disabled {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .btn-download-light.disabled:hover {
+            transform: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .findings-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .incidents-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .paper-hero {
+                padding: 80px 0 60px;
+            }
+
+            .paper-hero h1 {
+                font-size: 32px;
+            }
+
+            .paper-subtitle {
+                font-size: 18px;
+            }
+
+            .paper-meta {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .paper-cta-group {
+                flex-direction: column;
+            }
+
+            .findings-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .incidents-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .author-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .author-image {
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header -->
+    <header class="site-header" id="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">TK</div>
+                <span class="logo-text">Trevor Kavanaugh</span>
+            </a>
+
+            <nav class="main-nav" aria-label="Main navigation">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="../insights.html">Insights</a></li>
+                    <li><a href="../index.html#speaking">Speaking</a></li>
+                    <li><a href="../index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+
+            <button class="menu-toggle" aria-label="Open navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <button class="menu-close" aria-label="Close navigation menu">
+            <span>&times;</span>
+        </button>
+        <nav aria-label="Mobile navigation">
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../insights.html">Insights</a></li>
+                <li><a href="../index.html#speaking">Speaking</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu-contact">
+                <a href="mailto:trevor@trevorkavanaugh.com">trevor@trevorkavanaugh.com</a>
+                <a href="https://www.linkedin.com/in/trevorskavanaugh/" target="_blank">LinkedIn</a>
+            </div>
+        </nav>
+    </div>
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+
+    <!-- Main Content -->
+    <main id="main-content">
+
+        <!-- Paper Hero -->
+        <section class="paper-hero">
+            <div class="container">
+                <span class="paper-badge">Research Paper</span>
+                <h1>The Collective Fragility Paradox</h1>
+                <p class="paper-subtitle">Rethinking Third-Party Risk in Software Supply Chains</p>
+
+                <div class="paper-meta">
+                    <div class="paper-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                        <span>Trevor Kavanaugh</span>
+                    </div>
+                    <div class="paper-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <span>January 2026</span>
+                    </div>
+                    <div class="paper-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                        <span>12 Chapters</span>
+                    </div>
+                    <div class="paper-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span>45 min read</span>
+                    </div>
+                </div>
+
+                <div class="paper-cta-group">
+                    <a href="#" class="btn-download disabled" aria-label="Download PDF - Available January 5, 2026">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        Available January 5, 2026
+                    </a>
+                    <a href="collective-fragility-paradox-preview.pdf" target="_blank" class="btn-secondary-outline">
+                        Preview Paper
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Abstract -->
+        <section class="paper-abstract" id="abstract">
+            <div class="container">
+                <p class="section-label">Abstract</p>
+                <h2>The Collective Fragility Paradox</h2>
+                <p>Every financial institution that selected CrowdStrike made a rational decision—choosing the market-leading endpoint security platform. Collectively, those rational decisions created a single point of failure affecting 60% of the Fortune 500 when a faulty update crashed 8.5 million systems in 78 minutes.</p>
+                <p><strong>This is the collective fragility paradox: individually rational vendor selection creates collectively fragile systems.</strong></p>
+                <p>Traditional TPRM frameworks organize risk around legal entities—vendors assessed through contracts, questionnaires, and SOC 2 reports. But modern technology incidents don't respect organizational boundaries. They propagate through code libraries no one contracted with, build pipelines no questionnaire examines, and infrastructure platforms that appear as "diversified vendors" while sharing identical dependencies.</p>
+
+                <blockquote>
+                    "The industry manages parties when it should be managing dependencies."
+                </blockquote>
+
+                <p>Between 2021 and 2024, seven incidents—Log4j, SolarWinds, MOVEit, CrowdStrike, Kaseya, 3CX, and xz Utils—caused an estimated $30-200 billion in economic damage. Each exploited dependency-level risks that entity-focused frameworks were never designed to see.</p>
+                <p>This paper examines the structural mismatch, documents the evidence, and proposes a multi-stakeholder path forward—because no single actor can solve this alone.</p>
+            </div>
+        </section>
+
+        <!-- Incidents Examined -->
+        <section class="incidents-section">
+            <div class="container">
+                <h2>Incidents Examined</h2>
+                <p class="section-intro">Seven major incidents reveal a consistent pattern: attacks exploit layers of the technology stack that existing frameworks were never designed to see.</p>
+                <div class="incidents-grid">
+                    <div class="incident-card">
+                        <div class="incident-year">2020</div>
+                        <div class="incident-name">SolarWinds</div>
+                        <div class="incident-type">Build Pipeline Compromise</div>
+                    </div>
+                    <div class="incident-card">
+                        <div class="incident-year">2021</div>
+                        <div class="incident-name">Log4j</div>
+                        <div class="incident-type">Transitive Dependency</div>
+                    </div>
+                    <div class="incident-card">
+                        <div class="incident-year">2021</div>
+                        <div class="incident-name">Kaseya VSA</div>
+                        <div class="incident-type">RMM Platform Exploit</div>
+                    </div>
+                    <div class="incident-card">
+                        <div class="incident-year">2023</div>
+                        <div class="incident-name">3CX</div>
+                        <div class="incident-type">Cascading Supply Chain</div>
+                    </div>
+                    <div class="incident-card">
+                        <div class="incident-year">2023</div>
+                        <div class="incident-name">MOVEit</div>
+                        <div class="incident-type">Nth-Party Cascade</div>
+                    </div>
+                    <div class="incident-card">
+                        <div class="incident-year">2024</div>
+                        <div class="incident-name">xz Utils</div>
+                        <div class="incident-type">Maintainer Infiltration</div>
+                    </div>
+                    <div class="incident-card">
+                        <div class="incident-year">2024</div>
+                        <div class="incident-name">CrowdStrike</div>
+                        <div class="incident-type">Update Concentration Risk</div>
+                    </div>
+                    <div class="incident-card" style="background: rgba(74, 144, 226, 0.15); border-color: rgba(74, 144, 226, 0.3);">
+                        <div class="incident-year" style="color: #6bb3ff;">Pattern</div>
+                        <div class="incident-name">One Conclusion</div>
+                        <div class="incident-type">Frameworks Miss Dependencies</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Findings -->
+        <section class="key-findings">
+            <div class="container">
+                <h2>Key Findings</h2>
+                <div class="findings-grid">
+                    <div class="finding-card">
+                        <div class="finding-number">1</div>
+                        <h3>Estimated Economic Damage</h3>
+                        <p>Seven incidents between 2021-2024 caused $30-200 billion in combined economic damage—not from vendor failures, but from dependency-level exploits that frameworks weren't designed to detect.</p>
+                    </div>
+                    <div class="finding-card">
+                        <div class="finding-number">2</div>
+                        <h3>The Structural Mismatch</h3>
+                        <p>TPRM frameworks organize risk around legal entities. Modern attacks exploit technical dependencies—code libraries, build pipelines, update mechanisms—that exist outside organizational boundaries.</p>
+                    </div>
+                    <div class="finding-card">
+                        <div class="finding-number">3</div>
+                        <h3>Concentration Through Excellence</h3>
+                        <p>When 60% of Fortune 500 companies choose the same security platform for good reasons, individually rational decisions create collectively fragile systems.</p>
+                    </div>
+                    <div class="finding-card">
+                        <div class="finding-number">4</div>
+                        <h3>Regulatory Response Lag</h3>
+                        <p>An 18-36 month gap consistently emerges between major incidents and meaningful regulatory guidance, leaving institutions navigating novel risks without clear expectations.</p>
+                    </div>
+                    <div class="finding-card">
+                        <div class="finding-number">5</div>
+                        <h3>The Competency Gap</h3>
+                        <p>Traditional risk professionals lack software engineering context; developers lack risk management training. Neither team has the full picture needed for dependency-level assessment.</p>
+                    </div>
+                    <div class="finding-card">
+                        <div class="finding-number">6</div>
+                        <h3>Multi-Stakeholder Solution Required</h3>
+                        <p>No single actor—financial institution, vendor, or regulator—can solve this alone. Progress requires coordinated action across the ecosystem with new shared standards.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Table of Contents -->
+        <section class="toc-section">
+            <div class="container">
+                <h2>Contents</h2>
+                <div class="toc-parts">
+                    <div class="toc-part">
+                        <div class="toc-part-title">Part I: The Foundation Problem</div>
+                        <div class="toc-chapters">
+                            <div class="toc-chapter"><span class="toc-chapter-num">1</span> What We Manage vs. What Breaks</div>
+                            <div class="toc-chapter"><span class="toc-chapter-num">2</span> The Software Reality Most Risk Programs Ignore</div>
+                            <div class="toc-chapter"><span class="toc-chapter-num">3</span> What SOC 2 Was Built to See</div>
+                        </div>
+                    </div>
+                    <div class="toc-part">
+                        <div class="toc-part-title">Part II: The Structural Mismatch</div>
+                        <div class="toc-chapters">
+                            <div class="toc-chapter"><span class="toc-chapter-num">4</span> Parties vs. Dependencies</div>
+                            <div class="toc-chapter"><span class="toc-chapter-num">5</span> The Nth-Party Illusion</div>
+                            <div class="toc-chapter"><span class="toc-chapter-num">6</span> The Competency Gap</div>
+                        </div>
+                    </div>
+                    <div class="toc-part">
+                        <div class="toc-part-title">Part III: Evidence from the Field</div>
+                        <div class="toc-chapters">
+                            <div class="toc-chapter"><span class="toc-chapter-num">7</span> Seven Incidents, One Pattern</div>
+                            <div class="toc-chapter"><span class="toc-chapter-num">8</span> Where Framework Scope Ends and New Risks Begin</div>
+                            <div class="toc-chapter"><span class="toc-chapter-num">9</span> The Cost of Misalignment</div>
+                        </div>
+                    </div>
+                    <div class="toc-part">
+                        <div class="toc-part-title">Part IV: The Path Forward</div>
+                        <div class="toc-chapters">
+                            <div class="toc-chapter"><span class="toc-chapter-num">10</span> Multi-Stakeholder Problem, Multi-Stakeholder Solution</div>
+                            <div class="toc-chapter"><span class="toc-chapter-num">11</span> Closing the Capability Gap</div>
+                            <div class="toc-chapter"><span class="toc-chapter-num">12</span> What Mature Dependency Risk Management Looks Like</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA -->
+        <section class="paper-cta-section">
+            <div class="container">
+                <h2>Download the Full Paper</h2>
+                <p>A comprehensive analysis of software supply chain risk in financial services, with practical frameworks for building mature dependency risk management capabilities.</p>
+                <a href="#" class="btn-download-light disabled">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Available January 5, 2026
+                </a>
+            </div>
+        </section>
+
+        <!-- Author Section -->
+        <section class="author-section">
+            <div class="container">
+                <div class="author-card">
+                    <div class="author-image">
+                        <img src="../images/trevor_kavanaugh_headshot.jpg" alt="Trevor Kavanaugh">
+                    </div>
+                    <div class="author-info">
+                        <h2>About the Author</h2>
+                        <h3>Trevor Kavanaugh</h3>
+                        <p class="author-title">VP, Third-Party Risk Management</p>
+                        <p>With a background in software development and over a decade in banking, Trevor has built his career across the risk spectrum—from compliance and BSA/AML to internal audit, now leading third-party risk management at an FDIC-chartered regional bank. He oversees a portfolio of 500+ vendor relationships and focuses on bridging the gap between traditional vendor oversight and the technical realities of modern software dependencies.</p>
+                        <p>His work challenges the conventional compliance-focused frameworks prevalent across financial services, arguing that the industry manages "parties" when it should be managing "dependencies."</p>
+                        <a href="../about.html" class="author-link">
+                            Learn more about Trevor
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <div class="logo-icon">TK</div>
+                <span>Trevor Kavanaugh</span>
+            </div>
+
+            <div class="footer-columns">
+                <div class="footer-col">
+                    <h3>Navigation</h3>
+                    <nav aria-label="Footer navigation">
+                        <ul>
+                            <li><a href="../index.html">Home</a></li>
+                            <li><a href="../about.html">About</a></li>
+                            <li><a href="../insights.html">Insights</a></li>
+                            <li><a href="../index.html#speaking">Speaking</a></li>
+                            <li><a href="../index.html#contact">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Connect</h3>
+                    <ul class="contact-info">
+                        <li><a href="mailto:trevor@trevorkavanaugh.com">trevor@trevorkavanaugh.com</a></li>
+                        <li><a href="https://www.linkedin.com/in/trevorskavanaugh/" target="_blank">LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2026 Trevor Kavanaugh</p>
+                <nav class="legal-nav" aria-label="Legal navigation">
+                    <a href="../privacy.html">Privacy Policy</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

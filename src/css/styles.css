@@ -767,6 +767,37 @@ ul {
     margin-bottom: 0;
 }
 
+.announcement-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease;
+    border-radius: 12px;
+    padding: var(--spacing-md);
+    margin: calc(-1 * var(--spacing-md));
+}
+
+.announcement-link:hover {
+    transform: translateY(-2px);
+}
+
+.announcement-link:hover h3 {
+    color: var(--color-blue);
+}
+
+.announcement-cta {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-blue);
+    margin-top: var(--spacing-md);
+    transition: color 0.2s ease;
+}
+
+.announcement-link:hover .announcement-cta {
+    color: var(--color-navy);
+}
+
 /* ============================================
    Insights Section
    ============================================ */
