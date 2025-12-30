@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="70-90% of modern software is assembled from open source components. Traditional TPRM assesses the vendor—not what the vendor assembled. Here's why that gap matters.">
+    <title>Software Supply Chain Risk (Part 1) | Trevor Kavanaugh</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/articles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header -->
+    <header class="site-header" id="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">TK</div>
+                <span class="logo-text">Trevor Kavanaugh</span>
+            </a>
+
+            <nav class="main-nav" aria-label="Main navigation">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="../insights.html" class="active">Insights</a></li>
+                    <li><a href="../index.html#speaking">Speaking</a></li>
+                    <li><a href="../index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+
+            <button class="menu-toggle" aria-label="Open navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <button class="menu-close" aria-label="Close navigation menu">
+            <span>&times;</span>
+        </button>
+        <nav aria-label="Mobile navigation">
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../insights.html">Insights</a></li>
+                <li><a href="../index.html#speaking">Speaking</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu-contact">
+                <a href="mailto:trevor@trevorkavanaugh.com">trevor@trevorkavanaugh.com</a>
+                <a href="https://www.linkedin.com/in/trevorskavanaugh/" target="_blank">LinkedIn</a>
+            </div>
+        </nav>
+    </div>
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+
+    <!-- Main Content -->
+    <main id="main-content">
+
+        <!-- Article Hero -->
+        <article class="article-page">
+            <header class="article-hero">
+                <div class="article-hero-container">
+                    <span class="article-category category-tprm">TPRM</span>
+                    <h1>Software Supply Chain Risk (Part 1)</h1>
+                    <div class="article-meta-line">
+                        <time datetime="2025-12-30">December 30, 2025</time>
+                        <span class="separator">•</span>
+                        <span class="read-time">3 min read</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Article Body -->
+            <div class="article-content-wrapper">
+                <div class="article-content">
+                    <p>Your vendor didn't write most of their code. And that's not a secret—it's how modern software works.</p>
+
+                    <p>The application you're relying on for core operations? Recent studies from the Linux Foundation show 70-90% of modern software is assembled from open source components—and that number keeps climbing.</p>
+
+                    <p>Your vendor assembled it more than they built it.</p>
+
+                    <p>This isn't a criticism. It's just reality. And it changes what TPRM should be looking at.</p>
+
+                    <h2>Open Source Libraries Are the Building Blocks</h2>
+
+                    <p>Developers don't write everything from scratch anymore. They pull in pre-built components—logging tools, encryption libraries, authentication modules—written by other developers and shared freely. It's efficient. It's standard practice. It's also risk you've probably never assessed.</p>
+
+                    <p>When you evaluate a vendor's software, you're evaluating the 10-30% they actually wrote. The other 70-90%? That came from open source projects maintained by... someone. Maybe a team at Google. Maybe one developer in Nebraska.</p>
+
+                    <p>Your vendor may not even know everything that's in their own codebase.</p>
+
+                    <h2>Why This Matters for TPRM</h2>
+
+                    <p>Remember Log4j? One open source logging library, embedded in thousands of products, created a vulnerability that took down half the internet. Your vendors were scrambling to figure out if they were even affected—because they didn't have full visibility into their own software supply chain.</p>
+
+                    <p>That's not a one-time event. That's the new normal. The next Log4j is already out there, sitting in some dependency nobody's audited.</p>
+
+                    <p>This is the same pattern we see with <a href="4th-party-risk-pt1.html">fourth-party dependencies</a>—risk that exists beyond your direct vendor relationship, invisible until something breaks.</p>
+
+                    <h2>The Gap in Traditional Due Diligence</h2>
+
+                    <p>We ask vendors about their security practices, their SOC 2, their policies. We don't ask what components are in their software or where those components came from.</p>
+
+                    <p>Most TPRM questionnaires weren't built for this. They assess the vendor. They don't assess what the vendor assembled.</p>
+
+                    <p>The structural gap is real: our frameworks focus on the organization while the risk lives in the code. As I've explored in the <a href="development-third-party-risk-pt2.html">development of third-party risk</a>, understanding how software is built—not just who builds it—is becoming essential.</p>
+
+                    <h2>Where TPRM Is Headed</h2>
+
+                    <p>Modern third-party risk isn't just about who your vendor is. It's about what's inside the software they deliver. The supply chain underneath the product.</p>
+
+                    <p>This isn't optional anymore. It's what the landscape demands.</p>
+
+                    <p>More on this next week—including what visibility into software supply chains actually looks like.</p>
+
+                    <blockquote>
+                        "Most TPRM questionnaires weren't built for this. They assess the vendor. They don't assess what the vendor assembled."
+                    </blockquote>
+
+                </div>
+            </div>
+
+            <!-- Author Box -->
+            <section class="author-box">
+                <div class="author-box-container">
+                    <div class="author-info">
+                        <div class="author-avatar">
+                            <img src="../images/trevor_kavanaugh_headshot.jpg" alt="Trevor Kavanaugh" style="object-position: center 25%;">
+                        </div>
+                        <div class="author-details">
+                            <h3>About the Author</h3>
+                            <p><strong>Trevor Kavanaugh</strong> | VP, Third-Party Risk Management</p>
+                            <p>With over a decade in banking, I've built my career across the risk spectrum—from compliance and BSA/AML to internal audit, now leading third-party risk management at an FDIC-chartered regional bank with DFPI oversight. This journey gave me a ground-level view of how risk actually functions across financial institutions.</p>
+                            <p>I believe in building risk frameworks designed for modern, evolving threats—not just satisfying checkboxes. Risk management runs deeper than prescriptive compliance rules. It's abstract, constantly shifting, and demands continuous adaptation. I challenge legacy thinking and status quo approaches to push our profession forward.</p>
+                            <p>My goal is simple: help everyone do better.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Related Articles -->
+            <section class="related-articles">
+                <div class="container">
+                    <h2>Continue Reading</h2>
+                    <div class="related-articles-grid">
+                        <article class="article-card">
+                            <a href="development-third-party-risk-pt2.html" class="article-card-link">
+                                <div class="article-card-content">
+                                    <span class="article-category category-tprm">TPRM</span>
+                                    <h3 class="article-title">Development of Third-Party Risk (Part 2)</h3>
+                                    <p class="article-excerpt">How supply chain, delivery, and hosting decisions create residual risk below the application layer.</p>
+                                    <div class="article-meta">
+                                        <span class="article-date">December 23, 2025</span>
+                                        <span class="article-read-more">Read more →</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                        <article class="article-card">
+                            <a href="4th-party-risk-pt1.html" class="article-card-link">
+                                <div class="article-card-content">
+                                    <span class="article-category category-tprm">TPRM</span>
+                                    <h3 class="article-title">Fourth-Party Risk (Part 1)</h3>
+                                    <p class="article-excerpt">The hidden dependencies in your vendor relationships that traditional assessments miss.</p>
+                                    <div class="article-meta">
+                                        <span class="article-date">December 4, 2025</span>
+                                        <span class="article-read-more">Read more →</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                        <article class="article-card">
+                            <a href="beyond-4th-party-risk-pt2.html" class="article-card-link">
+                                <div class="article-card-content">
+                                    <span class="article-category category-tprm">TPRM</span>
+                                    <h3 class="article-title">Fourth-Party Risk Management (Part 2)</h3>
+                                    <p class="article-excerpt">Why vendor diversification creates hidden concentration risk at the infrastructure layer.</p>
+                                    <div class="article-meta">
+                                        <span class="article-date">December 9, 2025</span>
+                                        <span class="article-read-more">Read more →</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <!-- CTA Section -->
+        <section class="cta" id="contact">
+            <div class="container">
+                <h2>Continue the Conversation</h2>
+                <p>Have thoughts on this topic? I'd love to hear your perspective. Connect with me on LinkedIn or reach out directly.</p>
+                <div class="cta-buttons">
+                    <a href="https://www.linkedin.com/in/trevorskavanaugh/" target="_blank" class="btn btn-cta">Connect on LinkedIn →</a>
+                    <a href="mailto:trevor@trevorkavanaugh.com" class="btn btn-secondary">Send an Email</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <div class="logo-icon">TK</div>
+                <span>Trevor Kavanaugh</span>
+            </div>
+
+            <div class="footer-columns">
+                <div class="footer-col">
+                    <h3>Navigation</h3>
+                    <nav aria-label="Footer navigation">
+                        <ul>
+                            <li><a href="../index.html">Home</a></li>
+                            <li><a href="../about.html">About</a></li>
+                            <li><a href="../insights.html">Insights</a></li>
+                            <li><a href="../index.html#speaking">Speaking</a></li>
+                            <li><a href="../index.html#contact">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Connect</h3>
+                    <ul class="contact-info">
+                        <li><a href="mailto:trevor@trevorkavanaugh.com">trevor@trevorkavanaugh.com</a></li>
+                        <li><a href="https://www.linkedin.com/in/trevorskavanaugh/" target="_blank">LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2026 Trevor Kavanaugh</p>
+                <nav class="legal-nav" aria-label="Legal navigation">
+                    <a href="../privacy.html">Privacy Policy</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>
