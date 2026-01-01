@@ -296,6 +296,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // ============================================
     // Newsletter Subscription
     // ============================================
+    // Footer newsletter form
     const newsletterForm = document.getElementById('newsletter-form');
     if (newsletterForm) {
         newsletterForm.addEventListener('submit', async function(e) {
@@ -335,6 +336,53 @@ document.addEventListener('DOMContentLoaded', function() {
             } catch (err) {
                 messageEl.textContent = 'Connection error. Please try again.';
                 messageEl.className = 'newsletter-message error';
+            }
+
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Subscribe';
+        });
+    }
+
+    // Insights page newsletter form
+    const newsletterFormInsights = document.getElementById('newsletter-form-insights');
+    if (newsletterFormInsights) {
+        newsletterFormInsights.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const emailInput = document.getElementById('newsletter-email-insights');
+            const messageEl = document.getElementById('newsletter-message-insights');
+            const submitBtn = this.querySelector('button');
+            const email = emailInput.value.trim();
+
+            if (!email) return;
+
+            // Disable form while submitting
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Subscribing...';
+            messageEl.textContent = '';
+            messageEl.className = 'insights-newsletter-message';
+
+            try {
+                const response = await fetch(`${API_BASE}/api/subscribe`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    messageEl.textContent = data.message || 'Check your email to confirm!';
+                    messageEl.className = 'insights-newsletter-message success';
+                    emailInput.value = '';
+                    trackEvent('subscribe', 'insights-page');
+                } else {
+                    messageEl.textContent = data.error || 'Something went wrong';
+                    messageEl.className = 'insights-newsletter-message error';
+                }
+            } catch (err) {
+                messageEl.textContent = 'Connection error. Please try again.';
+                messageEl.className = 'insights-newsletter-message error';
             }
 
             submitBtn.disabled = false;

@@ -394,10 +394,10 @@ app.get('/api/unsubscribe/:token', (req, res) => {
 // ============================================
 app.post('/api/newsletter/send', requireAdmin, async (req, res) => {
   try {
-    const { subject, article_title, article_slug, article_url, article_excerpt, preview_text } = req.body;
+    const { subject, article_title, article_slug, article_url, article_content } = req.body;
 
-    if (!subject || !article_title || !article_url) {
-      return res.status(400).json({ error: 'subject, article_title, and article_url required' });
+    if (!subject || !article_title || !article_content) {
+      return res.status(400).json({ error: 'subject, article_title, and article_content required' });
     }
 
     // Get confirmed, active subscribers
@@ -427,8 +427,7 @@ app.post('/api/newsletter/send', requireAdmin, async (req, res) => {
           subject: subject,
           html: generateNewsletterHTML({
             article_title,
-            article_url,
-            article_excerpt: article_excerpt || '',
+            article_content,
             unsubscribe_url: `https://api.trevorkavanaugh.com/api/unsubscribe/${subscriber.unsubscribe_token}`
           })
         });
@@ -480,24 +479,96 @@ async function sendConfirmationEmail(email, token) {
       to: email,
       subject: 'Confirm your subscription',
       html: `
-        <!DOCTYPE html>
-        <html>
+        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml">
         <head>
-          <meta charset="utf-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <title>Confirm your subscription</title>
         </head>
-        <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8f9fa; margin: 0; padding: 40px 20px;">
-          <div style="max-width: 500px; margin: 0 auto; background: white; border-radius: 12px; padding: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
-            <div style="text-align: center; margin-bottom: 32px;">
-              <div style="display: inline-block; border: 2px solid #4A90E2; padding: 8px 16px; font-size: 24px; font-weight: 700; color: #4A90E2;">TK</div>
-            </div>
-            <h1 style="color: #1a2a3a; font-size: 24px; margin-bottom: 16px; text-align: center;">Confirm your subscription</h1>
-            <p style="color: #4a5568; line-height: 1.6; text-align: center;">Click the button below to confirm your subscription to Trevor Kavanaugh's newsletter on Third-Party Risk Management.</p>
-            <div style="text-align: center; margin: 32px 0;">
-              <a href="${confirmUrl}" style="display: inline-block; background: #4A90E2; color: white; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 600;">Confirm Subscription</a>
-            </div>
-            <p style="color: #8899aa; font-size: 14px; text-align: center;">If you didn't request this, you can ignore this email.</p>
-          </div>
+        <body style="margin: 0; padding: 0; background-color: #f4f5f7; font-family: Arial, Helvetica, sans-serif;">
+          <!-- Wrapper Table -->
+          <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f4f5f7;">
+            <tr>
+              <td align="center" style="padding: 40px 20px;">
+                <!-- Main Container -->
+                <table border="0" cellpadding="0" cellspacing="0" width="500" style="max-width: 500px;">
+
+                  <!-- Logo -->
+                  <tr>
+                    <td align="center" style="padding-bottom: 30px;">
+                      <a href="https://trevorkavanaugh.com" style="text-decoration: none;">
+                        <table border="0" cellpadding="0" cellspacing="0">
+                          <tr>
+                            <td style="border: 2px solid #4A90E2; padding: 10px 20px; font-size: 24px; font-weight: bold; color: #4A90E2; font-family: Arial, Helvetica, sans-serif;">
+                              TK
+                            </td>
+                          </tr>
+                        </table>
+                      </a>
+                    </td>
+                  </tr>
+
+                  <!-- Content Card -->
+                  <tr>
+                    <td>
+                      <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #ffffff; border-radius: 8px;">
+                        <tr>
+                          <td style="padding: 40px;">
+                            <!-- Title -->
+                            <h1 style="margin: 0 0 20px 0; font-size: 24px; line-height: 1.3; color: #1a2a3a; font-family: Arial, Helvetica, sans-serif; text-align: center;">
+                              Welcome to the newsletter
+                            </h1>
+
+                            <!-- Description -->
+                            <p style="margin: 0 0 16px 0; color: #4a5568; line-height: 1.6; font-size: 16px; font-family: Arial, Helvetica, sans-serif; text-align: center;">
+                              Thanks for subscribing! You'll receive new articles on third-party risk management every Tuesday and Thursday—practical insights on vendor risk, regulatory compliance, and building programs that scale.
+                            </p>
+                            <p style="margin: 0 0 32px 0; color: #4a5568; line-height: 1.6; font-size: 16px; font-family: Arial, Helvetica, sans-serif; text-align: center;">
+                              Click below to confirm your subscription and you're all set.
+                            </p>
+
+                            <!-- CTA Button -->
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                              <tr>
+                                <td align="center">
+                                  <table border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                      <td align="center" bgcolor="#4A90E2" style="border-radius: 6px;">
+                                        <a href="${confirmUrl}" target="_blank" style="display: inline-block; padding: 14px 32px; font-size: 16px; color: #ffffff; text-decoration: none; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">
+                                          Confirm Subscription
+                                        </a>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </td>
+                              </tr>
+                            </table>
+
+                            <!-- Note -->
+                            <p style="margin: 32px 0 0 0; color: #8899aa; line-height: 1.6; font-size: 14px; font-family: Arial, Helvetica, sans-serif; text-align: center;">
+                              If you didn't request this, you can ignore this email.
+                            </p>
+
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <!-- Footer -->
+                  <tr>
+                    <td align="center" style="padding-top: 24px;">
+                      <p style="margin: 0; color: #8899aa; font-size: 13px; font-family: Arial, Helvetica, sans-serif;">
+                        &copy; 2026 Trevor Kavanaugh
+                      </p>
+                    </td>
+                  </tr>
+
+                </table>
+              </td>
+            </tr>
+          </table>
         </body>
         </html>
       `
@@ -507,48 +578,107 @@ async function sendConfirmationEmail(email, token) {
   }
 }
 
-function generateNewsletterHTML({ article_title, article_url, article_excerpt, unsubscribe_url }) {
+function generateNewsletterHTML({ article_title, article_content, unsubscribe_url }) {
   return `
-    <!DOCTYPE html>
-    <html>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>${article_title}</title>
     </head>
-    <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8f9fa; margin: 0; padding: 40px 20px;">
-      <div style="max-width: 600px; margin: 0 auto;">
-        <!-- Header -->
-        <div style="text-align: center; margin-bottom: 32px;">
-          <a href="https://trevorkavanaugh.com" style="text-decoration: none;">
-            <div style="display: inline-block; border: 2px solid #4A90E2; padding: 8px 16px; font-size: 24px; font-weight: 700; color: #4A90E2;">TK</div>
-          </a>
-        </div>
+    <body style="margin: 0; padding: 0; background-color: #f4f5f7; font-family: Arial, Helvetica, sans-serif;">
+      <!-- Wrapper Table -->
+      <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f4f5f7;">
+        <tr>
+          <td align="center" style="padding: 40px 20px;">
+            <!-- Main Container -->
+            <table border="0" cellpadding="0" cellspacing="0" width="600" style="max-width: 600px;">
 
-        <!-- Main Content -->
-        <div style="background: white; border-radius: 12px; padding: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
-          <p style="color: #4a5568; margin-bottom: 24px;">New article published:</p>
+              <!-- Logo -->
+              <tr>
+                <td align="center" style="padding-bottom: 30px;">
+                  <a href="https://trevorkavanaugh.com" style="text-decoration: none;">
+                    <table border="0" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="border: 2px solid #4A90E2; padding: 10px 20px; font-size: 24px; font-weight: bold; color: #4A90E2; font-family: Arial, Helvetica, sans-serif;">
+                          TK
+                        </td>
+                      </tr>
+                    </table>
+                  </a>
+                </td>
+              </tr>
 
-          <h1 style="color: #1a2a3a; font-size: 28px; line-height: 1.3; margin-bottom: 16px;">
-            <a href="${article_url}" style="color: #1a2a3a; text-decoration: none;">${article_title}</a>
-          </h1>
+              <!-- Content Card -->
+              <tr>
+                <td>
+                  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #ffffff; border-radius: 8px;">
+                    <tr>
+                      <td style="padding: 40px;">
+                        <!-- Title -->
+                        <h1 style="margin: 0 0 24px 0; font-size: 26px; line-height: 1.3; color: #1a2a3a; font-family: Arial, Helvetica, sans-serif;">
+                          ${article_title}
+                        </h1>
 
-          ${article_excerpt ? `<p style="color: #4a5568; line-height: 1.7; font-size: 16px; margin-bottom: 24px;">${article_excerpt}</p>` : ''}
+                        <!-- Article Content -->
+                        <div style="color: #4a5568; line-height: 1.8; font-size: 16px; font-family: Arial, Helvetica, sans-serif;">
+                          ${article_content}
+                        </div>
 
-          <a href="${article_url}" style="display: inline-block; background: #4A90E2; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600;">Read Article →</a>
-        </div>
+                        <!-- Divider -->
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 40px;">
+                          <tr>
+                            <td style="border-top: 1px solid #e2e8f0; padding-top: 32px;">
+                            </td>
+                          </tr>
+                        </table>
 
-        <!-- Footer -->
-        <div style="text-align: center; margin-top: 32px; color: #8899aa; font-size: 14px;">
-          <p>Trevor Kavanaugh | Third-Party Risk Management</p>
-          <p>
-            <a href="https://trevorkavanaugh.com" style="color: #4A90E2; text-decoration: none;">Website</a> ·
-            <a href="https://www.linkedin.com/in/trevorskavanaugh/" style="color: #4A90E2; text-decoration: none;">LinkedIn</a>
-          </p>
-          <p style="margin-top: 16px;">
-            <a href="${unsubscribe_url}" style="color: #8899aa; text-decoration: underline;">Unsubscribe</a>
-          </p>
-        </div>
-      </div>
+                        <!-- CTA -->
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                          <tr>
+                            <td align="center">
+                              <p style="color: #4a5568; margin: 0 0 16px 0; font-family: Arial, Helvetica, sans-serif;">For more insights & perspectives</p>
+                              <table border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                  <td align="center" bgcolor="#4A90E2" style="border-radius: 6px;">
+                                    <a href="https://trevorkavanaugh.com/insights.html" target="_blank" style="display: inline-block; padding: 14px 28px; font-size: 16px; color: #ffffff; text-decoration: none; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">
+                                      Visit trevorkavanaugh.com &rarr;
+                                    </a>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+
+              <!-- Footer -->
+              <tr>
+                <td align="center" style="padding-top: 30px;">
+                  <p style="margin: 0 0 8px 0; color: #8899aa; font-size: 14px; font-family: Arial, Helvetica, sans-serif;">
+                    Trevor Kavanaugh | Third-Party Risk Management
+                  </p>
+                  <p style="margin: 0 0 16px 0; font-size: 14px; font-family: Arial, Helvetica, sans-serif;">
+                    <a href="https://trevorkavanaugh.com" style="color: #4A90E2; text-decoration: none;">Website</a>
+                    &nbsp;&middot;&nbsp;
+                    <a href="https://www.linkedin.com/in/trevorskavanaugh/" style="color: #4A90E2; text-decoration: none;">LinkedIn</a>
+                  </p>
+                  <p style="margin: 0; font-size: 14px; font-family: Arial, Helvetica, sans-serif;">
+                    <a href="${unsubscribe_url}" style="color: #8899aa; text-decoration: underline;">Unsubscribe</a>
+                  </p>
+                </td>
+              </tr>
+
+            </table>
+          </td>
+        </tr>
+      </table>
     </body>
     </html>
   `;

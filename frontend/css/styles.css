@@ -1296,8 +1296,123 @@ ul {
     .newsletter-input-group {
         flex-direction: column;
     }
-    
+
     .newsletter-input-group button {
+        width: 100%;
+    }
+}
+
+/* ============================================
+   Insights Page Newsletter Section
+   ============================================ */
+.insights-newsletter-section {
+    padding: 12px 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #eef2f7 100%);
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.insights-newsletter-section .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.insights-newsletter-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.insights-newsletter-text {
+    font-size: 16px;
+    color: var(--color-navy);
+    font-weight: 500;
+    margin: 0;
+}
+
+.insights-newsletter-form {
+    display: flex;
+    gap: 8px;
+}
+
+.insights-newsletter-form input {
+    padding: 10px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    background: white;
+    color: var(--color-navy);
+    font-size: 14px;
+    min-width: 240px;
+}
+
+.insights-newsletter-form input::placeholder {
+    color: #8899aa;
+}
+
+.insights-newsletter-form input:focus {
+    outline: none;
+    border-color: var(--color-blue);
+}
+
+.insights-newsletter-form button {
+    padding: 10px 18px;
+    background: var(--color-blue);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+}
+
+.insights-newsletter-form button:hover {
+    background: #3a7bc8;
+}
+
+.insights-newsletter-form button:disabled {
+    background: #8899aa;
+    cursor: not-allowed;
+}
+
+.insights-newsletter-message {
+    font-size: 13px;
+    margin-top: 8px;
+    text-align: center;
+    min-height: 20px;
+}
+
+.insights-newsletter-message.success {
+    color: #2d8659;
+}
+
+.insights-newsletter-message.error {
+    color: #c53030;
+}
+
+@media (max-width: 768px) {
+    .insights-newsletter-container {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .insights-newsletter-form {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .insights-newsletter-form input {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .insights-newsletter-form button {
         width: 100%;
     }
 }
