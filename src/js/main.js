@@ -235,36 +235,61 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ============================================
-    // Google Analytics Event Tracking
+    // Custom Analytics API
+    // ============================================
+    const API_BASE = 'https://api.trevorkavanaugh.com';
+
+    // Track event to our own backend
+    function trackEvent(eventType, eventLabel = null) {
+        // Send to our API
+        fetch(`${API_BASE}/api/track`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                event_type: eventType,
+                event_label: eventLabel,
+                page_url: window.location.href
+            })
+        }).catch(() => {}); // Silent fail - don't break UX
+
+        // Also send to GA4 if available
+        if (typeof gtag === 'function') {
+            gtag('event', eventType, {
+                'event_category': 'engagement',
+                'event_label': eventLabel
+            });
+        }
+    }
+
+    // ============================================
+    // Event Tracking
     // ============================================
     // Track LinkedIn clicks
     document.querySelectorAll('a[href*="linkedin.com"]').forEach(link => {
         link.addEventListener('click', function() {
-            if (typeof gtag === 'function') {
-                const location = this.closest('section')?.id ||
-                                 this.closest('footer') ? 'footer' :
-                                 this.closest('.hero') ? 'hero' :
-                                 this.closest('.cta') ? 'cta' : 'other';
-                gtag('event', 'linkedin_click', {
-                    'event_category': 'engagement',
-                    'event_label': location
-                });
-            }
+            const location = this.closest('section')?.id ||
+                             this.closest('footer') ? 'footer' :
+                             this.closest('.hero') ? 'hero' :
+                             this.closest('.cta') ? 'cta' : 'other';
+            trackEvent('linkedin_click', location);
         });
     });
 
     // Track email clicks
     document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
         link.addEventListener('click', function() {
-            if (typeof gtag === 'function') {
-                const location = this.closest('section')?.id ||
-                                 this.closest('footer') ? 'footer' :
-                                 this.closest('.cta') ? 'cta' : 'other';
-                gtag('event', 'email_click', {
-                    'event_category': 'engagement',
-                    'event_label': location
-                });
-            }
+            const location = this.closest('section')?.id ||
+                             this.closest('footer') ? 'footer' :
+                             this.closest('.cta') ? 'cta' : 'other';
+            trackEvent('email_click', location);
+        });
+    });
+
+    // Track PDF preview/download clicks
+    document.querySelectorAll('a[href$=".pdf"]').forEach(link => {
+        link.addEventListener('click', function() {
+            const filename = this.href.split('/').pop();
+            trackEvent('pdf_click', filename);
         });
     });
 
