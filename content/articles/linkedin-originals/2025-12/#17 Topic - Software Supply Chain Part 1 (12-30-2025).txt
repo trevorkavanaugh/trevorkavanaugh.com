@@ -1,0 +1,41 @@
+Title: Software Supply Chain (Part 1)
+Date: 12/30/2025
+
+Your vendor didn't write most of their code. And that's not a secret — it's how modern software works.
+
+The application you're relying on for core operations? Recent studies from the Linux Foundation show 70-90% of modern software is assembled from open source components — and that number keeps climbing.
+
+Your vendor assembled it more than they built it.
+
+This isn't a criticism. It's just reality. And it changes what TPRM should be looking at.
+
+🔴 Open source libraries are the building blocks
+
+Developers don't write everything from scratch anymore. They pull in pre-built components — logging tools, encryption libraries, authentication modules — written by other developers and shared freely. It's efficient. It's standard practice. It's also risk you've probably never assessed.
+
+When you evaluate a vendor's software, you're evaluating the 10-30% they actually wrote. The other 70-90%? That came from open source projects maintained by... someone. Maybe a team at Google. Maybe one guy in Nebraska.
+
+Your vendor may not even know everything that's in their own codebase.
+
+⚠️ Why this matters for TPRM
+
+Remember Log4j? One open source logging library, embedded in thousands of products, created a vulnerability that took down half the internet. Your vendors were scrambling to figure out if they were even affected — because they didn't have full visibility into their own software supply chain.
+
+That's not a one-time event. That's the new normal. The next Log4j is already out there, sitting in some dependency nobody's audited.
+
+📋 The gap in traditional due diligence
+
+We ask vendors about their security practices, their SOC 2, their policies. We don't ask what components are in their software or where those components came from.
+
+Most TPRM questionnaires weren't built for this. They assess the vendor. They don't assess what the vendor assembled.
+
+💡 This is where TPRM is headed
+
+Modern third-party risk isn't just about who your vendor is. It's about what's inside the software they deliver. The supply chain underneath the product.
+
+This isn't optional anymore. It's what the landscape demands.
+
+More on this next week — including what visibility into software supply chains actually looks like.
+
+
+How much visibility do you have into what's inside your vendors' software — or is that a question you've never asked?

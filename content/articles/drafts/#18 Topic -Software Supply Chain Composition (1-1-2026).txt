@@ -1,0 +1,41 @@
+Title: Software Supply Chain Composition
+Date: 1/1/2026
+
+Dell doesn't make their own processors. They buy them from Intel. They don't make their own graphics cards either — those come from Nvidia.
+
+This is supply chain. Components sourced from specialized manufacturers, assembled into a final product. You already understand this.
+
+Modern software works the same way. Your vendor didn't write every line of code in their application. They assembled it from pre-built components — open source libraries written by other developers.
+
+This is normal. This is efficient. This is how virtually all software gets built today.
+
+But here's where the analogy breaks down.
+
+🔴 The accountability gap
+
+Intel is a $200 billion company. They have contracts, warranties, legal liability, and a reputation to protect. When Dell sources a processor, there's a corporate entity on the other end with skin in the game.
+
+That open source encryption library your vendor is using? It might be maintained by a single volunteer in their spare time. No contract. No SLA. No legal entity. No warranty.
+
+If something breaks, there's no one to call.
+
+⚠️ The complexity gap
+
+A laptop has maybe a few dozen major components. Complex, sure — but countable.
+
+A modern software application might pull in hundreds or even thousands of open source components. Each one written by different people, maintained on different schedules, with different levels of security rigor.
+
+And each of those components might pull in other components. Layers on layers.
+
+📋 Why this matters
+
+Hardware supply chain risk is corporate. There are contracts, audits, quality standards, and legal recourse.
+
+Software supply chain risk is structural. The dependencies exist whether anyone's managing them or not. The volunteers maintaining critical libraries don't answer to your vendor — and your vendor might not even know they're there.
+
+This isn't a criticism. It's just the reality of how modern software gets built.
+
+And it's a reality TPRM hasn't caught up to yet.
+
+
+Does your due diligence account for the difference between these two supply chains — or does it assume they work the same way?

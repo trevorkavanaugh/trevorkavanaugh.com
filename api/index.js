@@ -667,7 +667,7 @@ function generateNewsletterHTML({ article_title, article_content, unsubscribe_ur
                   <p style="margin: 0 0 16px 0; font-size: 14px; font-family: Arial, Helvetica, sans-serif;">
                     <a href="https://trevorkavanaugh.com" style="color: #4A90E2; text-decoration: none;">Website</a>
                     &nbsp;&middot;&nbsp;
-                    <a href="https://www.linkedin.com/in/trevorskavanaugh/" style="color: #4A90E2; text-decoration: none;">LinkedIn</a>
+                    <a href="https://www.linkedin.com/in/trevorkavanaugh/" style="color: #4A90E2; text-decoration: none;">LinkedIn</a>
                   </p>
                   <p style="margin: 0; font-size: 14px; font-family: Arial, Helvetica, sans-serif;">
                     <a href="${unsubscribe_url}" style="color: #8899aa; text-decoration: underline;">Unsubscribe</a>

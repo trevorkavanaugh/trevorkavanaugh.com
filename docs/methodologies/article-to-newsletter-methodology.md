@@ -181,7 +181,7 @@ This document provides Claude Code with a reusable methodology for converting we
                     </table>
 
                     <p style="margin: 16px 0 0 0; font-size: 14px; color: #718096;">
-                      Or <a href="https://www.linkedin.com/in/trevorskavanaugh/"
+                      Or <a href="https://www.linkedin.com/in/trevorkavanaugh/"
                             style="color: #4A90E2; text-decoration: underline;">
                         connect with me on LinkedIn</a>
                     </p>

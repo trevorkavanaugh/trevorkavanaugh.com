@@ -36,7 +36,7 @@ This document provides Claude Code with a reusable methodology for transforming 
 
 ### Replace
 - Emoji section headers → Proper H2 or H3 headers with descriptive titles
-- Engagement question → Standard CTA: *"For more perspectives on third-party risk management, [connect with me on LinkedIn](https://www.linkedin.com/in/trevorskavanaugh/)."*
+- Engagement question → Standard CTA: *"For more perspectives on third-party risk management, [connect with me on LinkedIn](https://www.linkedin.com/in/trevorkavanaugh/)."*
 
 ### Add (Where Appropriate)
 - Expand examples with additional specificity if the point benefits from it
@@ -167,7 +167,7 @@ The alternative is discovering your vendor data is fiction when auditors start a
 
 ---
 
-*For more perspectives on third-party risk management, [connect with me on LinkedIn](https://www.linkedin.com/in/trevorskavanaugh/).*
+*For more perspectives on third-party risk management, [connect with me on LinkedIn](https://www.linkedin.com/in/trevorkavanaugh/).*
 ```
 
 ---
