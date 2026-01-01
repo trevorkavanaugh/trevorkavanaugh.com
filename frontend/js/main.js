@@ -294,6 +294,55 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ============================================
+    // Newsletter Subscription
+    // ============================================
+    const newsletterForm = document.getElementById('newsletter-form');
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const emailInput = document.getElementById('newsletter-email');
+            const messageEl = document.getElementById('newsletter-message');
+            const submitBtn = this.querySelector('button');
+            const email = emailInput.value.trim();
+
+            if (!email) return;
+
+            // Disable form while submitting
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Subscribing...';
+            messageEl.textContent = '';
+            messageEl.className = 'newsletter-message';
+
+            try {
+                const response = await fetch(`${API_BASE}/api/subscribe`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    messageEl.textContent = data.message || 'Check your email to confirm!';
+                    messageEl.className = 'newsletter-message success';
+                    emailInput.value = '';
+                    trackEvent('subscribe', 'footer');
+                } else {
+                    messageEl.textContent = data.error || 'Something went wrong';
+                    messageEl.className = 'newsletter-message error';
+                }
+            } catch (err) {
+                messageEl.textContent = 'Connection error. Please try again.';
+                messageEl.className = 'newsletter-message error';
+            }
+
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Subscribe';
+        });
+    }
+
+    // ============================================
     // Console Message
     // ============================================
     console.log('%c🏦 Risk Management Consulting Website', 'color: #1D3557; font-size: 16px; font-weight: bold;');

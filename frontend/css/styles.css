@@ -1223,3 +1223,81 @@ ul {
         display: none;
     }
 }
+
+
+/* ============================================
+   Newsletter Form
+   ============================================ */
+.newsletter-form {
+    max-width: 320px;
+}
+
+.newsletter-input-group {
+    display: flex;
+    gap: 8px;
+}
+
+.newsletter-input-group input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid #3d5a73;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    font-size: 14px;
+}
+
+.newsletter-input-group input::placeholder {
+    color: #8899aa;
+}
+
+.newsletter-input-group input:focus {
+    outline: none;
+    border-color: var(--color-blue);
+}
+
+.newsletter-input-group button {
+    padding: 10px 18px;
+    background: var(--color-blue);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+}
+
+.newsletter-input-group button:hover {
+    background: #3a7bc8;
+}
+
+.newsletter-input-group button:disabled {
+    background: #3d5a73;
+    cursor: not-allowed;
+}
+
+.newsletter-message {
+    font-size: 13px;
+    margin-top: 8px;
+    min-height: 20px;
+}
+
+.newsletter-message.success {
+    color: #68d391;
+}
+
+.newsletter-message.error {
+    color: #fc8181;
+}
+
+@media (max-width: 480px) {
+    .newsletter-input-group {
+        flex-direction: column;
+    }
+    
+    .newsletter-input-group button {
+        width: 100%;
+    }
+}
