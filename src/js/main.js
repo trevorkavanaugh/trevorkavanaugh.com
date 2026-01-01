@@ -235,6 +235,40 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ============================================
+    // Google Analytics Event Tracking
+    // ============================================
+    // Track LinkedIn clicks
+    document.querySelectorAll('a[href*="linkedin.com"]').forEach(link => {
+        link.addEventListener('click', function() {
+            if (typeof gtag === 'function') {
+                const location = this.closest('section')?.id ||
+                                 this.closest('footer') ? 'footer' :
+                                 this.closest('.hero') ? 'hero' :
+                                 this.closest('.cta') ? 'cta' : 'other';
+                gtag('event', 'linkedin_click', {
+                    'event_category': 'engagement',
+                    'event_label': location
+                });
+            }
+        });
+    });
+
+    // Track email clicks
+    document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
+        link.addEventListener('click', function() {
+            if (typeof gtag === 'function') {
+                const location = this.closest('section')?.id ||
+                                 this.closest('footer') ? 'footer' :
+                                 this.closest('.cta') ? 'cta' : 'other';
+                gtag('event', 'email_click', {
+                    'event_category': 'engagement',
+                    'event_label': location
+                });
+            }
+        });
+    });
+
+    // ============================================
     // Console Message
     // ============================================
     console.log('%c🏦 Risk Management Consulting Website', 'color: #1D3557; font-size: 16px; font-weight: bold;');
