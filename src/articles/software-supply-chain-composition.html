@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WXHBC0YD0Z"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WXHBC0YD0Z');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dell sources processors from Intel with contracts and warranties. Your vendor sources open source libraries from volunteers with no legal obligation. Understanding the accountability and complexity gaps in software supply chains.">
+    <title>Software Supply Chain Composition | Trevor Kavanaugh</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/articles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header -->
+    <header class="site-header" id="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">TK</div>
+                <span class="logo-text">Trevor Kavanaugh</span>
+            </a>
+
+            <nav class="main-nav" aria-label="Main navigation">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="../insights.html" class="active">Insights</a></li>
+                    <li><a href="../index.html#speaking">Speaking</a></li>
+                    <li><a href="../index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+
+            <button class="menu-toggle" aria-label="Open navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <button class="menu-close" aria-label="Close navigation menu">
+            <span>&times;</span>
+        </button>
+        <nav aria-label="Mobile navigation">
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../insights.html">Insights</a></li>
+                <li><a href="../index.html#speaking">Speaking</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu-contact">
+                <a href="mailto:trevor@trevorkavanaugh.com">trevor@trevorkavanaugh.com</a>
+                <a href="https://www.linkedin.com/in/trevorskavanaugh/" target="_blank">LinkedIn</a>
+            </div>
+        </nav>
+    </div>
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+
+    <!-- Main Content -->
+    <main id="main-content">
+
+        <!-- Article Hero -->
+        <article class="article-page">
+            <header class="article-hero">
+                <div class="article-hero-container">
+                    <span class="article-category category-tprm">Software Supply Chain Risk</span>
+                    <h1>Software Supply Chain Composition</h1>
+                    <div class="article-meta-line">
+                        <time datetime="2026-01-01">January 1, 2026</time>
+                        <span class="separator">•</span>
+                        <span class="read-time">4 min read</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Article Body -->
+            <div class="article-content-wrapper">
+                <div class="article-content">
+                    <p>Dell doesn't make their own processors. They buy them from Intel. They don't make their own graphics cards either—those come from Nvidia.</p>
+
+                    <p>This is supply chain. Components sourced from specialized manufacturers, assembled into a final product. You already understand this.</p>
+
+                    <p>Modern software works the same way. Your vendor didn't write every line of code in their application. They assembled it from pre-built components—open source libraries written by other developers.</p>
+
+                    <p>This is normal. This is efficient. This is how virtually all software gets built today.</p>
+
+                    <p>But here's where the analogy breaks down, and where the risk profile fundamentally changes.</p>
+
+                    <h2>The Accountability Gap</h2>
+
+                    <p>Intel is a $200 billion company. They have contracts, warranties, legal liability, and a reputation to protect. When Dell sources a processor, there's a corporate entity on the other end with skin in the game.</p>
+
+                    <p>That open source encryption library your vendor is using? It might be maintained by a single volunteer in their spare time. No contract. No SLA. No legal entity. No warranty.</p>
+
+                    <p>If something breaks, there's no one to call.</p>
+
+                    <p>This isn't theoretical. The reality of open source maintenance is that critical infrastructure often rests on the shoulders of individual contributors who have no formal obligation to maintain, secure, or support their code. They do it because they want to, not because they're contractually required to.</p>
+
+                    <p>When a hardware component fails, you have recourse. When an open source dependency fails, you have a GitHub issue tracker and hope someone's paying attention.</p>
+
+                    <h2>The Complexity Gap</h2>
+
+                    <p>A laptop has maybe a few dozen major components. Complex, sure—but countable. You can map the supply chain. You can audit the suppliers.</p>
+
+                    <p>A modern software application might pull in hundreds or even thousands of open source components. Each one written by different people, maintained on different schedules, with different levels of security rigor.</p>
+
+                    <p>And each of those components might pull in other components. Layers on layers. Dependencies on dependencies.</p>
+
+                    <p>Your vendor's application might use a web framework, which uses a templating engine, which uses a string parsing library, which uses a character encoding module. Four layers deep, and your vendor only chose the first one directly. The rest came along for the ride.</p>
+
+                    <p>This complexity isn't an implementation flaw—it's structural. It's how modern software development works. But it creates a risk surface that's exponentially larger than traditional hardware supply chains.</p>
+
+                    <h2>Why This Matters for TPRM</h2>
+
+                    <p>Hardware supply chain risk is corporate. There are contracts, audits, quality standards, and legal recourse. When something goes wrong, there's a company to hold accountable.</p>
+
+                    <p>Software supply chain risk is structural. The dependencies exist whether anyone's managing them or not. The volunteers maintaining critical libraries don't answer to your vendor—and your vendor might not even know they're there.</p>
+
+                    <p>This isn't a criticism. It's just the reality of how modern software gets built.</p>
+
+                    <p>But it's a reality that fundamentally changes the nature of third-party risk.</p>
+
+                    <p>Traditional TPRM assumes that when you assess a vendor, you're assessing what they control. In hardware supply chains, that's mostly true. The vendor selected their suppliers, negotiated contracts, and maintains business relationships.</p>
+
+                    <p>In software supply chains, your vendor controls only the top layer. Everything underneath is inherited, transitive, and often invisible until something breaks.</p>
+
+                    <h2>The Questions We're Not Asking</h2>
+
+                    <p>Does your vendor maintain a Software Bill of Materials (SBOM) that lists every component in their application?</p>
+
+                    <p>Do they monitor security advisories for all their dependencies, not just their own code?</p>
+
+                    <p>Do they have a process for updating dependencies when vulnerabilities are discovered?</p>
+
+                    <p>Do they know how many layers deep their dependency tree goes?</p>
+
+                    <p>Can they tell you who maintains the critical libraries they depend on?</p>
+
+                    <p>These aren't standard TPRM questions yet. But they're becoming essential.</p>
+
+                    <h2>Where TPRM Hasn't Caught Up</h2>
+
+                    <p>Most third-party risk assessments were designed for a world where vendors build products, not assemble them from a complex web of external components.</p>
+
+                    <p>We ask about the vendor's development practices, their security controls, their incident response. All important. All necessary.</p>
+
+                    <p>But we don't ask about the composition of their software. We don't assess the dependencies. We don't evaluate the maintainers of the libraries that make up 70-90% of the application.</p>
+
+                    <p>We're auditing the assembly line but ignoring the parts supply.</p>
+
+                    <h2>The Path Forward</h2>
+
+                    <p>Understanding software supply chain composition isn't about adding another checklist to your due diligence process. It's about recognizing that the risk model has fundamentally changed.</p>
+
+                    <p>The accountability and complexity gaps are real. The dependencies exist. The volunteers maintaining critical infrastructure are doing their best, but they're not bound by the same obligations as corporate suppliers.</p>
+
+                    <p>Your vendors are navigating this reality every day. The question is whether your TPRM program reflects it.</p>
+
+                    <p>Does your due diligence account for the difference between hardware and software supply chains—or does it assume they work the same way?</p>
+
+                    <blockquote>
+                        "The volunteers maintaining critical libraries don't answer to your vendor—and your vendor might not even know they're there."
+                    </blockquote>
+
+                </div>
+            </div>
+
+            <!-- Author Box -->
+            <section class="author-box">
+                <div class="author-box-container">
+                    <div class="author-info">
+                        <div class="author-avatar">
+                            <img src="../images/trevor_kavanaugh_headshot.jpg" alt="Trevor Kavanaugh" style="object-position: center 25%;">
+                        </div>
+                        <div class="author-details">
+                            <h3>About the Author</h3>
+                            <p><strong>Trevor Kavanaugh</strong> | VP, Third-Party Risk Management</p>
+                            <p>With over a decade in banking, I've built my career across the risk spectrum—from compliance and BSA/AML to internal audit, now leading third-party risk management at an FDIC-chartered regional bank with DFPI oversight. This journey gave me a ground-level view of how risk actually functions across financial institutions.</p>
+                            <p>I believe in building risk frameworks designed for modern, evolving threats—not just satisfying checkboxes. Risk management runs deeper than prescriptive compliance rules. It's abstract, constantly shifting, and demands continuous adaptation. I challenge legacy thinking and status quo approaches to push our profession forward.</p>
+                            <p>My goal is simple: help everyone do better.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Related Articles -->
+            <section class="related-articles">
+                <div class="container">
+                    <h2>Continue Reading</h2>
+                    <div class="related-articles-grid">
+                        <article class="article-card">
+                            <a href="software-supply-chain-pt1.html" class="article-card-link">
+                                <div class="article-card-content">
+                                    <span class="article-category category-tprm">TPRM</span>
+                                    <h3 class="article-title">Software Supply Chain Risk (Part 1)</h3>
+                                    <p class="article-excerpt">70-90% of modern software is assembled from open source components. Traditional TPRM assesses the vendor—not what the vendor assembled.</p>
+                                    <div class="article-meta">
+                                        <span class="article-date">December 30, 2025</span>
+                                        <span class="article-read-more">Read more →</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                        <article class="article-card">
+                            <a href="development-third-party-risk-pt2.html" class="article-card-link">
+                                <div class="article-card-content">
+                                    <span class="article-category category-tprm">TPRM</span>
+                                    <h3 class="article-title">Development of Third-Party Risk (Part 2)</h3>
+                                    <p class="article-excerpt">How supply chain, delivery, and hosting decisions create residual risk below the application layer.</p>
+                                    <div class="article-meta">
+                                        <span class="article-date">December 23, 2025</span>
+                                        <span class="article-read-more">Read more →</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                        <article class="article-card">
+                            <a href="4th-party-risk-pt1.html" class="article-card-link">
+                                <div class="article-card-content">
+                                    <span class="article-category category-tprm">TPRM</span>
+                                    <h3 class="article-title">Fourth-Party Risk (Part 1)</h3>
+                                    <p class="article-excerpt">The hidden dependencies in your vendor relationships that traditional assessments miss.</p>
+                                    <div class="article-meta">
+                                        <span class="article-date">December 4, 2025</span>
+                                        <span class="article-read-more">Read more →</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <!-- CTA Section -->
+        <section class="cta" id="contact">
+            <div class="container">
+                <h2>Continue the Conversation</h2>
+                <p>Have thoughts on this topic? I'd love to hear your perspective. Connect with me on LinkedIn or reach out directly.</p>
+                <div class="cta-buttons">
+                    <a href="https://www.linkedin.com/in/trevorskavanaugh/" target="_blank" class="btn btn-cta">Connect on LinkedIn →</a>
+                    <a href="mailto:trevor@trevorkavanaugh.com" class="btn btn-secondary">Send an Email</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <div class="logo-icon">TK</div>
+                <span>Trevor Kavanaugh</span>
+            </div>
+
+            <div class="footer-columns">
+                <div class="footer-col">
+                    <h3>Navigation</h3>
+                    <nav aria-label="Footer navigation">
+                        <ul>
+                            <li><a href="../index.html">Home</a></li>
+                            <li><a href="../about.html">About</a></li>
+                            <li><a href="../insights.html">Insights</a></li>
+                            <li><a href="../index.html#speaking">Speaking</a></li>
+                            <li><a href="../index.html#contact">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Connect</h3>
+                    <ul class="contact-info">
+                        <li><a href="mailto:trevor@trevorkavanaugh.com">trevor@trevorkavanaugh.com</a></li>
+                        <li><a href="https://www.linkedin.com/in/trevorskavanaugh/" target="_blank">LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2026 Trevor Kavanaugh</p>
+                <nav class="legal-nav" aria-label="Legal navigation">
+                    <a href="../privacy.html">Privacy Policy</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>
