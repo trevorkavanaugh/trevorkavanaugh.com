@@ -11,8 +11,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Dell sources processors from Intel with contracts and warranties. Your vendor sources open source libraries from volunteers with no legal obligation. Understanding the accountability and complexity gaps in software supply chains.">
-    <title>Software Supply Chain Composition | Trevor Kavanaugh</title>
+    <meta name="description" content="Some vendors know exactly what's in their software. Others don't. The difference shows up when a vulnerability drops and you're waiting for answers.">
+    <title>Software Supply Chain Visibility | Trevor Kavanaugh</title>
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/articles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -78,9 +78,9 @@
             <header class="article-hero">
                 <div class="article-hero-container">
                     <span class="article-category category-tprm">Software Supply Chain Risk</span>
-                    <h1>Software Supply Chain Composition</h1>
+                    <h1>Software Supply Chain Visibility</h1>
                     <div class="article-meta-line">
-                        <time datetime="2026-01-01">January 1, 2026</time>
+                        <time datetime="2026-01-06">January 6, 2026</time>
                         <span class="separator">•</span>
                         <span class="read-time">4 min read</span>
                     </div>
@@ -90,90 +90,52 @@
             <!-- Article Body -->
             <div class="article-content-wrapper">
                 <div class="article-content">
-                    <p>Dell doesn't make their own processors. They buy them from Intel. They don't make their own graphics cards either—those come from Nvidia.</p>
+                    <p>Your vendors assemble software from components with no contracts, no warranties, no corporate accountability behind them. We've <a href="software-supply-chain-composition.html">covered that reality</a>. The question is: now what?</p>
 
-                    <p>This is supply chain. Components sourced from specialized manufacturers, assembled into a final product. You already understand this.</p>
+                    <p>The answer starts with asking different questions—and understanding why some vendors can answer them while others can't.</p>
 
-                    <p>Modern software works the same way. Your vendor didn't write every line of code in their application. They assembled it from pre-built components—open source libraries written by other developers.</p>
+                    <h2>The Question No One Asks</h2>
 
-                    <p>This is normal. This is efficient. This is how virtually all software gets built today.</p>
+                    <p>We ask vendors about security policies. SOC 2 reports. Incident response plans. Penetration testing.</p>
 
-                    <p>But here's where the analogy breaks down, and where the risk profile fundamentally changes.</p>
+                    <p>We don't ask: <strong>what's actually in your software?</strong></p>
 
-                    <h2>The Accountability Gap</h2>
+                    <p>Not features—components. The libraries and dependencies they assembled their product from. The building blocks underneath the application you're relying on for critical operations.</p>
 
-                    <p>Intel is a $200 billion company. They have contracts, warranties, legal liability, and a reputation to protect. When Dell sources a processor, there's a corporate entity on the other end with skin in the game.</p>
+                    <p>Most vendors have never been asked this question. Many couldn't answer it if they were. They know what their software does. They often don't have a complete inventory of what it's made of.</p>
 
-                    <p>That open source encryption library your vendor is using? It might be maintained by a single volunteer in their spare time. No contract. No SLA. No legal entity. No warranty.</p>
+                    <h2>You've Already Seen This Pattern</h2>
 
-                    <p>If something breaks, there's no one to call.</p>
+                    <p>One vulnerability drops. Half your vendors go quiet.</p>
 
-                    <p>This isn't theoretical. The reality of open source maintenance is that critical infrastructure often rests on the shoulders of individual contributors who have no formal obligation to maintain, secure, or support their code. They do it because they want to, not because they're contractually required to.</p>
+                    <p>That silence isn't malice—it's a <strong>visibility gap</strong>. They're not ignoring you. They're scrambling to answer a question they've never had to answer before: what's actually in our code, and are we affected?</p>
 
-                    <p>When a hardware component fails, you have recourse. When an open source dependency fails, you have a GitHub issue tracker and hope someone's paying attention.</p>
+                    <p>Some vendors respond in hours. They already knew what was in their software because they'd invested in knowing before it mattered. They had systems in place to map their dependencies, track their components, and quickly determine exposure when a new vulnerability emerged.</p>
 
-                    <h2>The Complexity Gap</h2>
+                    <p>Others take weeks. Not because they don't care—because they're building that visibility in real-time, during a crisis, while you wait. They're doing the inventory work they should have done beforehand, except now they're doing it under pressure with your risk hanging in the balance.</p>
 
-                    <p>A laptop has maybe a few dozen major components. Complex, sure—but countable. You can map the supply chain. You can audit the suppliers.</p>
+                    <p>Log4j in 2021 was the obvious example. But the pattern repeats with every major vulnerability disclosure. The vendors who knew responded fast. The vendors who didn't went dark while they figured it out.</p>
 
-                    <p>A modern software application might pull in hundreds or even thousands of open source components. Each one written by different people, maintained on different schedules, with different levels of security rigor.</p>
+                    <h2>What Separates Them</h2>
 
-                    <p>And each of those components might pull in other components. Layers on layers. Dependencies on dependencies.</p>
+                    <p>Vendors who built their software recently usually have this visibility by default. Modern development practices make tracking dependencies easier from the start. When you build with current tooling, maintaining a software bill of materials is often built into the workflow.</p>
 
-                    <p>Your vendor's application might use a web framework, which uses a templating engine, which uses a string parsing library, which uses a character encoding module. Four layers deep, and your vendor only chose the first one directly. The rest came along for the ride.</p>
+                    <p>Vendors running older systems they've maintained for years? That visibility takes real investment to add after the fact. You're reverse-engineering a codebase that's evolved over time, often with limited documentation about what got added when. Some vendors have made that investment. Many haven't.</p>
 
-                    <p>This complexity isn't an implementation flaw—it's structural. It's how modern software development works. But it creates a risk surface that's exponentially larger than traditional hardware supply chains.</p>
+                    <p>This isn't always negligence. Legacy codebases are genuinely hard. Technical debt accumulates. Resources are constrained. But the outcome for you is the same—you either get an answer, or you don't.</p>
 
-                    <h2>Why This Matters for TPRM</h2>
+                    <h2>The Difference Worth Knowing</h2>
 
-                    <p>Hardware supply chain risk is corporate. There are contracts, audits, quality standards, and legal recourse. When something goes wrong, there's a company to hold accountable.</p>
+                    <p>The vendors who respond quickly aren't necessarily the ones with the biggest security budgets. They're the ones who invested in visibility before the crisis forced them to. They built systems to answer the question "what's in our code" when nothing was on fire, so they could answer it quickly when something was.</p>
 
-                    <p>Software supply chain risk is structural. The dependencies exist whether anyone's managing them or not. The volunteers maintaining critical libraries don't answer to your vendor—and your vendor might not even know they're there.</p>
+                    <p>The ones who go dark might have reasonable explanations. Legacy systems. Resource constraints. Competing priorities. But that doesn't change what happens while you're waiting for confirmation on systems your operations depend on.</p>
 
-                    <p>This isn't a criticism. It's just the reality of how modern software gets built.</p>
+                    <p>Four years after Log4j, if it happened again tomorrow—which of your vendors would respond in hours, and which ones would you still be waiting on a week later?</p>
 
-                    <p>But it's a reality that fundamentally changes the nature of third-party risk.</p>
-
-                    <p>Traditional TPRM assumes that when you assess a vendor, you're assessing what they control. In hardware supply chains, that's mostly true. The vendor selected their suppliers, negotiated contracts, and maintains business relationships.</p>
-
-                    <p>In software supply chains, your vendor controls only the top layer. Everything underneath is inherited, transitive, and often invisible until something breaks.</p>
-
-                    <h2>The Questions We're Not Asking</h2>
-
-                    <p>Does your vendor maintain a Software Bill of Materials (SBOM) that lists every component in their application?</p>
-
-                    <p>Do they monitor security advisories for all their dependencies, not just their own code?</p>
-
-                    <p>Do they have a process for updating dependencies when vulnerabilities are discovered?</p>
-
-                    <p>Do they know how many layers deep their dependency tree goes?</p>
-
-                    <p>Can they tell you who maintains the critical libraries they depend on?</p>
-
-                    <p>These aren't standard TPRM questions yet. But they're becoming essential.</p>
-
-                    <h2>Where TPRM Hasn't Caught Up</h2>
-
-                    <p>Most third-party risk assessments were designed for a world where vendors build products, not assemble them from a complex web of external components.</p>
-
-                    <p>We ask about the vendor's development practices, their security controls, their incident response. All important. All necessary.</p>
-
-                    <p>But we don't ask about the composition of their software. We don't assess the dependencies. We don't evaluate the maintainers of the libraries that make up 70-90% of the application.</p>
-
-                    <p>We're auditing the assembly line but ignoring the parts supply.</p>
-
-                    <h2>The Path Forward</h2>
-
-                    <p>Understanding software supply chain composition isn't about adding another checklist to your due diligence process. It's about recognizing that the risk model has fundamentally changed.</p>
-
-                    <p>The accountability and complexity gaps are real. The dependencies exist. The volunteers maintaining critical infrastructure are doing their best, but they're not bound by the same obligations as corporate suppliers.</p>
-
-                    <p>Your vendors are navigating this reality every day. The question is whether your TPRM program reflects it.</p>
-
-                    <p>Does your due diligence account for the difference between hardware and software supply chains—or does it assume they work the same way?</p>
+                    <p>The answer to that question tells you something important about your actual risk exposure—something a SOC 2 report won't reveal.</p>
 
                     <blockquote>
-                        "The volunteers maintaining critical libraries don't answer to your vendor—and your vendor might not even know they're there."
+                        "That silence isn't malice—it's a visibility gap. They're scrambling to answer a question they've never had to answer: what's actually in our code?"
                     </blockquote>
 
                 </div>
@@ -203,6 +165,19 @@
                     <h2>Continue Reading</h2>
                     <div class="related-articles-grid">
                         <article class="article-card">
+                            <a href="software-supply-chain-composition.html" class="article-card-link">
+                                <div class="article-card-content">
+                                    <span class="article-category category-tprm">TPRM</span>
+                                    <h3 class="article-title">Software Supply Chain Composition</h3>
+                                    <p class="article-excerpt">Dell sources processors from Intel with contracts and warranties. Your vendor sources open source libraries from volunteers with no legal obligation.</p>
+                                    <div class="article-meta">
+                                        <span class="article-date">January 1, 2026</span>
+                                        <span class="article-read-more">Read more →</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                        <article class="article-card">
                             <a href="software-supply-chain-pt1.html" class="article-card-link">
                                 <div class="article-card-content">
                                     <span class="article-category category-tprm">TPRM</span>
@@ -223,19 +198,6 @@
                                     <p class="article-excerpt">How supply chain, delivery, and hosting decisions create residual risk below the application layer.</p>
                                     <div class="article-meta">
                                         <span class="article-date">December 23, 2025</span>
-                                        <span class="article-read-more">Read more →</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </article>
-                        <article class="article-card">
-                            <a href="4th-party-risk-pt1.html" class="article-card-link">
-                                <div class="article-card-content">
-                                    <span class="article-category category-tprm">TPRM</span>
-                                    <h3 class="article-title">Fourth-Party Risk (Part 1)</h3>
-                                    <p class="article-excerpt">The hidden dependencies in your vendor relationships that traditional assessments miss.</p>
-                                    <div class="article-meta">
-                                        <span class="article-date">December 4, 2025</span>
                                         <span class="article-read-more">Read more →</span>
                                     </div>
                                 </div>
