@@ -1,0 +1,41 @@
+Topic: Software Supply Chain - Delivery Mechanisms
+Date: 01/08/2026
+
+You can build perfect software. But if the way it reaches your systems is compromised, none of that matters.
+
+Two names. Two different lessons.
+
+SolarWinds (2020)
+
+Attackers didn't hack into companies directly. They compromised SolarWinds' update process — the mechanism that pushes new versions to customers.
+
+So when 18,000 organizations installed what looked like a routine software update, they were actually installing a backdoor. The software update itself was the attack.
+
+Nobody questioned it. Why would they? It came from the vendor. It was signed. It was "trusted."
+
+CrowdStrike (2024)
+
+No hackers this time. Just a faulty update pushed to millions of machines simultaneously.
+
+One bad file. One automated delivery system. 8.5 million devices crashed. Airlines grounded. Hospitals disrupted. $5+ billion in damages.
+
+Same delivery mechanism. Different failure mode.
+
+The common thread
+
+Both incidents had nothing to do with whether the software was well-built. They had everything to do with how that software gets delivered.
+
+Updates. Patches. New versions. The pipeline that moves code from vendor to your systems.
+
+That pipeline is infrastructure. And most of us have never looked at it.
+
+Where this is headed
+
+We've talked about what's inside software — the components, the open source supply chain.
+
+Next week: how software actually reaches you. The delivery mechanisms we trust implicitly but rarely examine.
+
+Because the next SolarWinds or CrowdStrike won't look exactly the same. But it'll probably use the same door.
+
+
+How much do you know about how your critical vendors push updates to your environment?
