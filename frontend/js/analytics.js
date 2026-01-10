@@ -655,9 +655,9 @@
         if (totalSeconds > 1) {
             // Add to queue and send immediately with beacon
             queueEvent({
-                name: 'time_on_page',
+                event: 'time_on_page',
                 timestamp: getTimestamp(),
-                properties: {
+                data: {
                     duration_seconds: totalSeconds,
                     path: window.location.pathname
                 }
