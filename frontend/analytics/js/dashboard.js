@@ -524,7 +524,6 @@
         const maxVisitors = Math.max(...countries.map(c => c.visitors));
 
         elements.geoTableBody.innerHTML = countries.slice(0, 10).map(country => {
-            const barWidth = maxVisitors > 0 ? (country.visitors / maxVisitors) * 100 : 0;
             const flagUrl = country.country_code
                 ? `https://flagcdn.com/w20/${country.country_code.toLowerCase()}.png`
                 : null;
@@ -537,11 +536,7 @@
                             ${escapeHtml(country.country)}
                         </span>
                     </td>
-                    <td class="text-right">
-                        <span class="visitor-bar" style="width: ${barWidth}%"></span>
-                        ${formatNumber(country.visitors)}
-                    </td>
-                    <td class="text-right">${country.percentage}%</td>
+                    <td class="text-right">${formatNumber(country.visitors)}</td>
                 </tr>
             `;
         }).join('');
