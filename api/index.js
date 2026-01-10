@@ -2,13 +2,29 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
+const cookieParser = require('cookie-parser');
 const Database = require('better-sqlite3');
 const path = require('path');
 const crypto = require('crypto');
 const { Resend } = require('resend');
 
+// Import auth module
+const { registerAuthRoutes } = require('./auth');
+
+// Import dashboard module
+const dashboardRoutes = require('./dashboard');
+
+// Import background jobs module
+const jobs = require('./jobs');
+
+// Import GeoIP module
+const geo = require('./geo');
+
 const app = express();
 const PORT = 3000;
+
+// Trust proxy (required when behind nginx/load balancer for correct IP detection)
+app.set('trust proxy', 1);
 
 // Resend setup
 const resend = new Resend('re_Vj1w4yBE_Fauuu2UKxfchKyqWidp19jd4');
@@ -21,6 +37,10 @@ const db = new Database(path.join(__dirname, 'analytics.db'));
 
 // Initialize tables
 db.exec(`
+  -- ============================================
+  -- EXISTING TABLES (Newsletter, Comments, Events)
+  -- ============================================
+
   CREATE TABLE IF NOT EXISTS events (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     event_type TEXT NOT NULL,
@@ -62,19 +82,176 @@ db.exec(`
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   );
 
+  -- Existing indexes
   CREATE INDEX IF NOT EXISTS idx_events_type ON events(event_type);
   CREATE INDEX IF NOT EXISTS idx_events_created ON events(created_at);
   CREATE INDEX IF NOT EXISTS idx_events_suspicious ON events(suspicious);
   CREATE INDEX IF NOT EXISTS idx_comments_slug ON comments(article_slug);
   CREATE INDEX IF NOT EXISTS idx_subscribers_email ON subscribers(email);
+
+  -- ============================================
+  -- ANALYTICS PLATFORM TABLES
+  -- ============================================
+
+  -- Visitors (persistent across sessions)
+  CREATE TABLE IF NOT EXISTS visitors (
+    id TEXT PRIMARY KEY,
+    first_seen TEXT NOT NULL,
+    last_seen TEXT NOT NULL,
+    visit_count INTEGER DEFAULT 1,
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP
+  );
+
+  -- Sessions (30-min inactivity timeout)
+  CREATE TABLE IF NOT EXISTS sessions (
+    id TEXT PRIMARY KEY,
+    visitor_id TEXT NOT NULL,
+    started_at TEXT NOT NULL,
+    ended_at TEXT,
+    duration_seconds INTEGER,
+    entry_page TEXT NOT NULL,
+    exit_page TEXT,
+    page_count INTEGER DEFAULT 1,
+    referrer_url TEXT,
+    referrer_domain TEXT,
+    referrer_type TEXT,
+    utm_source TEXT,
+    utm_medium TEXT,
+    utm_campaign TEXT,
+    utm_term TEXT,
+    utm_content TEXT,
+    country TEXT,
+    region TEXT,
+    city TEXT,
+    device_type TEXT,
+    browser TEXT,
+    browser_version TEXT,
+    os TEXT,
+    screen_resolution TEXT,
+    language TEXT,
+    timezone TEXT,
+    is_bot INTEGER DEFAULT 0,
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (visitor_id) REFERENCES visitors(id)
+  );
+
+  -- Page Views
+  CREATE TABLE IF NOT EXISTS page_views (
+    id TEXT PRIMARY KEY,
+    session_id TEXT NOT NULL,
+    visitor_id TEXT NOT NULL,
+    url TEXT NOT NULL,
+    path TEXT NOT NULL,
+    title TEXT,
+    referrer_url TEXT,
+    time_on_page_seconds INTEGER,
+    scroll_depth_percent INTEGER,
+    timestamp TEXT NOT NULL,
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (session_id) REFERENCES sessions(id),
+    FOREIGN KEY (visitor_id) REFERENCES visitors(id)
+  );
+
+  -- Daily Aggregates
+  CREATE TABLE IF NOT EXISTS daily_stats (
+    date TEXT NOT NULL,
+    page_path TEXT NOT NULL,
+    page_views INTEGER DEFAULT 0,
+    unique_visitors INTEGER DEFAULT 0,
+    sessions INTEGER DEFAULT 0,
+    avg_time_on_page_seconds REAL,
+    avg_scroll_depth_percent REAL,
+    bounce_count INTEGER DEFAULT 0,
+    entries INTEGER DEFAULT 0,
+    exits INTEGER DEFAULT 0,
+    PRIMARY KEY (date, page_path)
+  );
+
+  -- Referrer Aggregates
+  CREATE TABLE IF NOT EXISTS daily_referrer_stats (
+    date TEXT NOT NULL,
+    referrer_domain TEXT NOT NULL,
+    referrer_type TEXT NOT NULL,
+    visits INTEGER DEFAULT 0,
+    page_views INTEGER DEFAULT 0,
+    PRIMARY KEY (date, referrer_domain)
+  );
+
+  -- Event Aggregates
+  CREATE TABLE IF NOT EXISTS daily_event_stats (
+    date TEXT NOT NULL,
+    event_name TEXT NOT NULL,
+    count INTEGER DEFAULT 0,
+    unique_visitors INTEGER DEFAULT 0,
+    PRIMARY KEY (date, event_name)
+  );
+
+  -- MFA Users (Analytics Dashboard Authentication)
+  CREATE TABLE IF NOT EXISTS analytics_users (
+    id TEXT PRIMARY KEY,
+    username TEXT UNIQUE NOT NULL,
+    password_hash TEXT NOT NULL,
+    totp_secret_encrypted TEXT,
+    totp_enabled INTEGER DEFAULT 0,
+    backup_codes_hashed TEXT,
+    failed_login_attempts INTEGER DEFAULT 0,
+    locked_until TEXT,
+    last_login TEXT,
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP
+  );
+
+  -- Auth Sessions
+  CREATE TABLE IF NOT EXISTS auth_sessions (
+    id TEXT PRIMARY KEY,
+    user_id TEXT NOT NULL,
+    ip_address TEXT,
+    user_agent TEXT,
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+    expires_at TEXT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES analytics_users(id)
+  );
+
+  -- Auth Logs
+  CREATE TABLE IF NOT EXISTS auth_logs (
+    id TEXT PRIMARY KEY,
+    user_id TEXT,
+    event_type TEXT NOT NULL,
+    ip_address TEXT,
+    user_agent TEXT,
+    timestamp TEXT DEFAULT CURRENT_TIMESTAMP
+  );
+
+  -- ============================================
+  -- ANALYTICS PLATFORM INDEXES
+  -- ============================================
+
+  CREATE INDEX IF NOT EXISTS idx_sessions_visitor_id ON sessions(visitor_id);
+  CREATE INDEX IF NOT EXISTS idx_sessions_started_at ON sessions(started_at);
+  CREATE INDEX IF NOT EXISTS idx_page_views_session_id ON page_views(session_id);
+  CREATE INDEX IF NOT EXISTS idx_page_views_path ON page_views(path);
+  CREATE INDEX IF NOT EXISTS idx_page_views_timestamp ON page_views(timestamp);
+  CREATE INDEX IF NOT EXISTS idx_daily_stats_date ON daily_stats(date);
+  CREATE INDEX IF NOT EXISTS idx_auth_sessions_user_id ON auth_sessions(user_id);
+  CREATE INDEX IF NOT EXISTS idx_auth_sessions_expires ON auth_sessions(expires_at);
 `);
 
 // Middleware
 app.use(helmet());
 app.use(express.json());
+app.use(cookieParser(process.env.SESSION_SECRET || 'default-session-secret-change-in-production'));
+
+// Serve static files for analytics dashboard
+app.use('/analytics', express.static(path.join(__dirname, 'public', 'analytics')));
 
 // CORS - only allow your domain
-const allowedOrigins = ['https://trevorkavanaugh.com', 'https://www.trevorkavanaugh.com', 'http://localhost:8000', 'http://127.0.0.1:8000'];
+const allowedOrigins = [
+  'https://trevorkavanaugh.com',
+  'https://www.trevorkavanaugh.com',
+  'http://localhost:8000',
+  'http://127.0.0.1:8000',
+  'http://localhost:5173',  // For analytics dashboard dev
+  'http://127.0.0.1:5173'
+];
 
 app.use(cors({
   origin: function(origin, callback) {
@@ -84,7 +261,7 @@ app.use(cors({
     }
     return callback(null, false);
   },
-  methods: ['GET', 'POST'],
+  methods: ['GET', 'POST', 'DELETE'],
   credentials: true
 }));
 
@@ -754,7 +931,377 @@ app.post('/api/comments/:id/moderate', requireAdmin, (req, res) => {
   }
 });
 
+// ============================================
+// ROUTES - Analytics Collection (New Platform)
+// ============================================
+
+// Rate limiter for analytics collection - 100 requests per 15 minutes per IP
+const analyticsCollectLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100,
+  message: { error: 'Too many requests' }
+});
+
+// Helper: Parse request body (handles both JSON and text/plain from sendBeacon)
+function parseCollectBody(req) {
+  // If already parsed as JSON by express.json()
+  if (req.body && typeof req.body === 'object' && Object.keys(req.body).length > 0) {
+    return req.body;
+  }
+  // If text/plain (sendBeacon sometimes sends as text), try to parse
+  if (typeof req.body === 'string') {
+    try {
+      return JSON.parse(req.body);
+    } catch (e) {
+      return null;
+    }
+  }
+  return null;
+}
+
+// Helper: Detect bot from user agent
+function isBot(userAgent) {
+  if (!userAgent) return true;
+  const botPatterns = /bot|crawler|spider|scraper|curl|wget|python|httpie|postman|insomnia|headless|phantom|selenium|puppeteer|playwright|lighthouse|pagespeed|gtmetrix/i;
+  return botPatterns.test(userAgent);
+}
+
+// Helper: Generate UUID for page views
+function generatePageViewId() {
+  return crypto.randomUUID();
+}
+
+// POST /api/analytics/collect
+// Receives batched tracking data from client script
+// Body: { visitor_id, session_id, events: [...], context: {...} }
+app.post('/api/analytics/collect', analyticsCollectLimiter, express.text({ type: 'text/plain' }), (req, res) => {
+  try {
+    // Parse the request body (handles JSON and text/plain)
+    const payload = parseCollectBody(req);
+
+    // Validate payload exists
+    if (!payload) {
+      console.error('Analytics collect: Invalid payload format');
+      return res.status(204).end();
+    }
+
+    const { visitor_id, session_id, events, context } = payload;
+
+    // Validate required fields
+    if (!visitor_id || !session_id || !Array.isArray(events) || events.length === 0) {
+      console.error('Analytics collect: Missing required fields');
+      return res.status(204).end();
+    }
+
+    // Validate reasonable sizes to prevent abuse
+    if (visitor_id.length > 100 || session_id.length > 100 || events.length > 50) {
+      console.error('Analytics collect: Payload too large');
+      return res.status(204).end();
+    }
+
+    // Detect bot
+    const userAgent = req.get('user-agent') || '';
+    const isBotRequest = isBot(userAgent);
+
+    // Current timestamp for database operations
+    const now = new Date().toISOString();
+
+    // ==================================================
+    // UPSERT VISITOR
+    // If visitor doesn't exist: INSERT with first_seen = now, visit_count = 1
+    // If visitor exists: UPDATE last_seen = now
+    // ==================================================
+    const existingVisitor = db.prepare('SELECT id FROM visitors WHERE id = ?').get(visitor_id);
+
+    if (existingVisitor) {
+      // Update last_seen
+      db.prepare('UPDATE visitors SET last_seen = ? WHERE id = ?').run(now, visitor_id);
+    } else {
+      // Create new visitor
+      db.prepare(`
+        INSERT INTO visitors (id, first_seen, last_seen, visit_count, created_at)
+        VALUES (?, ?, ?, ?, ?)
+      `).run(
+        visitor_id,
+        now,
+        now,
+        context?.visit_count || 1,
+        now
+      );
+    }
+
+    // ==================================================
+    // UPSERT SESSION
+    // If session doesn't exist: INSERT with entry_page, all context data
+    // If session exists: UPDATE exit_page, page_count++, last activity time
+    // ==================================================
+    const existingSession = db.prepare('SELECT id, page_count FROM sessions WHERE id = ?').get(session_id);
+
+    // Find the first page_view event to get entry page info
+    const firstPageView = events.find(e => e.event === 'page_view');
+    const lastPageView = [...events].reverse().find(e => e.event === 'page_view' || e.event === 'page_exit');
+
+    if (existingSession) {
+      // Update session with latest data
+      const newPageCount = existingSession.page_count + events.filter(e => e.event === 'page_view').length;
+      db.prepare(`
+        UPDATE sessions
+        SET exit_page = COALESCE(?, exit_page),
+            page_count = ?,
+            ended_at = ?
+        WHERE id = ?
+      `).run(
+        lastPageView?.data?.path || null,
+        newPageCount,
+        now,
+        session_id
+      );
+    } else {
+      // Create new session
+      const ctx = context || {};
+
+      // Get client IP for geo lookup
+      const clientIP = req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.ip || req.connection?.remoteAddress;
+      const geoData = geo.lookup(clientIP);
+
+      db.prepare(`
+        INSERT INTO sessions (
+          id, visitor_id, started_at, ended_at, entry_page, exit_page, page_count,
+          referrer_url, referrer_domain, referrer_type,
+          utm_source, utm_medium, utm_campaign, utm_term, utm_content,
+          country, region, city,
+          device_type, browser, browser_version, os, screen_resolution, language, timezone,
+          is_bot, created_at
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `).run(
+        session_id,
+        visitor_id,
+        now,
+        now,
+        firstPageView?.data?.path || ctx.entry_page || '/',
+        lastPageView?.data?.path || null,
+        events.filter(e => e.event === 'page_view').length || 1,
+        ctx.referrer_url?.substring(0, 500) || null,
+        ctx.referrer_domain?.substring(0, 100) || null,
+        ctx.referrer_type?.substring(0, 50) || null,
+        ctx.utm_source?.substring(0, 100) || null,
+        ctx.utm_medium?.substring(0, 100) || null,
+        ctx.utm_campaign?.substring(0, 200) || null,
+        ctx.utm_term?.substring(0, 200) || null,
+        ctx.utm_content?.substring(0, 200) || null,
+        geoData.country || null,
+        geoData.region || null,
+        geoData.city || null,
+        ctx.device_type?.substring(0, 50) || null,
+        ctx.browser?.substring(0, 50) || null,
+        ctx.browser_version?.substring(0, 20) || null,
+        ctx.os?.substring(0, 50) || null,
+        ctx.screen_resolution?.substring(0, 20) || null,
+        ctx.language?.substring(0, 10) || null,
+        ctx.timezone?.substring(0, 50) || null,
+        isBotRequest ? 1 : 0,
+        now
+      );
+    }
+
+    // ==================================================
+    // PROCESS EVENTS
+    // page_view -> INSERT page_views
+    // page_exit -> UPDATE page_views (time_on_page, scroll_depth)
+    // scroll_milestone -> UPDATE page_views (scroll_depth)
+    // * -> INSERT events
+    // ==================================================
+
+    // Prepared statements for efficiency
+    const insertPageView = db.prepare(`
+      INSERT INTO page_views (id, session_id, visitor_id, url, path, title, referrer_url, timestamp, created_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `);
+
+    const updatePageViewMetrics = db.prepare(`
+      UPDATE page_views
+      SET time_on_page_seconds = COALESCE(?, time_on_page_seconds),
+          scroll_depth_percent = MAX(COALESCE(scroll_depth_percent, 0), COALESCE(?, 0))
+      WHERE session_id = ? AND path = ?
+      ORDER BY timestamp DESC
+      LIMIT 1
+    `);
+
+    const insertEvent = db.prepare(`
+      INSERT INTO events (event_type, event_label, page_url, referrer, user_agent, ip_hash, suspicious, created_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    `);
+
+    // Track page view IDs by path for updates
+    const pageViewByPath = new Map();
+
+    for (const event of events) {
+      const eventName = event.event;
+      const eventData = event.data || {};
+      const eventTimestamp = event.timestamp || now;
+
+      switch (eventName) {
+        case 'page_view': {
+          // INSERT into page_views
+          const pageViewId = generatePageViewId();
+          insertPageView.run(
+            pageViewId,
+            session_id,
+            visitor_id,
+            eventData.url?.substring(0, 500) || '',
+            eventData.path?.substring(0, 200) || '/',
+            eventData.title?.substring(0, 200) || null,
+            eventData.referrer?.substring(0, 500) || null,
+            eventTimestamp,
+            now
+          );
+          pageViewByPath.set(eventData.path, pageViewId);
+          break;
+        }
+
+        case 'page_exit': {
+          // UPDATE page_views with time_on_page and scroll_depth
+          const timeOnPage = eventData.time_on_page_seconds || eventData.timeOnPage || null;
+          const scrollDepth = eventData.scroll_depth_percent || eventData.scrollDepth || null;
+
+          // Update the most recent page view for this path
+          db.prepare(`
+            UPDATE page_views
+            SET time_on_page_seconds = ?,
+                scroll_depth_percent = ?
+            WHERE id = (
+              SELECT id FROM page_views
+              WHERE session_id = ? AND path = ?
+              ORDER BY timestamp DESC
+              LIMIT 1
+            )
+          `).run(
+            timeOnPage,
+            scrollDepth,
+            session_id,
+            eventData.path?.substring(0, 200) || '/'
+          );
+          break;
+        }
+
+        case 'scroll_depth':
+        case 'scroll_milestone': {
+          // UPDATE page_views with scroll_depth (take max)
+          const scrollDepth = eventData.depth_percent || eventData.depth || eventData.scroll_depth_percent || null;
+
+          if (scrollDepth) {
+            db.prepare(`
+              UPDATE page_views
+              SET scroll_depth_percent = MAX(COALESCE(scroll_depth_percent, 0), ?)
+              WHERE id = (
+                SELECT id FROM page_views
+                WHERE session_id = ? AND path = ?
+                ORDER BY timestamp DESC
+                LIMIT 1
+              )
+            `).run(
+              scrollDepth,
+              session_id,
+              eventData.path?.substring(0, 200) || '/'
+            );
+          }
+          break;
+        }
+
+        case 'time_on_page': {
+          // UPDATE page_views with time_on_page_seconds
+          const duration = eventData.duration_seconds || eventData.time_on_page_seconds || null;
+
+          if (duration) {
+            db.prepare(`
+              UPDATE page_views
+              SET time_on_page_seconds = ?
+              WHERE id = (
+                SELECT id FROM page_views
+                WHERE session_id = ? AND path = ?
+                ORDER BY timestamp DESC
+                LIMIT 1
+              )
+            `).run(
+              duration,
+              session_id,
+              eventData.path?.substring(0, 200) || '/'
+            );
+          }
+          break;
+        }
+
+        case 'heartbeat': {
+          // Heartbeat events update session activity but don't need storage
+          // The session ended_at is already updated at the top of the request
+          break;
+        }
+
+        default: {
+          // INSERT all events into events table for tracking
+          insertEvent.run(
+            eventName?.substring(0, 100) || 'unknown',
+            JSON.stringify(eventData)?.substring(0, 500) || null,
+            eventData.url?.substring(0, 500) || eventData.path?.substring(0, 500) || null,
+            req.get('referer')?.substring(0, 500) || null,
+            userAgent?.substring(0, 500) || null,
+            hashIP(req.ip),
+            isBotRequest ? 1 : 0,
+            eventTimestamp
+          );
+          break;
+        }
+      }
+    }
+
+    // Return 204 No Content for minimal response (best for sendBeacon)
+    return res.status(204).end();
+
+  } catch (err) {
+    // Log error but still return 204 to not break client
+    console.error('Analytics collect error:', err);
+    return res.status(204).end();
+  }
+});
+
+// ============================================
+// ROUTES - Authentication (MFA Dashboard)
+// ============================================
+registerAuthRoutes(app, db);
+
+// ============================================
+// ROUTES - Dashboard Analytics (Authenticated)
+// ============================================
+dashboardRoutes.register(app, db);
+
+// ============================================
+// Cleanup job - delete expired sessions periodically
+// ============================================
+setInterval(() => {
+  try {
+    const result = db.prepare("DELETE FROM auth_sessions WHERE expires_at < datetime('now')").run();
+    if (result.changes > 0) {
+      console.log(`Cleaned up ${result.changes} expired auth sessions`);
+    }
+  } catch (err) {
+    console.error('Session cleanup error:', err);
+  }
+}, 60 * 60 * 1000); // Run every hour
+
 // Start server
-app.listen(PORT, '127.0.0.1', () => {
+app.listen(PORT, '127.0.0.1', async () => {
   console.log(`Trevor Kavanaugh API running on port ${PORT}`);
+  console.log('Auth endpoints available at /api/auth/*');
+  console.log('Dashboard endpoints available at /api/analytics/dashboard/*');
+
+  // Initialize GeoIP database
+  const geoReady = await geo.init();
+  if (geoReady) {
+    console.log('GeoIP lookup enabled');
+  } else {
+    console.log('GeoIP lookup disabled - run: npm run update-geo');
+  }
+
+  // Start background jobs
+  jobs.start(db);
 });
