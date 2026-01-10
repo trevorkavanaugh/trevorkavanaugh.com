@@ -771,6 +771,167 @@ body {
 }
 
 /* ============================================
+   Realtime Preview
+   ============================================ */
+.realtime-preview-section {
+    margin-bottom: var(--spacing-lg);
+}
+
+.realtime-preview-card {
+    background: linear-gradient(135deg, #1D3557 0%, #2A4A6D 100%);
+    border: none;
+}
+
+.realtime-preview {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xl);
+    padding: var(--spacing-lg);
+    color: white;
+}
+
+.realtime-preview-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 140px;
+}
+
+.realtime-preview-count {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.realtime-pulse {
+    width: 12px;
+    height: 12px;
+    background-color: #4ADE80;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(74, 222, 128, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
+    }
+}
+
+.realtime-number {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.realtime-preview-label {
+    font-size: 14px;
+    opacity: 0.8;
+    margin-top: 4px;
+}
+
+.realtime-preview-pages {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0 var(--spacing-lg);
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    min-height: 60px;
+    align-items: center;
+}
+
+.realtime-page-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+}
+
+.realtime-page-dot {
+    width: 6px;
+    height: 6px;
+    background-color: #4ADE80;
+    border-radius: 50%;
+}
+
+.realtime-page-path {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.realtime-page-count {
+    opacity: 0.7;
+    font-size: 12px;
+}
+
+.realtime-preview-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    transition: background-color 0.2s;
+    white-space: nowrap;
+}
+
+.realtime-preview-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.realtime-preview-link svg {
+    flex-shrink: 0;
+}
+
+@media (max-width: 1024px) {
+    .realtime-preview {
+        flex-wrap: wrap;
+    }
+
+    .realtime-preview-pages {
+        border-left: none;
+        border-right: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        padding: var(--spacing-md) 0;
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .realtime-preview {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .realtime-number {
+        font-size: 36px;
+    }
+
+    .realtime-preview-link {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* ============================================
    Chart and Geo Side by Side
    ============================================ */
 .chart-geo-section {

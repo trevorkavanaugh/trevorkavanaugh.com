@@ -241,6 +241,33 @@
                 <button class="btn btn--sm btn--secondary" id="retry-button">Retry</button>
             </div>
 
+            <!-- Realtime Preview -->
+            <section class="realtime-preview-section" aria-label="Real-time activity">
+                <div class="card realtime-preview-card">
+                    <div class="realtime-preview">
+                        <div class="realtime-preview-main">
+                            <div class="realtime-preview-count">
+                                <span class="realtime-pulse"></span>
+                                <span class="realtime-number" id="realtime-visitors">0</span>
+                            </div>
+                            <div class="realtime-preview-label">Active visitors right now</div>
+                        </div>
+                        <div class="realtime-preview-pages" id="realtime-pages">
+                            <div class="realtime-page-item">
+                                <span class="realtime-page-dot"></span>
+                                <span class="realtime-page-path">Loading...</span>
+                            </div>
+                        </div>
+                        <a href="/analytics/realtime.html" class="realtime-preview-link">
+                            View real-time dashboard
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
             <!-- Metric Cards -->
             <section class="metrics-section" aria-label="Key metrics">
                 <div class="metrics-grid">

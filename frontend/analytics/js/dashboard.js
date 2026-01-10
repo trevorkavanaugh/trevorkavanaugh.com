@@ -119,7 +119,11 @@
             // Realtime
             realtimeBadge: document.getElementById('realtime-badge'),
             realtimeIndicator: document.getElementById('realtime-indicator'),
-            realtimeCount: document.getElementById('realtime-count')
+            realtimeCount: document.getElementById('realtime-count'),
+
+            // Realtime Preview
+            realtimeVisitors: document.getElementById('realtime-visitors'),
+            realtimePages: document.getElementById('realtime-pages')
         };
     }
 
@@ -852,11 +856,43 @@
             if (!response.ok) return;
 
             const result = await response.json();
-            // API returns { success: true, data: { active_visitors: N } }
+            // API returns { success: true, data: { active_visitors: N, pages_viewing: [...] } }
             state.realtimeCount = result.data?.active_visitors || 0;
             updateRealtimeDisplay();
+            updateRealtimePreview(result.data);
         } catch (error) {
             console.error('Failed to fetch realtime data:', error);
+        }
+    }
+
+    /**
+     * Update realtime preview section
+     */
+    function updateRealtimePreview(data) {
+        // Update visitor count
+        if (elements.realtimeVisitors) {
+            elements.realtimeVisitors.textContent = data?.active_visitors || 0;
+        }
+
+        // Update pages being viewed
+        if (elements.realtimePages) {
+            const pages = data?.pages_viewing || [];
+
+            if (pages.length === 0) {
+                elements.realtimePages.innerHTML = `
+                    <div class="realtime-page-item">
+                        <span class="realtime-page-path" style="opacity: 0.6;">No active pages</span>
+                    </div>
+                `;
+            } else {
+                elements.realtimePages.innerHTML = pages.slice(0, 5).map(page => `
+                    <div class="realtime-page-item">
+                        <span class="realtime-page-dot"></span>
+                        <span class="realtime-page-path" title="${escapeHtml(page.path)}">${escapeHtml(page.path)}</span>
+                        ${page.visitors > 1 ? `<span class="realtime-page-count">(${page.visitors})</span>` : ''}
+                    </div>
+                `).join('');
+            }
         }
     }
 
