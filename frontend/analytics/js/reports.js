@@ -54,13 +54,21 @@
     async function apiGet(endpoint, params = {}) {
         const url = new URL(`${API_BASE}/analytics/dashboard${endpoint}`, window.location.origin);
 
+        // Ensure date range is initialized (fallback to last 7 days if not set)
+        if (!state.dateRange.start || !state.dateRange.end) {
+            const end = new Date();
+            const start = new Date();
+            start.setDate(start.getDate() - 7);
+            state.dateRange.start = formatDate(start);
+            state.dateRange.end = formatDate(end);
+            console.log('[Reports] Date range auto-initialized:', state.dateRange);
+        }
+
+        console.log('[Reports] apiGet called:', endpoint, 'dateRange:', state.dateRange);
+
         // Add date range params
-        if (state.dateRange.start) {
-            url.searchParams.set('start_date', state.dateRange.start);
-        }
-        if (state.dateRange.end) {
-            url.searchParams.set('end_date', state.dateRange.end);
-        }
+        url.searchParams.set('start_date', state.dateRange.start);
+        url.searchParams.set('end_date', state.dateRange.end);
 
         // Add additional params
         Object.entries(params).forEach(([key, value]) => {
@@ -110,10 +118,14 @@
     // Date Range Helpers
     // ============================================
     function initDateRange() {
+        console.log('[Reports] initDateRange called');
         const startInput = document.getElementById('date-start');
         const endInput = document.getElementById('date-end');
 
-        if (!startInput || !endInput) return;
+        if (!startInput || !endInput) {
+            console.log('[Reports] Date inputs not found, skipping');
+            return;
+        }
 
         // Set default dates (last 7 days)
         const end = new Date();
@@ -122,6 +134,8 @@
 
         state.dateRange.start = formatDate(start);
         state.dateRange.end = formatDate(end);
+
+        console.log('[Reports] Date range set:', state.dateRange);
 
         startInput.value = state.dateRange.start;
         endInput.value = state.dateRange.end;
