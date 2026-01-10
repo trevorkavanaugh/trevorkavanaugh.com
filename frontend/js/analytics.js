@@ -541,9 +541,9 @@
             updateActivity();
 
             const event = {
-                name,
+                event: name,
                 timestamp: getTimestamp(),
-                properties
+                data: properties
             };
 
             queueEvent(event);
