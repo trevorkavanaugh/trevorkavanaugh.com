@@ -110,6 +110,7 @@
             // Tables
             topPagesBody: document.getElementById('top-pages-body'),
             topReferrersBody: document.getElementById('top-referrers-body'),
+            topEventsBody: document.getElementById('top-events-body'),
 
             // Realtime
             realtimeBadge: document.getElementById('realtime-badge'),
@@ -241,6 +242,10 @@
             renderTopPages(data.top_pages || []);
             renderTopReferrers(data.top_referrers || []);
 
+            // Fetch and render events separately
+            const eventsData = await fetchTopEvents(params);
+            renderTopEvents(eventsData.data?.events || []);
+
         } catch (error) {
             console.error('Failed to load dashboard data:', error);
             showError('Unable to load analytics data. Please try again.');
@@ -312,6 +317,21 @@
 
         if (!response.ok) {
             throw new Error('Failed to fetch top referrers');
+        }
+
+        return response.json();
+    }
+
+    /**
+     * Fetch top events
+     */
+    async function fetchTopEvents(params) {
+        const response = await fetch(`${API_BASE}/analytics/dashboard/events?${params}`, {
+            credentials: 'include'
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch top events');
         }
 
         return response.json();
@@ -553,6 +573,45 @@
                 <td class="text-right">${formatNumber(ref.visits)}</td>
             </tr>
         `).join('');
+    }
+
+    /**
+     * Render top events table
+     */
+    function renderTopEvents(events) {
+        if (!elements.topEventsBody) return;
+
+        if (!events || events.length === 0) {
+            elements.topEventsBody.innerHTML = `
+                <tr>
+                    <td colspan="3" class="empty-state">
+                        <p>No event data available</p>
+                    </td>
+                </tr>
+            `;
+            return;
+        }
+
+        // Take only top 5 events for dashboard view
+        const topEvents = events.slice(0, 5);
+
+        elements.topEventsBody.innerHTML = topEvents.map(event => `
+            <tr>
+                <td class="event-name" title="${escapeHtml(event.name)}">${escapeHtml(formatEventName(event.name))}</td>
+                <td class="text-right">${formatNumber(event.count)}</td>
+                <td class="text-right">${formatNumber(event.unique_visitors)}</td>
+            </tr>
+        `).join('');
+    }
+
+    /**
+     * Format event name for display (convert snake_case to Title Case)
+     */
+    function formatEventName(name) {
+        if (!name) return 'Unknown';
+        return name
+            .replace(/_/g, ' ')
+            .replace(/\b\w/g, c => c.toUpperCase());
     }
 
     /**

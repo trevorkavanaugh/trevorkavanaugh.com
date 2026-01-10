@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TPRM Analytics Dashboard - View website traffic, engagement metrics, and visitor insights">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Dashboard | TPRM Analytics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+        <div class="sidebar-header">
+            <a href="/analytics/" class="sidebar-logo" aria-label="TPRM Analytics Dashboard">
+                <div class="sidebar-logo-icon">TK</div>
+                <span class="sidebar-logo-text">Analytics</span>
+            </a>
+            <button class="sidebar-close" id="sidebar-close" aria-label="Close navigation menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="/analytics/" class="nav-link active" aria-current="page">
+                        <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="9"></rect>
+                            <rect x="14" y="3" width="7" height="5"></rect>
+                            <rect x="14" y="12" width="7" height="9"></rect>
+                            <rect x="3" y="16" width="7" height="5"></rect>
+                        </svg>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/analytics/pages.html" class="nav-link">
+                        <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                        </svg>
+                        Pages
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/analytics/referrers.html" class="nav-link">
+                        <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                        </svg>
+                        Referrers
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/analytics/events.html" class="nav-link">
+                        <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                        Events
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/analytics/downloads.html" class="nav-link">
+                        <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Downloads
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/analytics/funnels.html" class="nav-link">
+                        <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                        </svg>
+                        Funnels
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/analytics/realtime.html" class="nav-link">
+                        <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                        Real-time
+                        <span class="nav-badge" id="realtime-badge">0</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="nav-divider"></div>
+
+            <ul class="nav-list nav-list--secondary">
+                <li class="nav-item">
+                    <a href="/analytics/settings.html" class="nav-link">
+                        <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                        </svg>
+                        Settings
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" id="logout-link">
+                        <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="16 17 21 12 16 7"></polyline>
+                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                        </svg>
+                        Logout
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="/" class="back-to-site" target="_blank">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+                View Site
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="main-wrapper">
+        <!-- Top Bar -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-toggle" id="menu-toggle" aria-label="Open navigation menu">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+                <h1 class="page-title">Dashboard</h1>
+            </div>
+
+            <div class="topbar-right">
+                <!-- Date Range Picker -->
+                <div class="date-picker-container">
+                    <button class="date-picker-trigger" id="date-picker-trigger">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                        <span id="date-range-display">Last 7 Days</span>
+                        <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="date-picker-dropdown" id="date-picker-dropdown">
+                        <div class="date-presets">
+                            <button class="date-preset" data-range="today">Today</button>
+                            <button class="date-preset" data-range="yesterday">Yesterday</button>
+                            <button class="date-preset active" data-range="7d">Last 7 Days</button>
+                            <button class="date-preset" data-range="30d">Last 30 Days</button>
+                            <button class="date-preset" data-range="custom">Custom Range</button>
+                        </div>
+                        <div class="custom-date-range" id="custom-date-range">
+                            <div class="date-input-group">
+                                <label for="date-start">From</label>
+                                <input type="text" id="date-start" class="date-input" placeholder="Select date">
+                            </div>
+                            <div class="date-input-group">
+                                <label for="date-end">To</label>
+                                <input type="text" id="date-end" class="date-input" placeholder="Select date">
+                            </div>
+                            <button class="btn btn--sm btn--primary" id="apply-custom-date">Apply</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Menu -->
+                <div class="user-menu-container">
+                    <button class="user-menu-trigger" id="user-menu-trigger">
+                        <div class="user-avatar" id="user-avatar">U</div>
+                        <span class="user-name" id="user-name">User</span>
+                        <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="user-menu-dropdown" id="user-menu-dropdown">
+                        <a href="/analytics/settings.html" class="user-menu-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                            </svg>
+                            Settings
+                        </a>
+                        <button class="user-menu-item user-menu-item--logout" id="user-logout">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                <polyline points="16 17 21 12 16 7"></polyline>
+                                <line x1="21" y1="12" x2="9" y2="12"></line>
+                            </svg>
+                            Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main id="main-content" class="main-content">
+            <!-- Loading State -->
+            <div class="loading-overlay" id="loading-overlay">
+                <div class="loading-spinner"></div>
+                <p>Loading analytics...</p>
+            </div>
+
+            <!-- Error State -->
+            <div class="error-message" id="error-message" role="alert">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+                <span id="error-text">Unable to load analytics data. Please try again.</span>
+                <button class="btn btn--sm btn--secondary" id="retry-button">Retry</button>
+            </div>
+
+            <!-- Metric Cards -->
+            <section class="metrics-section" aria-label="Key metrics">
+                <div class="metrics-grid">
+                    <article class="metric-card" id="metric-visitors">
+                        <div class="metric-header">
+                            <h2 class="metric-label">Visitors</h2>
+                            <span class="metric-change" id="visitors-change"></span>
+                        </div>
+                        <div class="metric-value" id="visitors-value">
+                            <div class="metric-skeleton"></div>
+                        </div>
+                    </article>
+
+                    <article class="metric-card" id="metric-sessions">
+                        <div class="metric-header">
+                            <h2 class="metric-label">Sessions</h2>
+                            <span class="metric-change" id="sessions-change"></span>
+                        </div>
+                        <div class="metric-value" id="sessions-value">
+                            <div class="metric-skeleton"></div>
+                        </div>
+                    </article>
+
+                    <article class="metric-card" id="metric-pageviews">
+                        <div class="metric-header">
+                            <h2 class="metric-label">Page Views</h2>
+                            <span class="metric-change" id="pageviews-change"></span>
+                        </div>
+                        <div class="metric-value" id="pageviews-value">
+                            <div class="metric-skeleton"></div>
+                        </div>
+                    </article>
+
+                    <article class="metric-card" id="metric-duration">
+                        <div class="metric-header">
+                            <h2 class="metric-label">Avg. Duration</h2>
+                            <span class="metric-change" id="duration-change"></span>
+                        </div>
+                        <div class="metric-value" id="duration-value">
+                            <div class="metric-skeleton"></div>
+                        </div>
+                    </article>
+
+                    <article class="metric-card" id="metric-bounce">
+                        <div class="metric-header">
+                            <h2 class="metric-label">Bounce Rate</h2>
+                            <span class="metric-change" id="bounce-change"></span>
+                        </div>
+                        <div class="metric-value" id="bounce-value">
+                            <div class="metric-skeleton"></div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Main Chart -->
+            <section class="chart-section" aria-label="Visitors over time">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Visitors Over Time</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <canvas id="visitors-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Two Column Section -->
+            <section class="data-tables-section" aria-label="Top pages and referrers">
+                <div class="tables-grid">
+                    <!-- Top Pages -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Top Pages</h2>
+                            <a href="/analytics/pages.html" class="card-link">View All</a>
+                        </div>
+                        <div class="card-body">
+                            <table class="data-table" id="top-pages-table">
+                                <thead>
+                                    <tr>
+                                        <th>Path</th>
+                                        <th class="text-right">Views</th>
+                                        <th class="text-right">Unique</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="top-pages-body">
+                                    <tr class="table-loading">
+                                        <td colspan="3">
+                                            <div class="table-skeleton"></div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Top Referrers -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Top Referrers</h2>
+                            <a href="/analytics/referrers.html" class="card-link">View All</a>
+                        </div>
+                        <div class="card-body">
+                            <table class="data-table" id="top-referrers-table">
+                                <thead>
+                                    <tr>
+                                        <th>Source</th>
+                                        <th>Type</th>
+                                        <th class="text-right">Visits</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="top-referrers-body">
+                                    <tr class="table-loading">
+                                        <td colspan="3">
+                                            <div class="table-skeleton"></div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Top Events -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Top Events</h2>
+                            <a href="/analytics/events.html" class="card-link">View All</a>
+                        </div>
+                        <div class="card-body">
+                            <table class="data-table" id="top-events-table">
+                                <thead>
+                                    <tr>
+                                        <th>Event</th>
+                                        <th class="text-right">Count</th>
+                                        <th class="text-right">Unique</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="top-events-body">
+                                    <tr class="table-loading">
+                                        <td colspan="3">
+                                            <div class="table-skeleton"></div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Real-time Indicator -->
+    <a href="/analytics/realtime.html" class="realtime-badge" id="realtime-indicator" aria-label="View real-time visitors">
+        <span class="realtime-dot"></span>
+        <span class="realtime-count" id="realtime-count">0</span>
+        <span class="realtime-label">visitors now</span>
+    </a>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
