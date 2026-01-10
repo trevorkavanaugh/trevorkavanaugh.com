@@ -112,6 +112,10 @@
             topReferrersBody: document.getElementById('top-referrers-body'),
             topEventsBody: document.getElementById('top-events-body'),
 
+            // Geo
+            geoMap: document.getElementById('geo-map'),
+            geoTableBody: document.getElementById('geo-table-body'),
+
             // Realtime
             realtimeBadge: document.getElementById('realtime-badge'),
             realtimeIndicator: document.getElementById('realtime-indicator'),
@@ -246,6 +250,11 @@
             const eventsData = await fetchTopEvents(params);
             renderTopEvents(eventsData.data?.events || []);
 
+            // Fetch and render geo data
+            const geoData = await fetchGeoData(params);
+            renderGeoMap(geoData.data?.countries || []);
+            renderGeoTable(geoData.data?.countries || []);
+
         } catch (error) {
             console.error('Failed to load dashboard data:', error);
             showError('Unable to load analytics data. Please try again.');
@@ -335,6 +344,207 @@
         }
 
         return response.json();
+    }
+
+    /**
+     * Fetch geographic data
+     */
+    async function fetchGeoData(params) {
+        const response = await fetch(`${API_BASE}/analytics/dashboard/geo?${params}`, {
+            credentials: 'include'
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch geo data');
+        }
+
+        return response.json();
+    }
+
+    /**
+     * Render geographic map using D3
+     */
+    async function renderGeoMap(countries) {
+        if (!elements.geoMap || typeof d3 === 'undefined') return;
+
+        // Clear existing content
+        elements.geoMap.innerHTML = '';
+
+        // Create visitor lookup by country code
+        const visitorsByCode = {};
+        let maxVisitors = 0;
+        countries.forEach(c => {
+            if (c.country_code) {
+                visitorsByCode[c.country_code] = c.visitors;
+                maxVisitors = Math.max(maxVisitors, c.visitors);
+            }
+        });
+
+        // Set up dimensions
+        const container = elements.geoMap;
+        const width = container.clientWidth || 600;
+        const height = container.clientHeight || 300;
+
+        // Create SVG
+        const svg = d3.select(container)
+            .append('svg')
+            .attr('viewBox', `0 0 ${width} ${height}`)
+            .attr('preserveAspectRatio', 'xMidYMid meet');
+
+        // Create projection
+        const projection = d3.geoNaturalEarth1()
+            .scale(width / 5.5)
+            .translate([width / 2, height / 2]);
+
+        const path = d3.geoPath().projection(projection);
+
+        // Color scale
+        const colorScale = d3.scaleThreshold()
+            .domain([1, 5, 20, 50])
+            .range(['#E5E7EB', '#93C5FD', '#60A5FA', '#2563EB', '#1D4ED8']);
+
+        // Load world map data
+        try {
+            const worldData = await d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json');
+            const countries110m = topojson.feature(worldData, worldData.objects.countries);
+
+            // Country code lookup (numeric ID to ISO)
+            const numericToIso = await loadCountryCodeMapping();
+
+            // Draw countries
+            svg.selectAll('path')
+                .data(countries110m.features)
+                .enter()
+                .append('path')
+                .attr('d', path)
+                .attr('class', 'country')
+                .attr('fill', d => {
+                    const isoCode = numericToIso[d.id];
+                    const visitors = visitorsByCode[isoCode] || 0;
+                    return colorScale(visitors);
+                })
+                .attr('stroke', '#fff')
+                .attr('stroke-width', 0.5)
+                .on('mouseover', function(event, d) {
+                    const isoCode = numericToIso[d.id];
+                    const visitors = visitorsByCode[isoCode] || 0;
+                    d3.select(this).attr('fill', '#FCD34D');
+
+                    // Show tooltip
+                    const countryName = d.properties?.name || isoCode || 'Unknown';
+                    showGeoTooltip(event, countryName, visitors);
+                })
+                .on('mouseout', function(event, d) {
+                    const isoCode = numericToIso[d.id];
+                    const visitors = visitorsByCode[isoCode] || 0;
+                    d3.select(this).attr('fill', colorScale(visitors));
+                    hideGeoTooltip();
+                });
+
+        } catch (error) {
+            console.error('Failed to load map data:', error);
+            elements.geoMap.innerHTML = '<p class="empty-state">Map data unavailable</p>';
+        }
+    }
+
+    /**
+     * Load country code mapping (numeric to ISO)
+     */
+    async function loadCountryCodeMapping() {
+        // Common country numeric IDs to ISO codes
+        return {
+            '840': 'US', '826': 'GB', '124': 'CA', '36': 'AU', '276': 'DE',
+            '250': 'FR', '356': 'IN', '566': 'NG', '380': 'IT', '724': 'ES',
+            '76': 'BR', '484': 'MX', '392': 'JP', '156': 'CN', '410': 'KR',
+            '528': 'NL', '752': 'SE', '578': 'NO', '208': 'DK', '246': 'FI',
+            '616': 'PL', '643': 'RU', '804': 'UA', '642': 'RO', '682': 'SA',
+            '784': 'AE', '376': 'IL', '710': 'ZA', '702': 'SG', '608': 'PH',
+            '360': 'ID', '458': 'MY', '764': 'TH', '704': 'VN', '586': 'PK',
+            '50': 'BD', '32': 'AR', '152': 'CL', '170': 'CO', '604': 'PE',
+            '372': 'IE', '56': 'BE', '756': 'CH', '40': 'AT', '620': 'PT',
+            '300': 'GR', '203': 'CZ', '348': 'HU', '554': 'NZ'
+        };
+    }
+
+    /**
+     * Show geo tooltip
+     */
+    function showGeoTooltip(event, countryName, visitors) {
+        let tooltip = document.getElementById('geo-tooltip');
+        if (!tooltip) {
+            tooltip = document.createElement('div');
+            tooltip.id = 'geo-tooltip';
+            tooltip.style.cssText = `
+                position: fixed;
+                background: #1D3557;
+                color: white;
+                padding: 8px 12px;
+                border-radius: 6px;
+                font-size: 12px;
+                pointer-events: none;
+                z-index: 1000;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            `;
+            document.body.appendChild(tooltip);
+        }
+        tooltip.innerHTML = `<strong>${countryName}</strong><br>${visitors} visitor${visitors !== 1 ? 's' : ''}`;
+        tooltip.style.left = (event.pageX + 10) + 'px';
+        tooltip.style.top = (event.pageY - 30) + 'px';
+        tooltip.style.display = 'block';
+    }
+
+    /**
+     * Hide geo tooltip
+     */
+    function hideGeoTooltip() {
+        const tooltip = document.getElementById('geo-tooltip');
+        if (tooltip) {
+            tooltip.style.display = 'none';
+        }
+    }
+
+    /**
+     * Render geo table
+     */
+    function renderGeoTable(countries) {
+        if (!elements.geoTableBody) return;
+
+        if (!countries || countries.length === 0) {
+            elements.geoTableBody.innerHTML = `
+                <tr>
+                    <td colspan="3" class="empty-state">
+                        <p>No geographic data available</p>
+                    </td>
+                </tr>
+            `;
+            return;
+        }
+
+        // Calculate max for bar width
+        const maxVisitors = Math.max(...countries.map(c => c.visitors));
+
+        elements.geoTableBody.innerHTML = countries.slice(0, 10).map(country => {
+            const barWidth = maxVisitors > 0 ? (country.visitors / maxVisitors) * 100 : 0;
+            const flagUrl = country.country_code
+                ? `https://flagcdn.com/w20/${country.country_code.toLowerCase()}.png`
+                : null;
+
+            return `
+                <tr>
+                    <td>
+                        <span class="country-name">
+                            ${flagUrl ? `<img src="${flagUrl}" alt="" class="country-flag" onerror="this.style.display='none'">` : ''}
+                            ${escapeHtml(country.country)}
+                        </span>
+                    </td>
+                    <td class="text-right">
+                        <span class="visitor-bar" style="width: ${barWidth}%"></span>
+                        ${formatNumber(country.visitors)}
+                    </td>
+                    <td class="text-right">${country.percentage}%</td>
+                </tr>
+            `;
+        }).join('');
     }
 
     /**

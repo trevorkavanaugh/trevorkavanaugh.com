@@ -807,6 +807,145 @@ function register(app, db) {
   });
 
   // ----------------------------------------
+  // GET /api/analytics/dashboard/geo
+  // Geographic distribution of visitors
+  // ----------------------------------------
+  app.get('/api/analytics/dashboard/geo', auth, async (req, res) => {
+    try {
+      const { start_date, end_date } = req.query;
+      const dateRange = parseDateRange(start_date, end_date);
+
+      if (!dateRange.valid) {
+        return res.status(400).json({ error: dateRange.error });
+      }
+
+      const { start, end } = dateRange;
+
+      // Get visitor counts by country
+      const countries = db.prepare(`
+        SELECT
+          country,
+          COUNT(DISTINCT visitor_id) as visitors,
+          COUNT(*) as sessions
+        FROM sessions
+        WHERE DATE(started_at) BETWEEN ? AND ?
+          AND is_bot = 0
+          AND country IS NOT NULL
+          AND country != ''
+        GROUP BY country
+        ORDER BY visitors DESC
+      `).all(start, end);
+
+      // Get visitor counts by city (top 10)
+      const cities = db.prepare(`
+        SELECT
+          city,
+          region,
+          country,
+          COUNT(DISTINCT visitor_id) as visitors,
+          COUNT(*) as sessions
+        FROM sessions
+        WHERE DATE(started_at) BETWEEN ? AND ?
+          AND is_bot = 0
+          AND city IS NOT NULL
+          AND city != ''
+        GROUP BY city, region, country
+        ORDER BY visitors DESC
+        LIMIT 10
+      `).all(start, end);
+
+      // Get total unique visitors for percentage calculation
+      const total = db.prepare(`
+        SELECT COUNT(DISTINCT visitor_id) as total
+        FROM sessions
+        WHERE DATE(started_at) BETWEEN ? AND ?
+          AND is_bot = 0
+      `).get(start, end);
+
+      res.json({
+        success: true,
+        data: {
+          countries: countries.map(c => ({
+            country: c.country,
+            country_code: getCountryCode(c.country),
+            visitors: c.visitors,
+            sessions: c.sessions,
+            percentage: total.total > 0 ? ((c.visitors / total.total) * 100).toFixed(1) : 0
+          })),
+          cities: cities.map(c => ({
+            city: c.city,
+            region: c.region,
+            country: c.country,
+            visitors: c.visitors,
+            sessions: c.sessions
+          })),
+          total_visitors: total.total
+        }
+      });
+
+    } catch (err) {
+      console.error('Dashboard geo error:', err);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+
+  // Helper function to convert country name to ISO code
+  function getCountryCode(countryName) {
+    const countryMap = {
+      'United States': 'US',
+      'United Kingdom': 'GB',
+      'Canada': 'CA',
+      'Australia': 'AU',
+      'Germany': 'DE',
+      'France': 'FR',
+      'India': 'IN',
+      'Nigeria': 'NG',
+      'Italy': 'IT',
+      'Spain': 'ES',
+      'Brazil': 'BR',
+      'Mexico': 'MX',
+      'Japan': 'JP',
+      'China': 'CN',
+      'South Korea': 'KR',
+      'Netherlands': 'NL',
+      'Sweden': 'SE',
+      'Norway': 'NO',
+      'Denmark': 'DK',
+      'Finland': 'FI',
+      'Poland': 'PL',
+      'Russia': 'RU',
+      'Ukraine': 'UA',
+      'Romania': 'RO',
+      'Saudi Arabia': 'SA',
+      'United Arab Emirates': 'AE',
+      'Israel': 'IL',
+      'South Africa': 'ZA',
+      'Singapore': 'SG',
+      'Philippines': 'PH',
+      'Indonesia': 'ID',
+      'Malaysia': 'MY',
+      'Thailand': 'TH',
+      'Vietnam': 'VN',
+      'Pakistan': 'PK',
+      'Bangladesh': 'BD',
+      'Argentina': 'AR',
+      'Chile': 'CL',
+      'Colombia': 'CO',
+      'Peru': 'PE',
+      'Ireland': 'IE',
+      'Belgium': 'BE',
+      'Switzerland': 'CH',
+      'Austria': 'AT',
+      'Portugal': 'PT',
+      'Greece': 'GR',
+      'Czech Republic': 'CZ',
+      'Hungary': 'HU',
+      'New Zealand': 'NZ'
+    };
+    return countryMap[countryName] || null;
+  }
+
+  // ----------------------------------------
   // GET /api/analytics/dashboard/timeseries
   // Time-based metric visualization
   // ----------------------------------------

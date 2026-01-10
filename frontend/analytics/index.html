@@ -310,6 +310,38 @@
                 </div>
             </section>
 
+            <!-- Geographic Distribution -->
+            <section class="geo-section" aria-label="Geographic distribution">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Visitors by Country</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="geo-container">
+                            <div class="geo-map" id="geo-map"></div>
+                            <div class="geo-list">
+                                <table class="data-table" id="geo-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Country</th>
+                                            <th class="text-right">Visitors</th>
+                                            <th class="text-right">%</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="geo-table-body">
+                                        <tr class="table-loading">
+                                            <td colspan="3">
+                                                <div class="table-skeleton"></div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- Two Column Section -->
             <section class="data-tables-section" aria-label="Top pages and referrers">
                 <div class="tables-grid">
@@ -405,6 +437,8 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
     <script src="js/dashboard.js"></script>
 </body>
 </html>

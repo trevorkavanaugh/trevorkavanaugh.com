@@ -771,6 +771,108 @@ body {
 }
 
 /* ============================================
+   Geographic Map
+   ============================================ */
+.geo-section {
+    margin-bottom: var(--spacing-lg);
+}
+
+.geo-container {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: var(--spacing-lg);
+    min-height: 350px;
+}
+
+.geo-map {
+    position: relative;
+    background: var(--surface-color);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    min-height: 300px;
+}
+
+.geo-map svg {
+    width: 100%;
+    height: 100%;
+}
+
+.geo-map .country {
+    fill: #E5E7EB;
+    stroke: #fff;
+    stroke-width: 0.5;
+    transition: fill 0.2s ease;
+}
+
+.geo-map .country:hover {
+    fill: #93C5FD;
+    cursor: pointer;
+}
+
+.geo-map .country.has-visitors {
+    fill: #60A5FA;
+}
+
+.geo-map .country.high-visitors {
+    fill: #2563EB;
+}
+
+.geo-map .country.very-high-visitors {
+    fill: #1D4ED8;
+}
+
+.geo-list {
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+.geo-list .data-table tbody tr:hover {
+    background-color: var(--bg-hover);
+}
+
+.country-flag {
+    width: 20px;
+    height: 14px;
+    margin-right: 8px;
+    border-radius: 2px;
+    vertical-align: middle;
+}
+
+.country-name {
+    display: inline-flex;
+    align-items: center;
+}
+
+.visitor-bar {
+    display: inline-block;
+    height: 8px;
+    background: linear-gradient(90deg, #4A90E2, #60A5FA);
+    border-radius: 4px;
+    margin-right: 8px;
+    min-width: 4px;
+}
+
+@media (max-width: 1024px) {
+    .geo-container {
+        grid-template-columns: 1fr;
+    }
+
+    .geo-map {
+        min-height: 250px;
+    }
+
+    .geo-list {
+        max-height: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .geo-map {
+        min-height: 200px;
+    }
+}
+
+/* ============================================
    Data Tables
    ============================================ */
 .data-tables-section {
