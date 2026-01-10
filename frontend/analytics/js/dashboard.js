@@ -216,7 +216,10 @@
 
         const config = {
             dateFormat: 'Y-m-d',
-            maxDate: 'today'
+            maxDate: 'today',
+            static: true,
+            position: 'below',
+            disableMobile: true
         };
 
         if (elements.dateStart) {
