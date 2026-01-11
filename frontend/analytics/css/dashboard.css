@@ -942,10 +942,24 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--spacing-lg);
+    align-items: stretch;
+}
+
+.chart-geo-grid > .card {
+    display: flex;
+    flex-direction: column;
+    min-height: 380px;
+}
+
+.chart-geo-grid > .card > .card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .chart-geo-grid .chart-container {
-    height: 280px;
+    flex: 1;
+    min-height: 280px;
 }
 
 /* ============================================
@@ -962,28 +976,30 @@ body {
     min-height: 350px;
 }
 
+.geo-map {
+    position: relative;
+    background: var(--color-light-grey);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    min-height: 300px;
+}
+
 .geo-container-compact {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-md);
+    flex: 1;
 }
 
 .geo-container-compact .geo-map {
+    flex: 1;
     min-height: 180px;
-    height: 180px;
 }
 
 .geo-container-compact .geo-list {
-    max-height: 150px;
+    max-height: 130px;
     overflow-y: auto;
-}
-
-.geo-map {
-    position: relative;
-    background: var(--surface-color);
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    min-height: 300px;
+    flex-shrink: 0;
 }
 
 .geo-map svg {
@@ -1051,12 +1067,20 @@ body {
         grid-template-columns: 1fr;
     }
 
+    .chart-geo-grid > .card {
+        min-height: auto;
+    }
+
+    .chart-geo-grid .chart-container {
+        min-height: 300px;
+    }
+
     .geo-container {
         grid-template-columns: 1fr;
     }
 
     .geo-map {
-        min-height: 250px;
+        min-height: 280px;
     }
 
     .geo-list {
@@ -1064,8 +1088,7 @@ body {
     }
 
     .geo-container-compact .geo-map {
-        min-height: 220px;
-        height: 220px;
+        min-height: 250px;
     }
 
     .geo-container-compact .geo-list {

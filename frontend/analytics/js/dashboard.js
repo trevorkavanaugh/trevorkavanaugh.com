@@ -368,11 +368,21 @@
         return response.json();
     }
 
+    // Cache for world map data
+    let cachedWorldData = null;
+
     /**
      * Render geographic map using D3
      */
     async function renderGeoMap(countries) {
-        if (!elements.geoMap || typeof d3 === 'undefined') return;
+        if (!elements.geoMap) return;
+
+        // Check if D3 and topojson are loaded
+        if (typeof d3 === 'undefined' || typeof topojson === 'undefined') {
+            console.error('D3 or TopoJSON not loaded');
+            elements.geoMap.innerHTML = '<p class="empty-state">Map libraries not loaded</p>';
+            return;
+        }
 
         // Clear existing content
         elements.geoMap.innerHTML = '';
@@ -380,27 +390,41 @@
         // Create visitor lookup by country code
         const visitorsByCode = {};
         let maxVisitors = 0;
-        countries.forEach(c => {
+        (countries || []).forEach(c => {
             if (c.country_code) {
                 visitorsByCode[c.country_code] = c.visitors;
                 maxVisitors = Math.max(maxVisitors, c.visitors);
             }
         });
 
-        // Set up dimensions
+        // Wait a tick for layout to settle
+        await new Promise(resolve => requestAnimationFrame(resolve));
+
+        // Set up dimensions - use getBoundingClientRect for more reliable measurements
         const container = elements.geoMap;
-        const width = container.clientWidth || 600;
-        const height = container.clientHeight || 300;
+        const rect = container.getBoundingClientRect();
+        const width = rect.width || 400;
+        const height = rect.height || 200;
+
+        // If container has no dimensions, show placeholder
+        if (width < 50 || height < 50) {
+            elements.geoMap.innerHTML = '<p class="empty-state">Loading map...</p>';
+            // Retry after a short delay
+            setTimeout(() => renderGeoMap(countries), 500);
+            return;
+        }
 
         // Create SVG
         const svg = d3.select(container)
             .append('svg')
+            .attr('width', '100%')
+            .attr('height', '100%')
             .attr('viewBox', `0 0 ${width} ${height}`)
             .attr('preserveAspectRatio', 'xMidYMid meet');
 
-        // Create projection
+        // Create projection - adjusted for better fit
         const projection = d3.geoNaturalEarth1()
-            .scale(width / 5.5)
+            .scale(width / 5)
             .translate([width / 2, height / 2]);
 
         const path = d3.geoPath().projection(projection);
@@ -410,9 +434,13 @@
             .domain([1, 5, 20, 50])
             .range(['#E5E7EB', '#93C5FD', '#60A5FA', '#2563EB', '#1D4ED8']);
 
-        // Load world map data
+        // Load world map data (with caching)
         try {
-            const worldData = await d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json');
+            if (!cachedWorldData) {
+                cachedWorldData = await d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json');
+            }
+
+            const worldData = cachedWorldData;
             const countries110m = topojson.feature(worldData, worldData.objects.countries);
 
             // Country code lookup (numeric ID to ISO)
@@ -450,7 +478,12 @@
 
         } catch (error) {
             console.error('Failed to load map data:', error);
-            elements.geoMap.innerHTML = '<p class="empty-state">Map data unavailable</p>';
+            elements.geoMap.innerHTML = `
+                <div class="empty-state" style="padding: 20px; text-align: center;">
+                    <p style="margin-bottom: 8px;">Map data unavailable</p>
+                    <button class="btn btn--sm btn--secondary" onclick="location.reload()">Retry</button>
+                </div>
+            `;
         }
     }
 
