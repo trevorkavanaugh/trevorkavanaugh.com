@@ -434,10 +434,28 @@
             .domain([1, 5, 20, 50])
             .range(['#E5E7EB', '#93C5FD', '#60A5FA', '#2563EB', '#1D4ED8']);
 
-        // Load world map data (with caching)
+        // Load world map data (with caching and fallback CDNs)
         try {
             if (!cachedWorldData) {
-                cachedWorldData = await d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json');
+                // Try multiple CDNs in case one fails
+                const cdnUrls = [
+                    'https://unpkg.com/world-atlas@2.0.2/countries-110m.json',
+                    'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json',
+                    'https://raw.githubusercontent.com/topojson/world-atlas/master/countries-110m.json'
+                ];
+
+                for (const url of cdnUrls) {
+                    try {
+                        cachedWorldData = await d3.json(url);
+                        if (cachedWorldData) break;
+                    } catch (e) {
+                        console.warn(`Failed to load from ${url}:`, e.message);
+                    }
+                }
+
+                if (!cachedWorldData) {
+                    throw new Error('All CDN sources failed');
+                }
             }
 
             const worldData = cachedWorldData;
@@ -478,13 +496,49 @@
 
         } catch (error) {
             console.error('Failed to load map data:', error);
-            elements.geoMap.innerHTML = `
-                <div class="empty-state" style="padding: 20px; text-align: center;">
-                    <p style="margin-bottom: 8px;">Map data unavailable</p>
-                    <button class="btn btn--sm btn--secondary" onclick="location.reload()">Retry</button>
+            // Fallback: show a simple bar visualization instead
+            renderGeoBarChart(countries);
+        }
+    }
+
+    /**
+     * Fallback bar chart visualization for geo data
+     */
+    function renderGeoBarChart(countries) {
+        if (!elements.geoMap) return;
+
+        const topCountries = (countries || []).slice(0, 8);
+        if (topCountries.length === 0) {
+            elements.geoMap.innerHTML = '<div class="empty-state" style="padding: 20px; text-align: center;"><p>No geographic data</p></div>';
+            return;
+        }
+
+        const maxVisitors = Math.max(...topCountries.map(c => c.visitors));
+
+        const barsHtml = topCountries.map(country => {
+            const percentage = (country.visitors / maxVisitors) * 100;
+            const flagUrl = country.country_code
+                ? `https://flagcdn.com/w20/${country.country_code.toLowerCase()}.png`
+                : null;
+
+            return `
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                    ${flagUrl ? `<img src="${flagUrl}" alt="" style="width: 20px; height: 14px; border-radius: 2px;" onerror="this.style.display='none'">` : '<span style="width: 20px;"></span>'}
+                    <span style="width: 60px; font-size: 12px; color: #4C607B; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${escapeHtml(country.country)}</span>
+                    <div style="flex: 1; height: 20px; background: #E5E7EB; border-radius: 4px; overflow: hidden;">
+                        <div style="width: ${percentage}%; height: 100%; background: linear-gradient(90deg, #4A90E2, #60A5FA); border-radius: 4px;"></div>
+                    </div>
+                    <span style="width: 40px; text-align: right; font-size: 12px; font-weight: 600; color: #1D3557;">${formatNumber(country.visitors)}</span>
                 </div>
             `;
-        }
+        }).join('');
+
+        elements.geoMap.innerHTML = `
+            <div style="padding: 12px;">
+                <div style="font-size: 11px; color: #4C607B; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Top Countries by Visitors</div>
+                ${barsHtml}
+            </div>
+        `;
     }
 
     /**
@@ -670,26 +724,53 @@
 
         // Default data if none provided
         const labels = chartData?.labels || generateDefaultLabels();
-        const data = chartData?.data || generateDefaultData(labels.length);
+        const dailyData = chartData?.data || generateDefaultData(labels.length);
+
+        // Convert to cumulative data for growth visualization
+        const cumulativeData = [];
+        let runningTotal = 0;
+        for (const value of dailyData) {
+            runningTotal += value;
+            cumulativeData.push(runningTotal);
+        }
+
+        // Calculate trendline using linear regression
+        const trendlineData = calculateTrendline(cumulativeData);
 
         state.chart = new Chart(ctx, {
             type: 'line',
             data: {
                 labels: labels,
-                datasets: [{
-                    label: 'Visitors',
-                    data: data,
-                    borderColor: '#4A90E2',
-                    backgroundColor: 'rgba(74, 144, 226, 0.1)',
-                    borderWidth: 2,
-                    fill: true,
-                    tension: 0.3,
-                    pointRadius: 0,
-                    pointHoverRadius: 5,
-                    pointHoverBackgroundColor: '#4A90E2',
-                    pointHoverBorderColor: '#fff',
-                    pointHoverBorderWidth: 2
-                }]
+                datasets: [
+                    {
+                        label: 'Total Visitors',
+                        data: cumulativeData,
+                        borderColor: '#4A90E2',
+                        backgroundColor: createGradient(ctx, '#4A90E2'),
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#4A90E2',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        pointHoverRadius: 6,
+                        pointHoverBackgroundColor: '#4A90E2',
+                        pointHoverBorderColor: '#fff',
+                        pointHoverBorderWidth: 2
+                    },
+                    {
+                        label: 'Trend',
+                        data: trendlineData,
+                        borderColor: '#E74C3C',
+                        borderWidth: 2,
+                        borderDash: [6, 4],
+                        fill: false,
+                        tension: 0,
+                        pointRadius: 0,
+                        pointHoverRadius: 0
+                    }
+                ]
             },
             options: {
                 responsive: true,
@@ -700,7 +781,18 @@
                 },
                 plugins: {
                     legend: {
-                        display: false
+                        display: true,
+                        position: 'top',
+                        align: 'end',
+                        labels: {
+                            usePointStyle: true,
+                            pointStyle: 'line',
+                            boxWidth: 30,
+                            padding: 15,
+                            font: {
+                                size: 12
+                            }
+                        }
                     },
                     tooltip: {
                         backgroundColor: '#1D3557',
@@ -708,7 +800,15 @@
                         bodyColor: '#fff',
                         padding: 12,
                         cornerRadius: 8,
-                        displayColors: false
+                        displayColors: true,
+                        callbacks: {
+                            label: function(context) {
+                                if (context.dataset.label === 'Trend') {
+                                    return null; // Hide trend from tooltip
+                                }
+                                return `${context.dataset.label}: ${formatNumber(context.parsed.y)}`;
+                            }
+                        }
                     }
                 },
                 scales: {
@@ -743,6 +843,45 @@
                 }
             }
         });
+    }
+
+    /**
+     * Create gradient for chart fill
+     */
+    function createGradient(ctx, color) {
+        const gradient = ctx.createLinearGradient(0, 0, 0, 280);
+        gradient.addColorStop(0, color + '40'); // 25% opacity at top
+        gradient.addColorStop(1, color + '05'); // 2% opacity at bottom
+        return gradient;
+    }
+
+    /**
+     * Calculate trendline using linear regression
+     */
+    function calculateTrendline(data) {
+        const n = data.length;
+        if (n < 2) return data;
+
+        // Calculate sums for linear regression
+        let sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0;
+        for (let i = 0; i < n; i++) {
+            sumX += i;
+            sumY += data[i];
+            sumXY += i * data[i];
+            sumX2 += i * i;
+        }
+
+        // Calculate slope and intercept
+        const slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+        const intercept = (sumY - slope * sumX) / n;
+
+        // Generate trendline points
+        const trendline = [];
+        for (let i = 0; i < n; i++) {
+            trendline.push(Math.max(0, slope * i + intercept));
+        }
+
+        return trendline;
     }
 
     /**
