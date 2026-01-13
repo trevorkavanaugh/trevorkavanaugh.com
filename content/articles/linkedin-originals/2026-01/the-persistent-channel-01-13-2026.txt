@@ -1,0 +1,38 @@
+Topic: Software Supply Chain - The Persistent Channel (Part 1 of Software Delivery Series)
+Date: 01/13/2026
+LinkedIn Post #21
+
+---
+
+You approved that software three years ago. But that's not what's running on your systems today.
+
+Every update since — every patch, every bug fix, every "minor version" — has been your vendor deploying new code into your environment. And most of it happened automatically.
+
+This is modern software delivery. And it's worth understanding what you've actually agreed to.
+
+🔴 The persistent channel
+
+When you install software, you're not just approving a product. You're opening a permanent pathway between your vendor and your systems.
+
+Auto-updates mean your vendor can push code whenever they want. Most do — weekly, sometimes daily. Each push is a deployment. Each deployment is a change you didn't review.
+
+You approved version 2.0 three years ago. You're running version 2.4.187 now. Did anyone approve those 187 updates individually? Or did they just... happen?
+
+⚠️ SaaS makes it invisible
+
+On-premise software at least has a version number you can point to. SaaS doesn't even give you that.
+
+Every time you log into a browser-based application, you're getting whatever version the vendor deployed last. Could have been this morning. Could have been an hour ago.
+
+There's no approval step. No change control window. No "we'll update during our maintenance period." You're always on the latest version whether you evaluated it or not.
+
+Your vendor's deployment schedule is now your deployment schedule.
+
+📋 What this actually means
+
+Your risk assessment evaluated a point in time — the version that existed when you did due diligence. But software delivery means continuous change.
+
+The attack surface isn't static. It evolves every time your vendor pushes an update. And most organizations have no visibility into when those pushes happen or what they contain.
+
+
+When was the last time you knew — actually knew — what changed in an update before it hit your environment?
