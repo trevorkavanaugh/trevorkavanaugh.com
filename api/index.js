@@ -381,54 +381,6 @@ app.post('/api/track', (req, res) => {
   }
 });
 
-app.get('/api/stats', (req, res) => {
-  try {
-    const stats = {};
-
-    const counts = db.prepare(`
-      SELECT event_type, COUNT(*) as count
-      FROM events WHERE suspicious = 0
-      GROUP BY event_type
-    `).all();
-
-    stats.totals = counts.reduce((acc, row) => {
-      acc[row.event_type] = row.count;
-      return acc;
-    }, {});
-
-    const recent = db.prepare(`
-      SELECT event_type, DATE(created_at) as date, COUNT(*) as count
-      FROM events
-      WHERE created_at >= datetime('now', '-7 days') AND suspicious = 0
-      GROUP BY event_type, DATE(created_at)
-      ORDER BY date DESC
-    `).all();
-
-    stats.last7days = recent;
-
-    const uniqueVisitors = db.prepare(`
-      SELECT COUNT(DISTINCT ip_hash) as count FROM events WHERE suspicious = 0
-    `).get();
-    stats.uniqueVisitors = uniqueVisitors.count;
-
-    const suspiciousCount = db.prepare(`
-      SELECT COUNT(*) as count FROM events WHERE suspicious = 1
-    `).get();
-    stats.suspiciousBlocked = suspiciousCount.count;
-
-    // Subscriber count
-    const subscriberCount = db.prepare(`
-      SELECT COUNT(*) as count FROM subscribers WHERE confirmed = 1 AND unsubscribed = 0
-    `).get();
-    stats.activeSubscribers = subscriberCount.count;
-
-    res.json(stats);
-  } catch (err) {
-    console.error('Stats error:', err);
-    res.status(500).json({ error: 'Internal error' });
-  }
-});
-
 // ============================================
 // ROUTES - Newsletter Subscription
 // ============================================
