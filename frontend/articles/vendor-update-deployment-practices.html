@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WXHBC0YD0Z"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WXHBC0YD0Z');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Two vendors with identical SOC 2s can have completely different operational risk. The difference is how they deploy updates—and most assessments don't ask.">
+    <title>How Vendors Deploy Updates Matters More Than You Think | Trevor Kavanaugh</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/articles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="/js/analytics.js" defer></script>
+</head>
+<body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header -->
+    <header class="site-header" id="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">TK</div>
+                <span class="logo-text">Trevor Kavanaugh</span>
+            </a>
+
+            <nav class="main-nav" aria-label="Main navigation">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="../insights.html" class="active">Insights</a></li>
+                    <li><a href="../index.html#speaking">Speaking</a></li>
+                    <li><a href="../index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+
+            <button class="menu-toggle" aria-label="Open navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <button class="menu-close" aria-label="Close navigation menu">
+            <span>&times;</span>
+        </button>
+        <nav aria-label="Mobile navigation">
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../insights.html">Insights</a></li>
+                <li><a href="../index.html#speaking">Speaking</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu-contact">
+                <a href="mailto:trevor@trevorkavanaugh.com">trevor@trevorkavanaugh.com</a>
+                <a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank">LinkedIn</a>
+            </div>
+        </nav>
+    </div>
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+
+    <!-- Main Content -->
+    <main id="main-content">
+
+        <!-- Article Hero -->
+        <article class="article-page">
+            <header class="article-hero">
+                <div class="article-hero-container">
+                    <span class="article-category category-tprm">Software Supply Chain Risk</span>
+                    <h1>How Vendors Deploy Updates Matters More Than You Think</h1>
+                    <div class="article-meta-line">
+                        <time datetime="2026-01-15">January 15, 2026</time>
+                        <span class="separator">•</span>
+                        <span class="read-time">4 min read</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Article Body -->
+            <div class="article-content-wrapper">
+                <div class="article-content">
+                    <p>Not all vendors deploy updates the same way. The differences matter more than most risk assessments acknowledge.</p>
+
+                    <p>Your vendor is continuously pushing code into your environment. That's the reality of <a href="the-persistent-channel.html">modern software delivery</a>. But <em>how</em> they push it—that's where the risk actually lives.</p>
+
+                    <h2>Simultaneous vs. Staged Deployment</h2>
+
+                    <p>Some vendors push updates to every customer simultaneously. One release, everyone gets it, same day. It's efficient from a support perspective—one version to maintain, one set of documentation, no compatibility questions.</p>
+
+                    <p>Others roll out in stages. A small group first—maybe 1% of customers. Wait. Monitor. If nothing breaks, expand to 10%. Then 50%. Then everyone. The staged approach takes longer, but it catches problems before they become widespread.</p>
+
+                    <p>CrowdStrike pushed to everyone at once. One bad file, 8.5 million devices, no buffer. A staged rollout would have caught the problem at 1% before it became a global outage affecting hospitals, airlines, and financial institutions simultaneously.</p>
+
+                    <p>This isn't hindsight. It's a design choice. Some vendors make it, some don't. And your due diligence questionnaire probably doesn't distinguish between them.</p>
+
+                    <h2>Rollback Capability</h2>
+
+                    <p>When an update breaks something, can your vendor undo it? How fast?</p>
+
+                    <p>Some vendors can roll back a bad deployment in minutes. They've built their <a href="software-supply-chain-delivery.html">delivery pipeline</a> with failure as an expected scenario. The infrastructure exists to revert quickly because someone thought about it in advance.</p>
+
+                    <p>Others can't. Once it's pushed, you're waiting for a fix to be developed, tested, and deployed. Could be hours. Could be days. There's no "undo" button because the architecture wasn't designed with one.</p>
+
+                    <p>The difference between "brief disruption" and "extended outage" often comes down to whether rollback was built into the delivery process or bolted on as an afterthought.</p>
+
+                    <h2>Visibility and Notification</h2>
+
+                    <p>Some vendors tell you when they deploy. Release notes. Changelogs. Advance notice for major updates. You know what changed and when it changed, so you can correlate issues with deployments and respond intelligently when something goes wrong.</p>
+
+                    <p>Others deploy silently. You find out when something looks different—or when something breaks. The first indication that a deployment happened is often a support ticket from your users or an alert from your monitoring systems.</p>
+
+                    <p>This isn't about getting approval rights you'll never have. It's about knowing when your environment changed so you can respond intelligently when something goes wrong. Without <a href="software-supply-chain-visibility.html">visibility into the deployment process</a>, you're troubleshooting blind.</p>
+
+                    <h2>Why This Matters for TPRM</h2>
+
+                    <p>Two vendors can have identical security certifications. Same SOC 2. Same policies on paper. Same checkboxes ticked on your standard due diligence questionnaire.</p>
+
+                    <p>One deploys in stages with rollback capability and customer notification. The other pushes to everyone simultaneously with no undo button and no changelog.</p>
+
+                    <p>Your due diligence probably doesn't distinguish between them. But your operational risk exposure is completely different.</p>
+
+                    <p>The vendor with staged rollouts, fast rollback, and clear notification gives you resilience. When something goes wrong—and something always goes wrong eventually—the blast radius is limited, recovery is fast, and you know what happened.</p>
+
+                    <p>The vendor without those capabilities gives you a single point of failure with no safety net. Same SOC 2 report. Completely different risk profile.</p>
+
+                    <blockquote>
+                        "Two vendors with identical SOC 2s. One deploys in stages with rollback capability. The other pushes to everyone at once with no undo button. Your due diligence probably doesn't distinguish between them."
+                    </blockquote>
+
+                    <p><strong>Do you know how your critical vendors deploy updates—or just that they do?</strong></p>
+
+                    <p><em>For more perspectives on third-party risk management, <a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank">connect with me on LinkedIn</a>.</em></p>
+
+                </div>
+            </div>
+
+            <!-- Author Box -->
+            <section class="author-box">
+                <div class="author-box-container">
+                    <div class="author-info">
+                        <div class="author-avatar">
+                            <img src="../images/trevor_kavanaugh_headshot.jpg" alt="Trevor Kavanaugh" style="object-position: center 25%;">
+                        </div>
+                        <div class="author-details">
+                            <h3>About the Author</h3>
+                            <p><strong>Trevor Kavanaugh</strong> | VP, Third-Party Risk Management</p>
+                            <p>With over a decade in banking, I've built my career across the risk spectrum—from compliance and BSA/AML to internal audit, now leading third-party risk management at an FDIC-chartered regional bank with DFPI oversight. This journey gave me a ground-level view of how risk actually functions across financial institutions.</p>
+                            <p>I believe in building risk frameworks designed for modern, evolving threats—not just satisfying checkboxes. Risk management runs deeper than prescriptive compliance rules. It's abstract, constantly shifting, and demands continuous adaptation. I challenge legacy thinking and status quo approaches to push our profession forward.</p>
+                            <p>My goal is simple: help everyone do better.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Related Articles -->
+            <section class="related-articles">
+                <div class="container">
+                    <h2>Continue Reading</h2>
+                    <div class="related-articles-grid">
+                        <article class="article-card">
+                            <a href="the-persistent-channel.html" class="article-card-link">
+                                <div class="article-card-content">
+                                    <span class="article-category category-tprm">TPRM</span>
+                                    <h3 class="article-title">The Persistent Channel</h3>
+                                    <p class="article-excerpt">You approved version 2.0 three years ago. You're running version 2.4.187 now. Did anyone approve those 187 updates individually?</p>
+                                    <div class="article-meta">
+                                        <span class="article-date">January 13, 2026</span>
+                                        <span class="article-read-more">Read more →</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                        <article class="article-card">
+                            <a href="software-supply-chain-delivery.html" class="article-card-link">
+                                <div class="article-card-content">
+                                    <span class="article-category category-tprm">TPRM</span>
+                                    <h3 class="article-title">How Your Vendor's Software Gets Delivered</h3>
+                                    <p class="article-excerpt">SolarWinds and CrowdStrike had nothing to do with software quality. They had everything to do with how software gets delivered to your systems.</p>
+                                    <div class="article-meta">
+                                        <span class="article-date">January 8, 2026</span>
+                                        <span class="article-read-more">Read more →</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                        <article class="article-card">
+                            <a href="software-supply-chain-visibility.html" class="article-card-link">
+                                <div class="article-card-content">
+                                    <span class="article-category category-tprm">TPRM</span>
+                                    <h3 class="article-title">Software Supply Chain Visibility</h3>
+                                    <p class="article-excerpt">Some vendors know exactly what's in their software. Others don't. The difference shows up when a vulnerability drops and you're waiting for answers.</p>
+                                    <div class="article-meta">
+                                        <span class="article-date">January 6, 2026</span>
+                                        <span class="article-read-more">Read more →</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <!-- CTA Section -->
+        <section class="cta" id="contact">
+            <div class="container">
+                <h2>Continue the Conversation</h2>
+                <p>Have thoughts on this topic? I'd love to hear your perspective. Connect with me on LinkedIn or reach out directly.</p>
+                <div class="cta-buttons">
+                    <a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank" class="btn btn-cta">Connect on LinkedIn →</a>
+                    <a href="mailto:trevor@trevorkavanaugh.com" class="btn btn-secondary">Send an Email</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <div class="logo-icon">TK</div>
+                <span>Trevor Kavanaugh</span>
+            </div>
+
+            <div class="footer-columns">
+                <div class="footer-col">
+                    <h3>Navigation</h3>
+                    <nav aria-label="Footer navigation">
+                        <ul>
+                            <li><a href="../index.html">Home</a></li>
+                            <li><a href="../about.html">About</a></li>
+                            <li><a href="../insights.html">Insights</a></li>
+                            <li><a href="../index.html#speaking">Speaking</a></li>
+                            <li><a href="../index.html#contact">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Connect</h3>
+                    <ul class="contact-info">
+                        <li><a href="mailto:trevor@trevorkavanaugh.com">trevor@trevorkavanaugh.com</a></li>
+                        <li><a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank">LinkedIn</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <p style="color: #8899aa; font-size: 14px; margin-bottom: 12px;">New articles every Tuesday & Thursday</p>
+                    <form id="newsletter-form" class="newsletter-form">
+                        <div class="newsletter-input-group">
+                            <input type="email" id="newsletter-email" placeholder="Enter your email" required>
+                            <button type="submit">Subscribe</button>
+                        </div>
+                        <p id="newsletter-message" class="newsletter-message"></p>
+                    </form>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2026 Trevor Kavanaugh</p>
+                <nav class="legal-nav" aria-label="Legal navigation">
+                    <a href="../privacy.html">Privacy Policy</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>
