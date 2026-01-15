@@ -482,10 +482,9 @@
         // Use sendBeacon for unload (more reliable)
         if (useBeacon && navigator.sendBeacon) {
             try {
-                const success = navigator.sendBeacon(
-                    CONFIG.endpoint,
-                    JSON.stringify(payload)
-                );
+                // Use Blob with explicit Content-Type for proper parsing on server
+                const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
+                const success = navigator.sendBeacon(CONFIG.endpoint, blob);
                 if (!success) {
                     // Beacon failed, put events back in queue
                     eventQueue.unshift(...events);
@@ -918,7 +917,18 @@
             state.visitorId = getVisitorId();
             state.visitCount = getVisitCount();
             state.sessionId = getSessionId();
-            state.context = getDeviceContext();
+
+            // Build context with device info, referrer, and UTM params
+            const deviceContext = getDeviceContext();
+            const referrer = parseReferrer(document.referrer);
+            const utmParams = getUTMParams();
+            state.context = {
+                ...deviceContext,
+                referrer_url: referrer.url,
+                referrer_domain: referrer.domain,
+                referrer_type: referrer.type,
+                ...utmParams
+            };
 
             debug('Visitor ID:', state.visitorId);
             debug('Session ID:', state.sessionId);

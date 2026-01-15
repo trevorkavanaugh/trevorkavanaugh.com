@@ -992,7 +992,13 @@ app.post('/api/analytics/collect', analyticsCollectLimiter, express.text({ type:
 
     // Validate payload exists
     if (!payload) {
-      console.error('Analytics collect: Invalid payload format');
+      console.error('Analytics collect: Invalid payload format', {
+        contentType: req.get('content-type'),
+        bodyType: typeof req.body,
+        bodyLength: req.body ? String(req.body).length : 0,
+        origin: req.get('origin'),
+        userAgent: req.get('user-agent')?.substring(0, 100)
+      });
       return res.status(204).end();
     }
 
@@ -1000,7 +1006,14 @@ app.post('/api/analytics/collect', analyticsCollectLimiter, express.text({ type:
 
     // Validate required fields
     if (!visitor_id || !session_id || !Array.isArray(events) || events.length === 0) {
-      console.error('Analytics collect: Missing required fields');
+      console.error('Analytics collect: Missing required fields', {
+        hasVisitorId: !!visitor_id,
+        hasSessionId: !!session_id,
+        eventsIsArray: Array.isArray(events),
+        eventsLength: events?.length || 0,
+        origin: req.get('origin'),
+        path: events?.[0]?.data?.path
+      });
       return res.status(204).end();
     }
 
@@ -1162,7 +1175,7 @@ app.post('/api/analytics/collect', analyticsCollectLimiter, express.text({ type:
             eventData.url?.substring(0, 500) || '',
             eventData.path?.substring(0, 200) || '/',
             eventData.title?.substring(0, 200) || null,
-            eventData.referrer?.substring(0, 500) || null,
+            eventData.referrer_url?.substring(0, 500) || null,
             eventTimestamp,
             now
           );
@@ -1269,8 +1282,13 @@ app.post('/api/analytics/collect', analyticsCollectLimiter, express.text({ type:
     return res.status(204).end();
 
   } catch (err) {
-    // Log error but still return 204 to not break client
-    console.error('Analytics collect error:', err);
+    // Log error with context but still return 204 to not break client
+    console.error('Analytics collect error:', {
+      error: err.message,
+      stack: err.stack?.split('\n').slice(0, 3).join('\n'),
+      origin: req.get('origin'),
+      contentType: req.get('content-type')
+    });
     return res.status(204).end();
   }
 });
