@@ -277,10 +277,10 @@
         const params = new URLSearchParams();
 
         if (state.dateRange.start) {
-            params.append('start', formatDate(state.dateRange.start));
+            params.append('start_date', formatDate(state.dateRange.start));
         }
         if (state.dateRange.end) {
-            params.append('end', formatDate(state.dateRange.end));
+            params.append('end_date', formatDate(state.dateRange.end));
         }
 
         return params.toString();
@@ -368,11 +368,21 @@
         return response.json();
     }
 
+    // Cache for world map data
+    let cachedWorldData = null;
+
     /**
      * Render geographic map using D3
      */
     async function renderGeoMap(countries) {
-        if (!elements.geoMap || typeof d3 === 'undefined') return;
+        if (!elements.geoMap) return;
+
+        // Check if D3 and topojson are loaded
+        if (typeof d3 === 'undefined' || typeof topojson === 'undefined') {
+            console.error('D3 or TopoJSON not loaded');
+            elements.geoMap.innerHTML = '<p class="empty-state">Map libraries not loaded</p>';
+            return;
+        }
 
         // Clear existing content
         elements.geoMap.innerHTML = '';
@@ -380,27 +390,42 @@
         // Create visitor lookup by country code
         const visitorsByCode = {};
         let maxVisitors = 0;
-        countries.forEach(c => {
+        (countries || []).forEach(c => {
             if (c.country_code) {
                 visitorsByCode[c.country_code] = c.visitors;
                 maxVisitors = Math.max(maxVisitors, c.visitors);
             }
         });
 
-        // Set up dimensions
+        // Wait a tick for layout to settle
+        await new Promise(resolve => requestAnimationFrame(resolve));
+
+        // Set up dimensions - use getBoundingClientRect for more reliable measurements
         const container = elements.geoMap;
-        const width = container.clientWidth || 600;
-        const height = container.clientHeight || 300;
+        const rect = container.getBoundingClientRect();
+        const width = rect.width || 400;
+        const height = rect.height || 200;
+
+        // If container has no dimensions, show placeholder
+        if (width < 50 || height < 50) {
+            elements.geoMap.innerHTML = '<p class="empty-state">Loading map...</p>';
+            // Retry after a short delay
+            setTimeout(() => renderGeoMap(countries), 500);
+            return;
+        }
 
         // Create SVG
         const svg = d3.select(container)
             .append('svg')
+            .attr('width', '100%')
+            .attr('height', '100%')
             .attr('viewBox', `0 0 ${width} ${height}`)
             .attr('preserveAspectRatio', 'xMidYMid meet');
 
-        // Create projection
-        const projection = d3.geoNaturalEarth1()
-            .scale(width / 5.5)
+        // Create projection - zoomed out to show more of the world
+        const projection = d3.geoMercator()
+            .scale(width / 6)
+            .center([0, 25])
             .translate([width / 2, height / 2]);
 
         const path = d3.geoPath().projection(projection);
@@ -410,9 +435,31 @@
             .domain([1, 5, 20, 50])
             .range(['#E5E7EB', '#93C5FD', '#60A5FA', '#2563EB', '#1D4ED8']);
 
-        // Load world map data
+        // Load world map data (with caching and fallback CDNs)
         try {
-            const worldData = await d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json');
+            if (!cachedWorldData) {
+                // Try multiple CDNs in case one fails
+                const cdnUrls = [
+                    'https://unpkg.com/world-atlas@2.0.2/countries-110m.json',
+                    'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json',
+                    'https://raw.githubusercontent.com/topojson/world-atlas/master/countries-110m.json'
+                ];
+
+                for (const url of cdnUrls) {
+                    try {
+                        cachedWorldData = await d3.json(url);
+                        if (cachedWorldData) break;
+                    } catch (e) {
+                        console.warn(`Failed to load from ${url}:`, e.message);
+                    }
+                }
+
+                if (!cachedWorldData) {
+                    throw new Error('All CDN sources failed');
+                }
+            }
+
+            const worldData = cachedWorldData;
             const countries110m = topojson.feature(worldData, worldData.objects.countries);
 
             // Country code lookup (numeric ID to ISO)
@@ -450,6 +497,7 @@
 
         } catch (error) {
             console.error('Failed to load map data:', error);
+            // Fallback: show a simple message
             elements.geoMap.innerHTML = '<p class="empty-state">Map data unavailable</p>';
         }
     }
@@ -460,16 +508,17 @@
     async function loadCountryCodeMapping() {
         // Common country numeric IDs to ISO codes
         return {
-            '840': 'US', '826': 'GB', '124': 'CA', '36': 'AU', '276': 'DE',
-            '250': 'FR', '356': 'IN', '566': 'NG', '380': 'IT', '724': 'ES',
-            '76': 'BR', '484': 'MX', '392': 'JP', '156': 'CN', '410': 'KR',
-            '528': 'NL', '752': 'SE', '578': 'NO', '208': 'DK', '246': 'FI',
-            '616': 'PL', '643': 'RU', '804': 'UA', '642': 'RO', '682': 'SA',
-            '784': 'AE', '376': 'IL', '710': 'ZA', '702': 'SG', '608': 'PH',
-            '360': 'ID', '458': 'MY', '764': 'TH', '704': 'VN', '586': 'PK',
-            '50': 'BD', '32': 'AR', '152': 'CL', '170': 'CO', '604': 'PE',
-            '372': 'IE', '56': 'BE', '756': 'CH', '40': 'AT', '620': 'PT',
-            '300': 'GR', '203': 'CZ', '348': 'HU', '554': 'NZ'
+            '4': 'AF', '8': 'AL', '32': 'AR', '36': 'AU', '40': 'AT',
+            '50': 'BD', '56': 'BE', '76': 'BR', '124': 'CA', '152': 'CL',
+            '156': 'CN', '170': 'CO', '203': 'CZ', '208': 'DK', '246': 'FI',
+            '250': 'FR', '276': 'DE', '300': 'GR', '348': 'HU', '356': 'IN',
+            '360': 'ID', '372': 'IE', '376': 'IL', '380': 'IT', '392': 'JP',
+            '410': 'KR', '458': 'MY', '484': 'MX', '528': 'NL', '554': 'NZ',
+            '566': 'NG', '578': 'NO', '586': 'PK', '604': 'PE', '608': 'PH',
+            '616': 'PL', '620': 'PT', '642': 'RO', '643': 'RU', '682': 'SA',
+            '702': 'SG', '704': 'VN', '710': 'ZA', '724': 'ES', '752': 'SE',
+            '756': 'CH', '764': 'TH', '784': 'AE', '804': 'UA', '826': 'GB',
+            '840': 'US'
         };
     }
 
@@ -780,7 +829,7 @@
 
         elements.topReferrersBody.innerHTML = referrers.map(ref => `
             <tr>
-                <td>${escapeHtml(ref.domain || ref.source || 'Direct')}</td>
+                <td><span class="referrer-source" title="${escapeHtml(ref.domain || ref.source || 'Direct')}">${escapeHtml(ref.domain || ref.source || 'Direct')}</span></td>
                 <td><span class="referrer-badge referrer-badge--${ref.type || 'direct'}">${ref.type || 'Direct'}</span></td>
                 <td class="text-right">${formatNumber(ref.visits)}</td>
             </tr>
