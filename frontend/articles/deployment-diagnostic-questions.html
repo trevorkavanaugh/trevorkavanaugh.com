@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WXHBC0YD0Z"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WXHBC0YD0Z');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Three diagnostic questions that reveal whether your vendors have built intentional deployment infrastructure—or are just winging it with whatever their dev team decided years ago.">
+    <title>Diagnostic Questions That Reveal Vendor Deployment Maturity | Trevor Kavanaugh</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/articles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="/js/analytics.js" defer></script>
+</head>
+<body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header -->
+    <header class="site-header" id="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">TK</div>
+                <span class="logo-text">Trevor Kavanaugh</span>
+            </a>
+
+            <nav class="main-nav" aria-label="Main navigation">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="../insights.html" class="active">Insights</a></li>
+                    <li><a href="../index.html#speaking">Speaking</a></li>
+                    <li><a href="../index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+
+            <button class="menu-toggle" aria-label="Open navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <button class="menu-close" aria-label="Close navigation menu">
+            <span>&times;</span>
+        </button>
+        <nav aria-label="Mobile navigation">
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../insights.html">Insights</a></li>
+                <li><a href="../index.html#speaking">Speaking</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu-contact">
+                <a href="mailto:trevor@trevorkavanaugh.com">trevor@trevorkavanaugh.com</a>
+                <a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank">LinkedIn</a>
+            </div>
+        </nav>
+    </div>
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+
+    <!-- Main Content -->
+    <main id="main-content">
+
+        <!-- Article Hero -->
+        <article class="article-page">
+            <header class="article-hero">
+                <div class="article-hero-container">
+                    <span class="article-category category-tprm">Software Supply Chain Risk</span>
+                    <h1>Diagnostic Questions That Reveal Vendor Deployment Maturity</h1>
+                    <div class="article-meta-line">
+                        <time datetime="2026-01-20">January 20, 2026</time>
+                        <span class="separator">•</span>
+                        <span class="read-time">4 min read</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Article Body -->
+            <div class="article-content-wrapper">
+                <div class="article-content">
+                    <p>We've established that your vendors <a href="the-persistent-channel.html">continuously push code into your environment</a>, and that there are meaningful <a href="vendor-update-deployment-practices.html">differences in how they do it</a>—staged versus simultaneous rollouts, rollback capability, notification practices. The natural next question: how do you actually find out what your vendors do?</p>
+
+                    <p>You ask. But you ask the <strong>right</strong> questions.</p>
+
+                    <h2>Questions That Reveal Maturity</h2>
+
+                    <p>There are three questions that cut through the marketing language and reveal whether a vendor has built intentional deployment infrastructure—or is just doing whatever their dev team decided years ago and never revisited.</p>
+
+                    <h3>"How do you deploy updates to customers?"</h3>
+
+                    <p>Vague answers like "we follow best practices" or "we have a robust deployment process" tell you nothing. They're compliance-speak designed to satisfy a checklist without revealing anything substantive. Every vendor claims best practices. Very few can describe what those practices actually are.</p>
+
+                    <p>Specific answers tell a different story. "Staged rollout over 72 hours starting with 5% of customers" is a real answer. It means someone actually thought about deployment risk and built infrastructure to manage it. "Continuous deployment with feature flags for controlled rollout" is a real answer. "We push when QA passes" is also a real answer—it just tells you they haven't built staged deployment into their process.</p>
+
+                    <p>The specificity of the response is the signal. Mature vendors can walk you through their deployment pipeline because they designed it intentionally. Immature vendors fumble because they've never had to articulate something that just happens.</p>
+
+                    <h3>"If a bad update goes out, how fast can you roll it back?"</h3>
+
+                    <p>The mature answer includes a timeframe. Minutes, not hours. And not just a timeframe—a description of what actually happens. "We can roll back to the previous version in under 10 minutes" is credible. "Our platform automatically reverts if error rates spike above threshold" is even better.</p>
+
+                    <p>If they hesitate, or start talking about "developing a patch" or "pushing a fix," that's not rollback. That's damage control. There's a fundamental difference between undoing a deployment and deploying a repair. The first takes minutes because the infrastructure exists. The second takes hours or days because you're starting from scratch.</p>
+
+                    <p>Vendors without <a href="vendor-update-deployment-practices.html">true rollback capability</a> often don't realize they're lacking it. They've never needed it—until they do. And by then, you're both waiting while engineering scrambles.</p>
+
+                    <h3>"How do customers find out when you've deployed changes?"</h3>
+
+                    <p>Release notes? Email notifications? In-app changelog? Nothing?</p>
+
+                    <p>The answer tells you whether you'll know when your environment changed—or whether you'll be guessing when something breaks. This matters more than it seems. When an incident occurs, one of the first questions is "what changed?" If you have no <a href="software-supply-chain-visibility.html">visibility into your vendor's deployment schedule</a>, you're troubleshooting blind.</p>
+
+                    <p>Some vendors provide proactive notification for major releases and maintain detailed changelogs for everything else. Some only communicate when they have to. Some don't communicate at all. Knowing which type you're dealing with changes how you monitor and respond.</p>
+
+                    <h2>What the Answers Tell You</h2>
+
+                    <p>These aren't gotcha questions. They're diagnostic.</p>
+
+                    <p>A vendor who can answer specifically has built deployment infrastructure intentionally. Someone thought about failure modes, recovery processes, and customer communication. Someone made deliberate decisions about rollout strategy and built the tooling to execute it.</p>
+
+                    <p>A vendor who fumbles through vague responses is probably deploying however their dev team decided years ago—and never revisited it. That doesn't make them a bad vendor. It means deployment practices evolved organically rather than by design.</p>
+
+                    <p>Neither answer disqualifies them. But it changes your risk profile. And it should change your monitoring.</p>
+
+                    <h2>The Practical Shift</h2>
+
+                    <p>You can't control your vendors' deployment schedules. That leverage doesn't exist for most of us. You're not going to call your core banking provider and demand they switch to staged rollouts.</p>
+
+                    <p>But you can know what you're exposed to. You can prioritize monitoring and incident response around the vendors whose deployment practices create the most uncertainty. You can ask better questions during due diligence and renewals. You can make risk-aware decisions about concentration with vendors who can't articulate their deployment process.</p>
+
+                    <p>Visibility isn't control. But it's not nothing either.</p>
+
+                    <blockquote>
+                        "A vendor who can answer specifically has built deployment infrastructure intentionally. A vendor who fumbles through vague responses is probably deploying however their dev team decided years ago—and never revisited it."
+                    </blockquote>
+
+                    <p><strong>What would your critical vendors say if you asked them to walk you through exactly how an update gets from their developers to your environment?</strong></p>
+
+                    <p><em>For more perspectives on third-party risk management, <a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank">connect with me on LinkedIn</a>.</em></p>
+
+                </div>
+            </div>
+
+            <!-- Author Box -->
+            <section class="author-box">
+                <div class="author-box-container">
+                    <div class="author-info">
+                        <div class="author-avatar">
+                            <img src="../images/trevor_kavanaugh_headshot.jpg" alt="Trevor Kavanaugh" style="object-position: center 25%;">
+                        </div>
+                        <div class="author-details">
+                            <h3>About the Author</h3>
+                            <p><strong>Trevor Kavanaugh</strong> | VP, Third-Party Risk Management</p>
+                            <p>With over a decade in banking, I've built my career across the risk spectrum—from compliance and BSA/AML to internal audit, now leading third-party risk management at an FDIC-chartered regional bank with DFPI oversight. This journey gave me a ground-level view of how risk actually functions across financial institutions.</p>
+                            <p>I believe in building risk frameworks designed for modern, evolving threats—not just satisfying checkboxes. Risk management runs deeper than prescriptive compliance rules. It's abstract, constantly shifting, and demands continuous adaptation. I challenge legacy thinking and status quo approaches to push our profession forward.</p>
+                            <p>My goal is simple: help everyone do better.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Related Articles -->
+            <section class="related-articles">
+                <div class="container">
+                    <h2>Continue Reading</h2>
+                    <div class="related-articles-grid">
+                        <article class="article-card">
+                            <a href="vendor-update-deployment-practices.html" class="article-card-link">
+                                <div class="article-card-content">
+                                    <span class="article-category category-tprm">Software Supply Chain Risk</span>
+                                    <h3 class="article-title">How Vendors Deploy Updates Matters More Than You Think</h3>
+                                    <p class="article-excerpt">Two vendors with identical SOC 2s can have completely different operational risk. The difference is how they deploy updates.</p>
+                                    <div class="article-meta">
+                                        <span class="article-date">January 15, 2026</span>
+                                        <span class="article-read-more">Read more →</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                        <article class="article-card">
+                            <a href="the-persistent-channel.html" class="article-card-link">
+                                <div class="article-card-content">
+                                    <span class="article-category category-tprm">TPRM</span>
+                                    <h3 class="article-title">The Persistent Channel</h3>
+                                    <p class="article-excerpt">You approved version 2.0 three years ago. You're running version 2.4.187 now. Did anyone approve those 187 updates individually?</p>
+                                    <div class="article-meta">
+                                        <span class="article-date">January 13, 2026</span>
+                                        <span class="article-read-more">Read more →</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                        <article class="article-card">
+                            <a href="software-supply-chain-delivery.html" class="article-card-link">
+                                <div class="article-card-content">
+                                    <span class="article-category category-tprm">TPRM</span>
+                                    <h3 class="article-title">How Your Vendor's Software Gets Delivered</h3>
+                                    <p class="article-excerpt">SolarWinds and CrowdStrike had nothing to do with software quality. They had everything to do with how software gets delivered.</p>
+                                    <div class="article-meta">
+                                        <span class="article-date">January 8, 2026</span>
+                                        <span class="article-read-more">Read more →</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <!-- CTA Section -->
+        <section class="cta" id="contact">
+            <div class="container">
+                <h2>Continue the Conversation</h2>
+                <p>Have thoughts on this topic? I'd love to hear your perspective. Connect with me on LinkedIn or reach out directly.</p>
+                <div class="cta-buttons">
+                    <a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank" class="btn btn-cta">Connect on LinkedIn →</a>
+                    <a href="mailto:trevor@trevorkavanaugh.com" class="btn btn-secondary">Send an Email</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <div class="logo-icon">TK</div>
+                <span>Trevor Kavanaugh</span>
+            </div>
+
+            <div class="footer-columns">
+                <div class="footer-col">
+                    <h3>Navigation</h3>
+                    <nav aria-label="Footer navigation">
+                        <ul>
+                            <li><a href="../index.html">Home</a></li>
+                            <li><a href="../about.html">About</a></li>
+                            <li><a href="../insights.html">Insights</a></li>
+                            <li><a href="../index.html#speaking">Speaking</a></li>
+                            <li><a href="../index.html#contact">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Connect</h3>
+                    <ul class="contact-info">
+                        <li><a href="mailto:trevor@trevorkavanaugh.com">trevor@trevorkavanaugh.com</a></li>
+                        <li><a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank">LinkedIn</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <p style="color: #8899aa; font-size: 14px; margin-bottom: 12px;">New articles every Tuesday & Thursday</p>
+                    <form id="newsletter-form" class="newsletter-form">
+                        <div class="newsletter-input-group">
+                            <input type="email" id="newsletter-email" placeholder="Enter your email" required>
+                            <button type="submit">Subscribe</button>
+                        </div>
+                        <p id="newsletter-message" class="newsletter-message"></p>
+                    </form>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2026 Trevor Kavanaugh</p>
+                <nav class="legal-nav" aria-label="Legal navigation">
+                    <a href="../privacy.html">Privacy Policy</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>
