@@ -757,7 +757,7 @@ function register(app, db) {
           COUNT(DISTINCT ip_hash) as unique_visitors
         FROM events
         WHERE DATE(created_at) BETWEEN ? AND ?
-          AND event_type IN ('pdf_download', 'paper_download', 'pdf_click', 'download')
+          AND event_type IN ('pdf_download', 'paper_download', 'download')
           AND suspicious = 0
         GROUP BY event_label
         ORDER BY count DESC
@@ -787,7 +787,7 @@ function register(app, db) {
           referrer
         FROM events
         WHERE DATE(created_at) BETWEEN ? AND ?
-          AND event_type IN ('pdf_download', 'paper_download', 'pdf_click', 'download')
+          AND event_type IN ('pdf_download', 'paper_download', 'download')
           AND suspicious = 0
           AND referrer IS NOT NULL
       `).all(start, end);
@@ -816,7 +816,7 @@ function register(app, db) {
           COUNT(*) as count
         FROM events
         WHERE DATE(created_at) BETWEEN ? AND ?
-          AND event_type IN ('pdf_download', 'paper_download', 'pdf_click', 'download')
+          AND event_type IN ('pdf_download', 'paper_download', 'download')
           AND suspicious = 0
         GROUP BY DATE(created_at)
         ORDER BY date ASC
