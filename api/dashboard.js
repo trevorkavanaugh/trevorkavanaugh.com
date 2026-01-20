@@ -236,6 +236,34 @@ function register(app, db) {
         LIMIT 10
       `).all(start, end);
 
+      // Chart data - daily visitors over the date range
+      const chartDataRows = db.prepare(`
+        SELECT
+          DATE(timestamp) as date,
+          COUNT(DISTINCT visitor_id) as visitors
+        FROM page_views
+        WHERE DATE(timestamp) BETWEEN ? AND ?
+        GROUP BY DATE(timestamp)
+        ORDER BY date
+      `).all(start, end);
+
+      // Generate all dates in range and fill with data
+      const chartLabels = [];
+      const chartValues = [];
+      const startDate = new Date(start);
+      const endDate = new Date(end);
+      const dataMap = {};
+
+      chartDataRows.forEach(row => {
+        dataMap[row.date] = row.visitors;
+      });
+
+      for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
+        const dateStr = d.toISOString().split('T')[0];
+        chartLabels.push(d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
+        chartValues.push(dataMap[dateStr] || 0);
+      }
+
       res.json({
         success: true,
         data: {
@@ -268,7 +296,11 @@ function register(app, db) {
             domain: r.domain,
             type: r.type || 'unknown',
             visits: r.visits
-          }))
+          })),
+          chart_data: {
+            labels: chartLabels,
+            data: chartValues
+          }
         }
       });
 
@@ -777,9 +809,23 @@ function register(app, db) {
       // Calculate total
       const total = downloads.reduce((sum, d) => sum + d.count, 0);
 
+      // Get downloads over time for chart
+      const chartData = db.prepare(`
+        SELECT
+          DATE(created_at) as date,
+          COUNT(*) as count
+        FROM events
+        WHERE DATE(created_at) BETWEEN ? AND ?
+          AND event_type IN ('pdf_download', 'paper_download', 'pdf_click', 'download')
+          AND suspicious = 0
+        GROUP BY DATE(created_at)
+        ORDER BY date ASC
+      `).all(start, end);
+
       res.json({
         success: true,
         data: {
+          chart: chartData,
           downloads: downloads.map(d => {
             const refMap = referrersByDownload.get(d.event_label);
             const topRefs = refMap
@@ -892,55 +938,103 @@ function register(app, db) {
   // Helper function to convert country name to ISO code
   function getCountryCode(countryName) {
     const countryMap = {
-      'United States': 'US',
-      'United Kingdom': 'GB',
-      'Canada': 'CA',
-      'Australia': 'AU',
-      'Germany': 'DE',
-      'France': 'FR',
-      'India': 'IN',
-      'Nigeria': 'NG',
-      'Italy': 'IT',
-      'Spain': 'ES',
-      'Brazil': 'BR',
-      'Mexico': 'MX',
-      'Japan': 'JP',
-      'China': 'CN',
-      'South Korea': 'KR',
-      'Netherlands': 'NL',
-      'Sweden': 'SE',
-      'Norway': 'NO',
-      'Denmark': 'DK',
-      'Finland': 'FI',
-      'Poland': 'PL',
-      'Russia': 'RU',
-      'Ukraine': 'UA',
-      'Romania': 'RO',
-      'Saudi Arabia': 'SA',
-      'United Arab Emirates': 'AE',
-      'Israel': 'IL',
-      'South Africa': 'ZA',
-      'Singapore': 'SG',
-      'Philippines': 'PH',
-      'Indonesia': 'ID',
-      'Malaysia': 'MY',
-      'Thailand': 'TH',
-      'Vietnam': 'VN',
-      'Pakistan': 'PK',
-      'Bangladesh': 'BD',
-      'Argentina': 'AR',
-      'Chile': 'CL',
-      'Colombia': 'CO',
-      'Peru': 'PE',
-      'Ireland': 'IE',
-      'Belgium': 'BE',
-      'Switzerland': 'CH',
+      // Europe
+      'Afghanistan': 'AF',
+      'Albania': 'AL',
+      'Algeria': 'DZ',
+      'Armenia': 'AM',
       'Austria': 'AT',
-      'Portugal': 'PT',
-      'Greece': 'GR',
+      'Azerbaijan': 'AZ',
+      'Bahrain': 'BH',
+      'Bangladesh': 'BD',
+      'Belarus': 'BY',
+      'Belgium': 'BE',
+      'Bosnia and Herzegovina': 'BA',
+      'Brazil': 'BR',
+      'Bulgaria': 'BG',
+      'Canada': 'CA',
+      'Chile': 'CL',
+      'China': 'CN',
+      'Colombia': 'CO',
+      'Costa Rica': 'CR',
+      'Croatia': 'HR',
+      'Cyprus': 'CY',
       'Czech Republic': 'CZ',
+      'Denmark': 'DK',
+      'Ecuador': 'EC',
+      'Egypt': 'EG',
+      'Estonia': 'EE',
+      'Finland': 'FI',
+      'France': 'FR',
+      'Georgia': 'GE',
+      'Germany': 'DE',
+      'Ghana': 'GH',
+      'Greece': 'GR',
+      'Hong Kong': 'HK',
       'Hungary': 'HU',
-      'New Zealand': 'NZ'
+      'Iceland': 'IS',
+      'India': 'IN',
+      'Indonesia': 'ID',
+      'Iran': 'IR',
+      'Iraq': 'IQ',
+      'Ireland': 'IE',
+      'Israel': 'IL',
+      'Italy': 'IT',
+      'Jamaica': 'JM',
+      'Japan': 'JP',
+      'Jordan': 'JO',
+      'Kazakhstan': 'KZ',
+      'Kenya': 'KE',
+      'Kuwait': 'KW',
+      'Latvia': 'LV',
+      'Lebanon': 'LB',
+      'Lithuania': 'LT',
+      'Luxembourg': 'LU',
+      'Malaysia': 'MY',
+      'Malta': 'MT',
+      'Mexico': 'MX',
+      'Moldova': 'MD',
+      'Montenegro': 'ME',
+      'Morocco': 'MA',
+      'Nepal': 'NP',
+      'Netherlands': 'NL',
+      'New Zealand': 'NZ',
+      'Nigeria': 'NG',
+      'North Macedonia': 'MK',
+      'Norway': 'NO',
+      'Oman': 'OM',
+      'Pakistan': 'PK',
+      'Panama': 'PA',
+      'Peru': 'PE',
+      'Philippines': 'PH',
+      'Poland': 'PL',
+      'Portugal': 'PT',
+      'Qatar': 'QA',
+      'Romania': 'RO',
+      'Russia': 'RU',
+      'Saudi Arabia': 'SA',
+      'Serbia': 'RS',
+      'Singapore': 'SG',
+      'Slovakia': 'SK',
+      'Slovenia': 'SI',
+      'South Africa': 'ZA',
+      'South Korea': 'KR',
+      'Spain': 'ES',
+      'Sri Lanka': 'LK',
+      'Sweden': 'SE',
+      'Switzerland': 'CH',
+      'Taiwan': 'TW',
+      'Thailand': 'TH',
+      'Tunisia': 'TN',
+      'Turkey': 'TR',
+      'Uganda': 'UG',
+      'Ukraine': 'UA',
+      'United Arab Emirates': 'AE',
+      'United Kingdom': 'GB',
+      'United States': 'US',
+      'Argentina': 'AR',
+      'Australia': 'AU',
+      'Vietnam': 'VN'
     };
     return countryMap[countryName] || null;
   }
@@ -1331,6 +1425,62 @@ function register(app, db) {
 
     } catch (err) {
       console.error('Dashboard export error:', err);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+
+  // ----------------------------------------
+  // GET /api/analytics/dashboard/subscribers
+  // Newsletter subscriber statistics
+  // ----------------------------------------
+  app.get('/api/analytics/dashboard/subscribers', auth, async (req, res) => {
+    try {
+      // Get subscriber counts
+      const subscriberStats = db.prepare(`
+        SELECT
+          COUNT(*) as total,
+          SUM(CASE WHEN confirmed = 1 AND unsubscribed = 0 THEN 1 ELSE 0 END) as confirmed,
+          SUM(CASE WHEN confirmed = 0 AND unsubscribed = 0 THEN 1 ELSE 0 END) as pending,
+          SUM(CASE WHEN unsubscribed = 1 THEN 1 ELSE 0 END) as unsubscribed
+        FROM subscribers
+      `).get();
+
+      // Get newsletter count
+      const newsletterCount = db.prepare(`
+        SELECT COUNT(*) as count FROM newsletters
+      `).get();
+
+      // Get all subscribers
+      const subscribers = db.prepare(`
+        SELECT email, confirmed, unsubscribed, created_at
+        FROM subscribers
+        ORDER BY created_at DESC
+      `).all();
+
+      // Get recent newsletters (dedupe by subject since test sends create duplicates)
+      const newsletters = db.prepare(`
+        SELECT MAX(id) as id, subject, article_slug, article_title, article_url, MAX(created_at) as sent_at
+        FROM newsletters
+        GROUP BY subject
+        ORDER BY id DESC
+        LIMIT 20
+      `).all();
+
+      res.json({
+        success: true,
+        data: {
+          total: subscriberStats.total || 0,
+          confirmed: subscriberStats.confirmed || 0,
+          pending: subscriberStats.pending || 0,
+          unsubscribed: subscriberStats.unsubscribed || 0,
+          newsletters_sent: newsletterCount.count || 0,
+          subscribers: subscribers,
+          newsletters: newsletters
+        }
+      });
+
+    } catch (err) {
+      console.error('Dashboard subscribers error:', err);
       res.status(500).json({ error: 'Internal server error' });
     }
   });
