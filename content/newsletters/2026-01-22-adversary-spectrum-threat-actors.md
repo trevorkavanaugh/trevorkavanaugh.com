@@ -3,8 +3,8 @@ title: "The Adversary Spectrum: Understanding Who Targets Your Vendors"
 date: 2026-01-22
 article_slug: adversary-spectrum-threat-actors
 article_url: https://trevorkavanaugh.com/articles/adversary-spectrum-threat-actors.html
-sent_date:
-subscribers_sent:
+sent_date: 2026-01-22
+subscribers_sent: 2
 ---
 
 # The Adversary Spectrum: Understanding Who Targets Your Vendors
@@ -63,5 +63,5 @@ This doesn't mean you need to redesign your assessment framework for every vendo
 
 - **Subject Line**: The Adversary Spectrum: Understanding Who Targets Your Vendors
 - **Preview Text**: Your due diligence asks whether vendors have security controls. It doesn't ask who those controls are designed to stop.
-- **Sent**: [Pending]
-- **Recipients**: [Pending]
+- **Sent**: January 22, 2026
+- **Recipients**: 2 confirmed subscribers
