@@ -3,8 +3,8 @@ title: "The SOC 2 Type 2 Reality Check"
 date: 2026-01-27
 article_slug: soc-2-type-2-reality
 article_url: https://trevorkavanaugh.com/articles/soc-2-type-2-reality.html
-sent_date: TBD
-subscribers_sent: TBD
+sent_date: 2026-01-27
+subscribers_sent: 2
 ---
 
 # The SOC 2 Type 2 Reality Check
@@ -61,8 +61,8 @@ When you receive a SOC 2, the question isn't whether you received one. The quest
 
 - **Subject Line**: The SOC 2 Type 2 Reality Check
 - **Preview Text**: SOC 2 Type 2 is the most requested document in TPRM. It's also the most misunderstood.
-- **Sent**: TBD
-- **Recipients**: TBD
+- **Sent**: January 27, 2026
+- **Recipients**: 2 confirmed subscribers
 
 ---
 
