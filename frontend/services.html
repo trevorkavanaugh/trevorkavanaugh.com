@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WXHBC0YD0Z"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WXHBC0YD0Z');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Third-party risk management consulting for financial institutions. Program build-out, regulatory preparation, and ongoing advisory retainers.">
+    <title>TPRM Advisory Services | Trevor Kavanaugh</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="/js/analytics.js" defer></script>
+    <style>
+        /* Advisory Page Specific Styles */
+        .advisory-hero {
+            padding: var(--spacing-2xl) 0;
+            background-color: var(--color-white);
+            text-align: center;
+        }
+
+        .advisory-hero h1 {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .advisory-hero p {
+            font-size: 20px;
+            color: var(--color-text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Positioning Section */
+        .positioning-section {
+            padding: var(--spacing-2xl) 0;
+            background-color: var(--color-light-grey);
+        }
+
+        .positioning-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .positioning-content p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .positioning-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .positioning-content strong {
+            color: var(--color-navy);
+            font-weight: 600;
+        }
+
+        /* Services Section */
+        .advisory-services {
+            padding: var(--spacing-3xl) 0;
+            background-color: var(--color-white);
+        }
+
+        .advisory-services h2 {
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .advisory-services-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-lg);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .advisory-service-card {
+            background-color: var(--color-white);
+            padding: var(--spacing-lg) var(--spacing-xl);
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-speed) var(--transition-easing);
+            border-left: 3px solid transparent;
+            border: 1px solid var(--color-border);
+        }
+
+        .advisory-service-card:hover {
+            border-left-color: var(--color-blue);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .advisory-service-number {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--color-blue);
+            margin-bottom: var(--spacing-xs);
+            letter-spacing: 0.5px;
+        }
+
+        .advisory-service-card h3 {
+            font-size: 24px;
+            margin-bottom: var(--spacing-md);
+            color: var(--color-navy);
+        }
+
+        .advisory-service-card > p {
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-md);
+            line-height: 1.7;
+        }
+
+        .advisory-deliverable {
+            background-color: var(--color-light-grey);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-sm);
+            display: inline-block;
+            font-size: 14px;
+        }
+
+        .advisory-deliverable strong {
+            color: var(--color-navy);
+            font-weight: 600;
+        }
+
+        .advisory-deliverable span {
+            color: var(--color-text-secondary);
+        }
+
+        /* Who This Is For Section */
+        .who-section {
+            padding: var(--spacing-3xl) 0;
+            background-color: var(--color-light-grey);
+        }
+
+        .who-section h2 {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .who-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .who-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .who-list li {
+            position: relative;
+            padding-left: var(--spacing-lg);
+            margin-bottom: var(--spacing-md);
+            font-size: 18px;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+        }
+
+        .who-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 8px;
+            height: 8px;
+            background-color: var(--color-blue);
+            border-radius: 50%;
+        }
+
+        /* CTA Section */
+        .advisory-cta {
+            padding: var(--spacing-3xl) 0;
+            background-color: var(--color-navy);
+            text-align: center;
+        }
+
+        .advisory-cta h2 {
+            color: var(--color-white);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .advisory-cta p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto var(--spacing-xl);
+            line-height: 1.7;
+        }
+
+        /* Social Proof Placeholder - Hidden by default */
+        .social-proof-section {
+            display: none; /* Hidden until content is added */
+            padding: var(--spacing-3xl) 0;
+            background-color: var(--color-white);
+        }
+
+        .social-proof-section h2 {
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        /* Responsive - Tablet */
+        @media (max-width: 1024px) {
+            .advisory-hero p {
+                font-size: 18px;
+            }
+
+            .positioning-content p {
+                font-size: 17px;
+            }
+
+            .advisory-service-card h3 {
+                font-size: 22px;
+            }
+        }
+
+        /* Responsive - Mobile */
+        @media (max-width: 768px) {
+            .advisory-hero {
+                padding: var(--spacing-xl) 0;
+            }
+
+            .advisory-hero h1 {
+                font-size: 32px;
+            }
+
+            .advisory-hero p {
+                font-size: 17px;
+            }
+
+            .positioning-section {
+                padding: var(--spacing-xl) 0;
+            }
+
+            .positioning-content p {
+                font-size: 16px;
+            }
+
+            .advisory-services {
+                padding: var(--spacing-2xl) 0;
+            }
+
+            .advisory-service-card {
+                padding: var(--spacing-lg);
+            }
+
+            .advisory-service-card h3 {
+                font-size: 20px;
+            }
+
+            .who-section {
+                padding: var(--spacing-2xl) 0;
+            }
+
+            .who-list li {
+                font-size: 16px;
+            }
+
+            .advisory-cta {
+                padding: var(--spacing-2xl) 0;
+            }
+
+            .advisory-cta p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header -->
+    <header class="site-header" id="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">TK</div>
+                <span class="logo-text">Trevor Kavanaugh</span>
+            </a>
+
+            <nav class="main-nav" aria-label="Main navigation">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="insights.html">Insights</a></li>
+                    <li><a href="services.html" class="active">Advisory</a></li>
+                    <li><a href="index.html#speaking">Speaking</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+
+            <button class="menu-toggle" aria-label="Open navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <button class="menu-close" aria-label="Close navigation menu">
+            <span>&times;</span>
+        </button>
+        <nav aria-label="Mobile navigation">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="insights.html">Insights</a></li>
+                <li><a href="services.html">Advisory</a></li>
+                <li><a href="index.html#speaking">Speaking</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu-contact">
+                <a href="mailto:trevor@trevorkavanaugh.com">trevor@trevorkavanaugh.com</a>
+                <a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank">LinkedIn</a>
+            </div>
+        </nav>
+    </div>
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+
+    <!-- Main Content -->
+    <main id="main-content">
+
+        <!-- Hero Section -->
+        <section class="advisory-hero">
+            <div class="container">
+                <h1>Advisory Services</h1>
+                <p>Helping financial institutions build third-party risk programs that survive regulatory scrutiny and real-world incidents.</p>
+            </div>
+        </section>
+
+        <!-- Positioning Section -->
+        <section class="positioning-section">
+            <div class="container">
+                <div class="positioning-content">
+                    <p>I've built and run TPRM programs, not just assessed them. Managing portfolios of 500+ vendors with minimal staff means automation and systems thinking aren't nice-to-haves - they're survival. I've operated inside regulatory pressure, been through the exams, and know what holds up under scrutiny versus what looks good on paper.</p>
+                    <p>My focus areas: <strong>software supply chain risk</strong>, <strong>concentration risk</strong>, and building programs that actually work. Not compliance theater. Not frameworks that exist to satisfy auditors while missing real risk. Programs that find their own issues before examiners do.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="advisory-services">
+            <div class="container">
+                <h2>How I Can Help</h2>
+                <div class="advisory-services-list">
+
+                    <div class="advisory-service-card">
+                        <div class="advisory-service-number">01</div>
+                        <h3>TPRM Program Build-Out</h3>
+                        <p>For institutions building or rebuilding their vendor risk function. Policy development, procedure design, vendor tiering methodology, and automation strategy. Designed to scale - not create bureaucracy.</p>
+                        <div class="advisory-deliverable">
+                            <strong>Deliverable:</strong> <span>Complete program documentation and implementation roadmap</span>
+                        </div>
+                    </div>
+
+                    <div class="advisory-service-card">
+                        <div class="advisory-service-number">02</div>
+                        <h3>Regulatory Preparation</h3>
+                        <p>Pre-exam readiness assessment focused on third-party risk. Identify gaps examiners will find before they find them. Includes mock Q&A and documentation review.</p>
+                        <div class="advisory-deliverable">
+                            <strong>Deliverable:</strong> <span>Exam readiness report with remediation priorities</span>
+                        </div>
+                    </div>
+
+                    <div class="advisory-service-card">
+                        <div class="advisory-service-number">03</div>
+                        <h3>Ongoing Advisory Retainer</h3>
+                        <p>For risk leaders who want a practitioner on call. Monthly or quarterly access for ad-hoc guidance on vendor incidents, regulatory interpretation, program evolution, and the "is this normal?" questions that come up when you're running a real program.</p>
+                        <div class="advisory-deliverable">
+                            <strong>Deliverable:</strong> <span>Direct access via scheduled calls and async communication</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Who This Is For Section -->
+        <section class="who-section">
+            <div class="container">
+                <h2>Who This Is For</h2>
+                <div class="who-content">
+                    <ul class="who-list">
+                        <li>Community banks and regional institutions ($1B-$50B) building or maturing TPRM</li>
+                        <li>Institutions facing regulatory criticism on third-party oversight</li>
+                        <li>Risk leaders who want practical programs, not consultant frameworks</li>
+                        <li>Organizations concerned about software supply chain exposure after recent industry incidents</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="advisory-cta">
+            <div class="container">
+                <h2>Let's Talk</h2>
+                <p>30-minute call to discuss your situation. No pitch deck - just a conversation about what you're facing and whether I can help.</p>
+                <a href="https://cal.com/trevor-kavanaugh-fzsphp/advisory-introduction-30-minute-consultation" target="_blank" class="btn btn-cta" aria-label="Schedule a 30-minute advisory consultation with Trevor Kavanaugh">Schedule a Call</a>
+            </div>
+        </section>
+
+        <!-- Social Proof Section (Placeholder for future use) -->
+        <!--
+        <section class="social-proof-section">
+            <div class="container">
+                <h2>Speaking & Recognition</h2>
+
+                Future content areas:
+                - Speaking engagements
+                - Client testimonials
+                - Research paper mentions
+                - Industry recognition
+
+            </div>
+        </section>
+        -->
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <div class="logo-icon">TK</div>
+                <span>Trevor Kavanaugh</span>
+            </div>
+
+            <div class="footer-columns">
+                <div class="footer-col">
+                    <h3>Navigation</h3>
+                    <nav aria-label="Footer navigation">
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="insights.html">Insights</a></li>
+                            <li><a href="services.html">Advisory</a></li>
+                            <li><a href="index.html#speaking">Speaking</a></li>
+                            <li><a href="index.html#contact">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Connect</h3>
+                    <ul class="contact-info">
+                        <li><a href="mailto:trevor@trevorkavanaugh.com">trevor@trevorkavanaugh.com</a></li>
+                        <li><a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank">LinkedIn</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <p style="color: #8899aa; font-size: 14px; margin-bottom: 12px;">New articles every Tuesday & Thursday</p>
+                    <form id="newsletter-form" class="newsletter-form">
+                        <div class="newsletter-input-group">
+                            <input type="email" id="newsletter-email" placeholder="Enter your email" required>
+                            <button type="submit">Subscribe</button>
+                        </div>
+                        <p id="newsletter-message" class="newsletter-message"></p>
+                    </form>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2026 Trevor Kavanaugh</p>
+                <nav class="legal-nav" aria-label="Legal navigation">
+                    <a href="privacy.html">Privacy Policy</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

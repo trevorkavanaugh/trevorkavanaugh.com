@@ -293,6 +293,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Track Cal.com scheduling clicks (advisory conversion)
+    document.querySelectorAll('a[href*="cal.com"]').forEach(link => {
+        link.addEventListener('click', function() {
+            const location = this.closest('section')?.className ||
+                             this.closest('.advisory-cta') ? 'advisory-cta' :
+                             this.closest('footer') ? 'footer' : 'other';
+            trackEvent('schedule_call_click', location);
+        });
+    });
+
     // ============================================
     // Newsletter Subscription
     // ============================================
