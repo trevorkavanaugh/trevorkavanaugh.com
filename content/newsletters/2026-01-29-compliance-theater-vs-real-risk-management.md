@@ -3,6 +3,8 @@ title: "Compliance Theater vs. Real Risk Management"
 date: 2026-01-29
 article_slug: compliance-theater-vs-real-risk-management
 article_url: https://trevorkavanaugh.com/articles/compliance-theater-vs-real-risk-management.html
+sent_date: 2026-01-29
+subscribers_sent: 2
 ---
 
 # Compliance Theater vs. Real Risk Management
