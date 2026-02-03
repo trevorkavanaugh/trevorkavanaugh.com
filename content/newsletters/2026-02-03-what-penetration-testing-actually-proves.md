@@ -3,6 +3,8 @@ title: "What Penetration Testing Actually Proves"
 date: 2026-02-03
 article_slug: what-penetration-testing-actually-proves
 article_url: https://trevorkavanaugh.com/articles/what-penetration-testing-actually-proves.html
+sent_date: 2026-02-03
+subscribers_sent: 2
 ---
 
 # What Penetration Testing Actually Proves
