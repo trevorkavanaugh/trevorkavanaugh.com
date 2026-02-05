@@ -3,6 +3,8 @@ title: "The Self-Attestation Problem"
 date: 2026-02-05
 article_slug: the-self-attestation-problem
 article_url: https://trevorkavanaugh.com/articles/the-self-attestation-problem.html
+sent_date: 2026-02-05
+subscribers_sent: 2
 ---
 
 # The Self-Attestation Problem
