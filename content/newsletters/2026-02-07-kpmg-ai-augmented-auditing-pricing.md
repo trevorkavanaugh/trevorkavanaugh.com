@@ -3,6 +3,8 @@ title: "KPMG Just Priced AI-Augmented Auditing"
 date: 2026-02-07
 article_slug: kpmg-ai-augmented-auditing-pricing
 article_url: https://trevorkavanaugh.com/articles/kpmg-ai-augmented-auditing-pricing.html
+sent_date: 2026-02-07
+subscribers_sent: 2
 ---
 
 # KPMG Just Priced AI-Augmented Auditing
