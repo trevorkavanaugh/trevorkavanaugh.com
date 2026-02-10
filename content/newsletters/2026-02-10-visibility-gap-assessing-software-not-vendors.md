@@ -3,6 +3,8 @@ title: "The Visibility Gap: Why We Should Be Assessing Software, Not Just Vendor
 date: 2026-02-10
 article_slug: visibility-gap-assessing-software-not-vendors
 article_url: https://trevorkavanaugh.com/articles/visibility-gap-assessing-software-not-vendors.html
+sent_date: 2026-02-10
+subscribers_sent: 2
 ---
 
 # The Visibility Gap: Why We Should Be Assessing Software, Not Just Vendors
