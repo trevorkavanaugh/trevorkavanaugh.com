@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WXHBC0YD0Z"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WXHBC0YD0Z');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SOC 2 reports tell you what controls looked like during a historical window. They don't tell you what they look like today. That gap is where risk lives.">
+    <title>The SOC 2 Timing Gap | Trevor Kavanaugh</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/articles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="/js/analytics.js" defer></script>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header -->
+    <header class="site-header" id="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">TK</div>
+                <span class="logo-text">Trevor Kavanaugh</span>
+            </a>
+            <nav class="main-nav" aria-label="Main navigation">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="../insights.html" class="active">Insights</a></li>
+                    <li><a href="../services.html">Advisory</a></li>
+                    <li><a href="../index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="menu-toggle" aria-label="Open navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <button class="menu-close" aria-label="Close navigation menu">
+            <span>&times;</span>
+        </button>
+        <nav aria-label="Mobile navigation">
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../insights.html">Insights</a></li>
+                <li><a href="../services.html">Advisory</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu-contact">
+                <a href="mailto:trevor@trevorkavanaugh.com">trevor@trevorkavanaugh.com</a>
+                <a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank">LinkedIn</a>
+            </div>
+        </nav>
+    </div>
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <article class="article-page">
+            <header class="article-hero">
+                <div class="article-hero-container">
+                    <span class="article-category category-tprm">TPRM</span>
+                    <h1>The SOC 2 Timing Gap</h1>
+                    <div class="article-meta-line">
+                        <time datetime="2026-02-12">February 12, 2026</time>
+                        <span class="separator">-</span>
+                        <span class="read-time">4 min read</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="article-content-wrapper">
+                <div class="article-content">
+                    <p>An auditor asked me a simple question last year that I still think about: "Why are you reviewing 2024 SOC reports in 2025?" My answer was honest&mdash;because reviewing 2025 reports in 2025 is logistically impossible. They don't exist yet. But his point stuck with me. The more I thought about it, the more I realized the entire <a href="soc-2-type-2-reality.html">SOC 2 Type II</a> review cycle has a structural timing problem that nobody talks about&mdash;and it fundamentally affects the assurance we think we're getting.</p>
+
+                    <h2>How the Timeline Actually Works</h2>
+
+                    <p>A SOC 2 Type II covers a historical period&mdash;say January through December 2024. The audit firm issues the report sometime in Q1 2025, sometimes later. You receive it, review it, and document your assessment. By the time you're reading that report, you're evaluating controls that were tested months ago. In some cases, nearly a year ago.</p>
+
+                    <p>The report tells you what the vendor's control environment looked like during a window that's already closed. It describes how access management, change control, and incident response procedures operated during a specific period. But that period ended before you ever opened the document.</p>
+
+                    <p>That's not continuous assurance. That's a rearview mirror. You're making forward-looking risk decisions based on backward-looking evidence. The controls you're reading about may have been modified, degraded, or restructured since the audit period ended. You have no way to know from the report itself.</p>
+
+                    <h2>Bridge Letters Don't Fix This</h2>
+
+                    <p>The industry's answer to the timing gap is bridge letters&mdash;management representations covering the period between the SOC 2's end date and the present. In theory, they provide continuity. In practice, they're <a href="the-self-attestation-problem.html">self-attestation</a> filling an assurance gap.</p>
+
+                    <p>A bridge letter isn't audited. It's the vendor telling you "nothing material changed since the last report." No independent verification. No testing. No control sampling. Just a statement from the party you're trying to assess, written by someone whose business depends on maintaining your confidence.</p>
+
+                    <p>We accept this because there's no better alternative built into the model. But we should be honest about what it is. A bridge letter carries the same fundamental limitation as any self-reported attestation: the entity with the most to lose controls the narrative. The difference between a bridge letter and a SOC 2 is the difference between "we tested it" and "trust us."</p>
+
+                    <h2>What This Means in Practice</h2>
+
+                    <p>If your vendor's SOC 2 period ended December 2024 and you review it in March 2025, you have audited assurance over controls from January through December 2024. For the three months between then and now? You have a letter.</p>
+
+                    <p>For vendors on different fiscal cycles, the gap can be even wider. Some programs are making risk decisions based on control environments that were tested 12 to 18 months ago. That's not a minor lag&mdash;that's enough time for a vendor to change cloud providers, restructure their engineering team, or suffer a breach they haven't disclosed.</p>
+
+                    <p>The practical impact compounds across your vendor portfolio. If you manage hundreds of vendors, each with different audit periods and different report delivery timelines, you're operating with a patchwork of assurance windows. Some current within months. Others stale by over a year. Your risk assessment treats them all the same&mdash;as "SOC 2 received"&mdash;but the actual assurance value varies dramatically.</p>
+
+                    <h2>This Isn't a Reason to Stop Collecting SOC 2s</h2>
+
+                    <p>SOC 2 Type II reports are still one of the most valuable due diligence artifacts available. Independent testing of controls against defined criteria&mdash;that matters. An auditor verifying that access reviews happen, that change management processes function, that incident response procedures exist and operate&mdash;that's real assurance you can't get from a questionnaire.</p>
+
+                    <p>But understanding the timing limitation changes how you should weight that assurance. A SOC 2 tells you what controls looked like during a specific window. It doesn't tell you what they look like today. The further you get from the audit period's end date, the less confidence you should place in the report as a reflection of current state.</p>
+
+                    <p>Risk-based programs account for this. They track when the audit period ended, not just when the report was received. They flag vendors whose assurance is going stale. They ask harder questions when the gap widens&mdash;not because the vendor did something wrong, but because the evidence is aging and the assumptions behind your risk rating are weakening.</p>
+
+                    <blockquote>
+                        "A SOC 2 tells you what controls looked like during a specific window. It doesn't tell you what they look like today. The gap between those two things is where risk lives."
+                    </blockquote>
+
+                    <p>The SOC 2 timing gap isn't a reason to abandon the framework. It's a reason to stop treating <a href="compliance-theater-vs-real-risk-management.html">report collection as risk management</a>. Know what you have. Know when it expires. And know what you're assuming in the space between.</p>
+
+                    <p><em>For more perspectives on third-party risk management, <a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank">connect with me on LinkedIn</a>.</em></p>
+                </div>
+            </div>
+
+            <!-- Author Box - COPY EXACTLY -->
+            <section class="author-box">
+                <div class="author-box-container">
+                    <div class="author-info">
+                        <div class="author-avatar">
+                            <img src="../images/trevor_kavanaugh_headshot.jpg" alt="Trevor Kavanaugh" style="object-position: center 25%;">
+                        </div>
+                        <div class="author-details">
+                            <h3>About the Author</h3>
+                            <p><strong>Trevor Kavanaugh</strong> | VP, Third-Party Risk Management</p>
+                            <p>With over a decade in banking, I've built my career across the risk spectrum—from compliance and BSA/AML to internal audit, now leading third-party risk management at an FDIC-chartered regional bank with DFPI oversight. This journey gave me a ground-level view of how risk actually functions across financial institutions.</p>
+                            <p>I believe in building risk frameworks designed for modern, evolving threats—not just satisfying checkboxes. Risk management runs deeper than prescriptive compliance rules. It's abstract, constantly shifting, and demands continuous adaptation. I challenge legacy thinking and status quo approaches to push our profession forward.</p>
+                            <p>My goal is simple: help everyone do better.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Related Articles - pick 3 related articles -->
+            <section class="related-articles">
+                <div class="container">
+                    <h2>Continue Reading</h2>
+                    <div class="related-articles-grid">
+                        <article class="article-card">
+                            <a href="soc-2-type-2-reality.html" class="article-card-link">
+                                <div class="article-card-content">
+                                    <span class="article-category category-tprm">TPRM</span>
+                                    <h3 class="article-title">The SOC 2 Type 2 Reality Check</h3>
+                                    <p class="article-excerpt">SOC 2 Type 2 is the most requested document in TPRM. It's also the most misunderstood. Here's what it actually attests to—and what it doesn't cover.</p>
+                                    <div class="article-meta">
+                                        <span class="article-date">January 27, 2026</span>
+                                        <span class="article-read-more">Read more</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                        <article class="article-card">
+                            <a href="the-self-attestation-problem.html" class="article-card-link">
+                                <div class="article-card-content">
+                                    <span class="article-category category-tprm">TPRM</span>
+                                    <h3 class="article-title">The Self-Attestation Problem</h3>
+                                    <p class="article-excerpt">We're asking the party with the most to lose to self-report their weaknesses. That's the fundamental problem with how vendor due diligence works.</p>
+                                    <div class="article-meta">
+                                        <span class="article-date">February 5, 2026</span>
+                                        <span class="article-read-more">Read more</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                        <article class="article-card">
+                            <a href="compliance-theater-vs-real-risk-management.html" class="article-card-link">
+                                <div class="article-card-content">
+                                    <span class="article-category category-tprm">TPRM</span>
+                                    <h3 class="article-title">Compliance Theater vs. Real Risk Management</h3>
+                                    <p class="article-excerpt">One protects the institution. The other protects the audit file. Here's how to tell which one you're running—and what happens when incidents expose the difference.</p>
+                                    <div class="article-meta">
+                                        <span class="article-date">January 29, 2026</span>
+                                        <span class="article-read-more">Read more</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <!-- CTA Section -->
+        <section class="cta" id="contact">
+            <div class="container">
+                <h2>Continue the Conversation</h2>
+                <p>Have thoughts on this topic? I'd love to hear your perspective. Connect with me on LinkedIn or reach out directly.</p>
+                <div class="cta-buttons">
+                    <a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank" class="btn btn-cta">Connect on LinkedIn</a>
+                    <a href="mailto:trevor@trevorkavanaugh.com" class="btn btn-secondary">Send an Email</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <div class="logo-icon">TK</div>
+                <span>Trevor Kavanaugh</span>
+            </div>
+            <div class="footer-columns">
+                <div class="footer-col">
+                    <h3>Navigation</h3>
+                    <nav aria-label="Footer navigation">
+                        <ul>
+                            <li><a href="../index.html">Home</a></li>
+                            <li><a href="../about.html">About</a></li>
+                            <li><a href="../insights.html">Insights</a></li>
+                            <li><a href="../services.html">Advisory</a></li>
+                            <li><a href="../index.html#contact">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="footer-col">
+                    <h3>Connect</h3>
+                    <ul class="contact-info">
+                        <li><a href="mailto:trevor@trevorkavanaugh.com">trevor@trevorkavanaugh.com</a></li>
+                        <li><a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank">LinkedIn</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <p style="color: #8899aa; font-size: 14px; margin-bottom: 12px;">New articles every Tuesday & Thursday</p>
+                    <form id="newsletter-form" class="newsletter-form">
+                        <div class="newsletter-input-group">
+                            <input type="email" id="newsletter-email" placeholder="Enter your email" required>
+                            <button type="submit">Subscribe</button>
+                        </div>
+                        <p id="newsletter-message" class="newsletter-message"></p>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 Trevor Kavanaugh</p>
+                <nav class="legal-nav" aria-label="Legal navigation">
+                    <a href="../privacy.html">Privacy Policy</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

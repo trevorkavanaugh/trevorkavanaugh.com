@@ -1,0 +1,38 @@
+An auditor asked me a simple question last year that I still think about: "Why are you reviewing 2024 SOC reports in 2025?"
+
+My answer was honest — because reviewing 2025 reports in 2025 is logistically impossible. They don't exist yet.
+
+But his point stuck with me. And the more I thought about it, the more I realized the entire SOC 2 review cycle has a structural timing problem nobody talks about.
+
+🔴 How the timeline actually works
+
+A SOC 2 Type II covers a historical period — say January through December 2024. The audit firm issues the report sometime in Q1 2025, sometimes later. You receive it, review it, and document your assessment.
+
+By the time you're reading that report, you're evaluating controls that were tested months ago. In some cases, nearly a year ago. The report tells you what the vendor's control environment looked like during a window that's already closed.
+
+That's not continuous assurance. That's a rearview mirror.
+
+⚠️ Bridge letters don't fix this
+
+The industry's answer to the timing gap is bridge letters — management representations covering the period between the SOC 2's end date and now.
+
+But a bridge letter isn't audited. It's the vendor telling you "nothing material changed since the last report." No independent verification. No testing. Just a statement from the party you're trying to assess.
+
+We accept this because there's no better alternative built into the model. But we should be honest about what it is — self-attestation filling an assurance gap.
+
+📊 What this means in practice
+
+If your vendor's SOC 2 period ended December 2024 and you review it in March 2025, you have audited assurance over controls from January through December 2024. For the three months between then and now? You have a letter.
+
+For vendors on different fiscal cycles, the gap can be even wider. Some programs are making risk decisions based on control environments that were tested 12-18 months ago.
+
+💡 This isn't a reason to stop collecting SOC 2s
+
+They're still one of the most valuable due diligence artifacts available. Independent testing of controls against defined criteria — that matters.
+
+But understanding the timing limitation changes how you weight the assurance. A SOC 2 tells you what controls looked like during a specific window. It doesn't tell you what they look like today.
+
+The gap between those two things is where risk lives.
+
+
+How does your program handle the SOC 2 timing gap — do you rely on bridge letters, or have you found other ways to fill it?
