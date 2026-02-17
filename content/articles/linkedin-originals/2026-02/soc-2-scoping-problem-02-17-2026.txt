@@ -1,0 +1,26 @@
+Your vendor's SOC 2 report covers their product. It says so right on the cover.
+
+Except it might not. And most people reviewing it would never know.
+
+SOC 2 audits have a design feature that doubles as a loophole: the vendor defines the scope. They decide which trust services criteria get tested, which systems are included, which infrastructure is carved out, and where the boundaries of "the system" begin and end.
+
+That's not a flaw in the standard. It's how SOC 2 was designed — flexible enough to apply across industries, sizes, and architectures. But that same flexibility means two vendors offering identical services can produce SOC 2 reports with wildly different coverage. And unless you know what to look for, both reports look equally reassuring.
+
+🔴 This happens at multiple levels
+
+Some scoping decisions are obvious if you know where to look. A vendor only selects Security as their trust services criteria and skips Availability, Confidentiality, and Privacy — even though they're storing your NPPI and you need them operational 24/7. That's visible on page one if you check.
+
+Some are subtler. The vendor carves out their cloud infrastructure provider entirely. The report covers the vendor's application controls but explicitly excludes the environment those controls run on. There's a line buried in the report that says so — most reviewers never find it.
+
+And some are almost invisible. The vendor defines "the system" in a way that sounds comprehensive but quietly excludes backend components, internal tools, or integration layers that touch your data. The system description reads well. It just doesn't describe everything that matters.
+
+⚠️ Why this matters for due diligence
+
+Every one of these scoping decisions is technically legitimate. The auditor tests exactly what the scope says. The opinion is clean. The report looks professional.
+
+But if your risk assessment assumes the SOC 2 covers the full environment — and the scope was drawn to exclude significant pieces — your assurance has gaps you don't know about.
+
+Over the next few posts, we're going to walk through each of these layers. What to look for, where to find it in the report, and how vendors use legitimate scoping flexibility to narrow what actually gets tested.
+
+
+When you review a SOC 2, how deep do you go into the system description — or do you skip straight to the control results?
