@@ -3,8 +3,8 @@ title: "The SOC 2 System Description Problem"
 date: 2026-02-19
 article_slug: soc-2-system-description
 article_url: https://trevorkavanaugh.com/articles/soc-2-system-description.html
-sent_date:
-subscribers_sent:
+sent_date: 2026-02-20
+subscribers_sent: 2
 ---
 
 # The SOC 2 System Description Problem
