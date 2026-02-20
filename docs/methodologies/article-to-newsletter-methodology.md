@@ -361,19 +361,48 @@ Outlook uses Word's rendering engine, which strips many CSS properties. Always:
 
 ---
 
+## Critical: Source Content Rule
+
+**The newsletter MUST be derived from the finished article HTML, NOT from the original LinkedIn post.**
+
+The article undergoes significant expansion during the LinkedIn-to-article conversion: new sections are added, examples are elaborated, bullet lists are created, internal links are woven in, and blockquotes are pulled out. If the newsletter is created from the LinkedIn post instead of the finished article, it will be missing all of these expansions—delivering a stripped-down version to subscribers instead of the complete article.
+
+### How This Happens
+
+This error occurs when the article and newsletter are created in parallel (e.g., by separate agents working from the same LinkedIn post). The newsletter agent doesn't have the expanded article content because it hasn't been written yet.
+
+### Prevention
+
+**Always create the newsletter AFTER the article is complete.** The workflow must be sequential:
+
+1. Create the article HTML (with all expansions, internal links, blockquotes, etc.)
+2. Read the finished article HTML from `frontend/articles/[slug].html`
+3. Extract the article body content from the finished HTML
+4. Convert that content to inline-styled email HTML
+
+If using subagents, the article agent must finish first. The newsletter agent's input is the finished article file, never the original LinkedIn post.
+
+### QA Verification
+
+After newsletter creation, spot-check that the email HTML includes:
+- All H2 sections present in the article (compare section headers)
+- Any bullet lists from the article
+- Any blockquotes from the article
+- Expanded paragraphs (not the shorter LinkedIn originals)
+
+---
+
 ## Instructions for Claude Code
 
 ### When Converting an Article to Newsletter
 
-1. Read the article from `frontend/articles/[slug].html`
-2. Extract the article body content
-3. Convert all elements to inline-styled HTML per the mappings
-4. Create the newsletter archive file in `content/newsletters/[slug].md`
-5. Prepare the API payload with the converted content
-6. **Always test first** with `test_mode: true`
-7. Verify Outlook rendering before production send
-8. Send to all subscribers with `test_mode: false`
-9. Update the archive file with send metadata
+1. **Wait for the article to be complete** — the article HTML must exist at `frontend/articles/[slug].html` before starting
+2. Read the finished article from `frontend/articles/[slug].html`
+3. Extract the article body content (everything inside `<div class="article-content">`)
+4. Convert all elements to inline-styled HTML per the mappings
+5. Create the newsletter archive file in `content/newsletters/YYYY-MM-DD-[slug].md`
+6. Verify the email HTML includes all sections from the article (see QA Verification above)
+7. Prepare the API payload with the converted content
 
 ### File Naming Convention
 

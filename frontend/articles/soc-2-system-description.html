@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WXHBC0YD0Z"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WXHBC0YD0Z');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The system description in Section III of a SOC 2 report defines audit boundaries. Most reviewers skip it. That's where the real scoping decisions hide.">
+    <title>The SOC 2 System Description Problem | Trevor Kavanaugh</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/articles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="/js/analytics.js" defer></script>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="site-header" id="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">TK</div>
+                <span class="logo-text">Trevor Kavanaugh</span>
+            </a>
+            <nav class="main-nav" aria-label="Main navigation">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="../insights.html" class="active">Insights</a></li>
+                    <li><a href="../services.html">Advisory</a></li>
+                    <li><a href="../index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="menu-toggle" aria-label="Open navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobile-menu">
+        <button class="menu-close" aria-label="Close navigation menu">
+            <span>&times;</span>
+        </button>
+        <nav aria-label="Mobile navigation">
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../insights.html">Insights</a></li>
+                <li><a href="../services.html">Advisory</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu-contact">
+                <a href="mailto:trevor@trevorkavanaugh.com">trevor@trevorkavanaugh.com</a>
+                <a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank">LinkedIn</a>
+            </div>
+        </nav>
+    </div>
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+
+    <main id="main-content">
+        <article class="article-page">
+            <header class="article-hero">
+                <div class="article-hero-container">
+                    <span class="article-category category-tprm">TPRM</span>
+                    <h1>The SOC 2 System Description Problem</h1>
+                    <div class="article-meta-line">
+                        <time datetime="2026-02-19">February 19, 2026</time>
+                        <span class="separator">-</span>
+                        <span class="read-time">5 min read</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="article-content-wrapper">
+                <div class="article-content">
+                    <p>Some <a href="soc-2-scoping-problem.html">SOC 2 scoping decisions</a> are easy to spot. Missing trust services criteria shows up on the cover page. A carved-out infrastructure provider usually gets called out in the auditor's opinion or a dedicated section. But the hardest scoping decision to catch isn't in any of those places. It's in the system description itself&mdash;Section III of the report&mdash;and most reviewers treat it as background material on their way to the controls and test results.</p>
+
+                    <p>Every SOC 2 report includes a section where the vendor describes "the system" being audited. It has a name. It has a description. It sounds comprehensive. The problem isn't what it says. The problem is what it leaves out.</p>
+
+                    <h2>How the System Boundary Gets Drawn</h2>
+
+                    <p>A vendor calls their system "The XYZ Platform" and describes it as a cloud-based solution for managing client data. That sounds like it covers the product you use. And it might. But read the system description closely and ask yourself what's actually included in that boundary.</p>
+
+                    <p>Does it describe the customer-facing portal? Probably. Does it describe the backend data processing engine that actually handles your information&mdash;the batch jobs running overnight, the data transformation pipelines, the queuing systems that route your records through their infrastructure? Maybe not. The internal admin tools their employees use to access your records&mdash;the support dashboard, the database management interface, the user impersonation feature their engineers use for troubleshooting? The API layer connecting their system to yours? The CI/CD pipeline pushing code updates to the environment you depend on?</p>
+
+                    <p>Every one of those components touches your data. Every one of them affects your risk. And every one of them can be excluded from scope without a single red flag on the auditor's opinion.</p>
+
+                    <p>The opinion is clean because the auditor tested exactly what the system description defined. Everything inside the boundary was evaluated. Everything outside it simply doesn't exist as far as the report is concerned.</p>
+
+                    <h2>Why Vendors Draw Narrow Boundaries</h2>
+
+                    <p>This isn't usually malice. Vendors draw narrow system boundaries for practical reasons that make perfect sense from their side of the table. Broader scope means higher audit costs&mdash;more controls to document, more evidence to collect, more testing hours billed by the audit firm. It means more complexity in maintaining control documentation across disparate systems. It means exposing internal tools and processes to auditor scrutiny that the vendor may not have fully formalized yet. And it means a higher likelihood of exceptions showing up in the report, because the more you include, the more surface area exists for something to go wrong.</p>
+
+                    <p>So vendors scope to what's manageable and defensible. The customer-facing application with well-documented controls becomes the system boundary. The internal tools, the backend infrastructure, the integration layers&mdash;those get quietly excluded. The auditor doesn't object because the scope is the vendor's decision. The report comes back clean because the boundary was drawn around the parts that were ready to be tested.</p>
+
+                    <h2>Why This Is So Hard to Catch</h2>
+
+                    <p>Missing trust services criteria is visible on page one if you check. A carved-out subservice organization usually gets called out explicitly. But a narrowly drawn system boundary? That requires you to read the system description and ask yourself: <strong>what's NOT here?</strong> What components would I expect to see described that aren't mentioned?</p>
+
+                    <p>That's a fundamentally different skill than reviewing control test results. It requires you to know enough about the vendor's architecture to recognize what's absent&mdash;and that means doing your own homework before you open the report. Most reviewers go straight to Section IV, the controls and test results, because that's where the "findings" live. Section III reads like background. It's easy to skim past on your way to the substance.</p>
+
+                    <p>But Section III <em>is</em> the substance. It defines what the rest of the report means. If the boundary was drawn to exclude components that matter to your risk assessment, no amount of <a href="soc-2-timing-gap.html">clean test results in Section IV changes that</a>. You're reading a clean audit of a partial picture. Your file says the SOC 2 was "received and reviewed." Your actual assurance covers a fraction of the environment you thought it covered.</p>
+
+                    <blockquote>
+                        "Section III defines what the rest of the report means. If the boundary was drawn to exclude components that matter to your risk assessment, no amount of clean test results changes that. You're reading a clean audit of a partial picture."
+                    </blockquote>
+
+                    <h2>What to Actually Look For</h2>
+
+                    <p>When you open Section III, read it like a detective, not a reviewer. <a href="the-self-attestation-problem.html">The vendor wrote this description</a>, and they had every incentive to define it in a way that makes the audit easier to pass. Your job is to evaluate whether the boundary they drew covers the components that matter to your risk assessment.</p>
+
+                    <p>Start with a simple question: <strong>does this description account for everywhere my data goes inside this vendor's environment?</strong> Every system their employees use to access it. Every layer between their code and my information. Every integration point where data enters or leaves their boundary.</p>
+
+                    <p>Then get specific:</p>
+
+                    <ul>
+                        <li><strong>Backend processing</strong>&mdash;If the vendor describes a customer portal but doesn't mention the data processing infrastructure behind it, ask why. Your data doesn't live in the portal. It lives in the systems the portal talks to.</li>
+                        <li><strong>Internal tools</strong>&mdash;Support dashboards, admin consoles, and database management interfaces are where insider threats and access control failures actually happen. If they're not in scope, the audit didn't test them.</li>
+                        <li><strong>Integration layers</strong>&mdash;APIs, webhooks, file transfer mechanisms, and third-party connectors that move your data between systems. If the description only covers the application and not the plumbing, you have a gap.</li>
+                        <li><strong>Development and deployment</strong>&mdash;CI/CD pipelines, staging environments, and code repositories determine what gets pushed to the production environment you depend on. If change management controls were tested but the deployment pipeline was out of scope, you're trusting a process you haven't validated.</li>
+                    </ul>
+
+                    <p>If the description only covers the front door and you care about what's happening in the back office, the report isn't giving you what you think it is.</p>
+
+                    <h2>What Comes Next</h2>
+
+                    <p>The system description defines the audit boundary. But there's another section most people skip that shifts the story even further: the part where the vendor identifies controls they expect <em>you</em> to operate. These are complementary user entity controls&mdash;CUECs&mdash;and they represent responsibility the vendor is explicitly handing to you. If nobody on your side owns those controls, you have gaps that neither the vendor's audit nor your own review process is catching. That's where we're going next.</p>
+
+                    <p><em>For more perspectives on third-party risk management, <a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank">connect with me on LinkedIn</a>.</em></p>
+                </div>
+            </div>
+
+            <section class="author-box">
+                <div class="author-box-container">
+                    <div class="author-info">
+                        <div class="author-avatar">
+                            <img src="../images/trevor_kavanaugh_headshot.jpg" alt="Trevor Kavanaugh" style="object-position: center 25%;">
+                        </div>
+                        <div class="author-details">
+                            <h3>About the Author</h3>
+                            <p><strong>Trevor Kavanaugh</strong> | VP, Third-Party Risk Management</p>
+                            <p>With over a decade in banking, I've built my career across the risk spectrum—from compliance and BSA/AML to internal audit, now leading third-party risk management at an FDIC-chartered regional bank with DFPI oversight. This journey gave me a ground-level view of how risk actually functions across financial institutions.</p>
+                            <p>I believe in building risk frameworks designed for modern, evolving threats—not just satisfying checkboxes. Risk management runs deeper than prescriptive compliance rules. It's abstract, constantly shifting, and demands continuous adaptation. I challenge legacy thinking and status quo approaches to push our profession forward.</p>
+                            <p>My goal is simple: help everyone do better.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="related-articles">
+                <div class="container">
+                    <h2>Continue Reading</h2>
+                    <div class="related-articles-grid">
+                        <article class="article-card">
+                            <a href="soc-2-scoping-problem.html" class="article-card-link">
+                                <div class="article-card-content">
+                                    <span class="article-category category-tprm">TPRM</span>
+                                    <h3 class="article-title">The SOC 2 Scoping Problem</h3>
+                                    <p class="article-excerpt">SOC 2 audits let the vendor define the scope. Two identical services can produce reports with wildly different coverage. Know what to look for.</p>
+                                    <div class="article-meta">
+                                        <span class="article-date">February 17, 2026</span>
+                                        <span class="article-read-more">Read more</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                        <article class="article-card">
+                            <a href="soc-2-timing-gap.html" class="article-card-link">
+                                <div class="article-card-content">
+                                    <span class="article-category category-tprm">TPRM</span>
+                                    <h3 class="article-title">The SOC 2 Timing Gap</h3>
+                                    <p class="article-excerpt">SOC 2 reports tell you what controls looked like during a historical window. They don't tell you what they look like today. That gap is where risk lives.</p>
+                                    <div class="article-meta">
+                                        <span class="article-date">February 12, 2026</span>
+                                        <span class="article-read-more">Read more</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                        <article class="article-card">
+                            <a href="soc-2-type-2-reality.html" class="article-card-link">
+                                <div class="article-card-content">
+                                    <span class="article-category category-tprm">TPRM</span>
+                                    <h3 class="article-title">The SOC 2 Type 2 Reality Check</h3>
+                                    <p class="article-excerpt">SOC 2 Type 2 is the most requested document in TPRM. It's also the most misunderstood. Here's what it actually attests to&mdash;and what it doesn't cover.</p>
+                                    <div class="article-meta">
+                                        <span class="article-date">January 27, 2026</span>
+                                        <span class="article-read-more">Read more</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <section class="cta" id="contact">
+            <div class="container">
+                <h2>Continue the Conversation</h2>
+                <p>Have thoughts on this topic? I'd love to hear your perspective. Connect with me on LinkedIn or reach out directly.</p>
+                <div class="cta-buttons">
+                    <a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank" class="btn btn-cta">Connect on LinkedIn</a>
+                    <a href="mailto:trevor@trevorkavanaugh.com" class="btn btn-secondary">Send an Email</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <div class="logo-icon">TK</div>
+                <span>Trevor Kavanaugh</span>
+            </div>
+            <div class="footer-columns">
+                <div class="footer-col">
+                    <h3>Navigation</h3>
+                    <nav aria-label="Footer navigation">
+                        <ul>
+                            <li><a href="../index.html">Home</a></li>
+                            <li><a href="../about.html">About</a></li>
+                            <li><a href="../insights.html">Insights</a></li>
+                            <li><a href="../services.html">Advisory</a></li>
+                            <li><a href="../index.html#contact">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="footer-col">
+                    <h3>Connect</h3>
+                    <ul class="contact-info">
+                        <li><a href="mailto:trevor@trevorkavanaugh.com">trevor@trevorkavanaugh.com</a></li>
+                        <li><a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank">LinkedIn</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <p style="color: #8899aa; font-size: 14px; margin-bottom: 12px;">New articles every Tuesday & Thursday</p>
+                    <form id="newsletter-form" class="newsletter-form">
+                        <div class="newsletter-input-group">
+                            <input type="email" id="newsletter-email" placeholder="Enter your email" required>
+                            <button type="submit">Subscribe</button>
+                        </div>
+                        <p id="newsletter-message" class="newsletter-message"></p>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 Trevor Kavanaugh</p>
+                <nav class="legal-nav" aria-label="Legal navigation">
+                    <a href="../privacy.html">Privacy Policy</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

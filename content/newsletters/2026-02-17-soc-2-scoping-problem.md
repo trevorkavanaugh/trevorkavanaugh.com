@@ -3,8 +3,8 @@ title: "The SOC 2 Scoping Problem"
 date: 2026-02-17
 article_slug: soc-2-scoping-problem
 article_url: https://trevorkavanaugh.com/articles/soc-2-scoping-problem.html
-sent_date:
-subscribers_sent:
+sent_date: 2026-02-17
+subscribers_sent: 2
 ---
 
 # The SOC 2 Scoping Problem
