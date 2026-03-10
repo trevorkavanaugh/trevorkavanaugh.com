@@ -3,8 +3,8 @@ title: "The SOC 2 CUEC Problem"
 date: 2026-02-26
 article_slug: soc-2-cuec-problem
 article_url: https://trevorkavanaugh.com/articles/soc-2-cuec-problem.html
-sent_date: TBD
-subscribers_sent: TBD
+sent_date: 2026-03-10
+subscribers_sent: 2
 ---
 
 # The SOC 2 CUEC Problem

@@ -3,8 +3,8 @@ title: "Finish the Last Assignment"
 date: 2026-03-10
 article_slug: finish-the-last-assignment
 article_url: https://trevorkavanaugh.com/articles/finish-the-last-assignment.html
-sent_date: TBD
-subscribers_sent: TBD
+sent_date: 2026-03-10
+subscribers_sent: 2
 ---
 
 # Finish the Last Assignment
