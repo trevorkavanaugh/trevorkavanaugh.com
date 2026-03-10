@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WXHBC0YD0Z"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WXHBC0YD0Z');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CUECs in SOC 2 reports shift control responsibility to your organization. If nobody maps them against what you actually do, you have gaps no one owns.">
+    <title>The SOC 2 CUEC Problem | Trevor Kavanaugh</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/articles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="/js/analytics.js" defer></script>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="site-header" id="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">TK</div>
+                <span class="logo-text">Trevor Kavanaugh</span>
+            </a>
+            <nav class="main-nav" aria-label="Main navigation">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="../insights.html" class="active">Insights</a></li>
+                    <li><a href="../services.html">Advisory</a></li>
+                    <li><a href="../index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="menu-toggle" aria-label="Open navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobile-menu">
+        <button class="menu-close" aria-label="Close navigation menu">
+            <span>&times;</span>
+        </button>
+        <nav aria-label="Mobile navigation">
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../insights.html">Insights</a></li>
+                <li><a href="../services.html">Advisory</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu-contact">
+                <a href="mailto:trevor@trevorkavanaugh.com">trevor@trevorkavanaugh.com</a>
+                <a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank">LinkedIn</a>
+            </div>
+        </nav>
+    </div>
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+
+    <main id="main-content">
+        <article class="article-page">
+            <header class="article-hero">
+                <div class="article-hero-container">
+                    <span class="article-category category-tprm">TPRM</span>
+                    <h1>The SOC 2 CUEC Problem</h1>
+                    <div class="article-meta-line">
+                        <time datetime="2026-02-26">February 26, 2026</time>
+                        <span class="separator">-</span>
+                        <span class="read-time">6 min read</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="article-content-wrapper">
+                <div class="article-content">
+                    <p>Buried in every SOC 2 report is a section called Complementary User Entity Controls&mdash;CUECs. It's easy to gloss over. Most reviewers skip it entirely on their way to the controls and test results. That's a mistake, because CUECs represent controls the vendor assumes <em>you</em> have in place. The auditor's opinion&mdash;that clean, unqualified opinion everyone skips to&mdash;is conditioned on your organization doing certain things on your end. If you're not doing them, the assurance that report provides has holes that neither side is accounting for.</p>
+
+                    <p>This is Part 4 of a series examining the layers of conditionality underneath SOC 2 reports. We've covered <a href="soc-2-timing-gap.html">the timing gap</a>, <a href="soc-2-scoping-problem.html">the scoping problem</a>, and <a href="soc-2-system-description.html">the system description problem</a>. CUECs are the final layer&mdash;and arguably the most operationally dangerous, because they create control gaps that exist in no man's land between your organization and the vendor.</p>
+
+                    <h2>How Shared Responsibility Actually Works</h2>
+
+                    <p>A vendor's control environment doesn't operate in isolation. Some controls only function correctly if the customer is doing their part. So the auditor documents assumptions about what the customer is responsible for&mdash;these are the CUECs.</p>
+
+                    <p>Some of these are completely reasonable and expected. "Customer is responsible for managing their own user access credentials." Of course. "Customer should restrict access to authorized personnel." Sure. Nobody has a problem with those. They're the kind of shared responsibility that any competent organization would already be handling regardless of what the SOC 2 says.</p>
+
+                    <p>But some CUECs are doing something different. They're moving <strong>meaningful control responsibility</strong> from the vendor to you&mdash;and unless someone on your side is reading that section and mapping it against what you actually do, those controls exist nowhere. The vendor didn't build them because they assumed you would. You didn't build them because you assumed the vendor did. That's not a control gap anyone planned for. It's a gap that emerged from assumptions documented in a section of the report that most people skip.</p>
+
+                    <h2>Where This Gets Real</h2>
+
+                    <p>Consider a CUEC that says "Customer is responsible for monitoring user activity logs provided by the platform." That sounds reasonable on the surface. But does your team actually monitor those logs? Do you have the staffing to review them with any meaningful frequency? Did anyone even set up the log exports? In many organizations, the answer to all three questions is no&mdash;not because anyone decided monitoring wasn't important, but because nobody read the CUEC section and identified it as an obligation that needed to be operationalized.</p>
+
+                    <p>Or consider this one: "Customer is responsible for ensuring data transmitted to the platform is encrypted in transit." Your integration team built the API connection two years ago. Did they configure TLS? Probably. Has anyone verified it's still enforced after the vendor's last platform update? After your own infrastructure changes? After the certificate rotation that may or may not have happened on schedule? These aren't hypothetical edge cases. They're the kinds of assumptions buried in reports right now that create real exposure when no one on either side is owning the control.</p>
+
+                    <p>The pattern is consistent: CUECs that sound like standard practice often require <strong>specific operational processes</strong> that your organization may not have in place. The gap between "this sounds like something we'd do" and "we have a documented process with assigned ownership for doing this" is where risk lives.</p>
+
+                    <blockquote>
+                        "The vendor didn't build the control because they assumed you would. You didn't build it because you assumed the vendor did. That's not a control gap anyone planned for."
+                    </blockquote>
+
+                    <h2>The No Man's Land Problem</h2>
+
+                    <p>The real danger with CUECs isn't that individual controls fall through the cracks&mdash;it's the <strong>systematic nature</strong> of the gap. Every vendor with a SOC 2 report has a CUEC section. Every CUEC section contains assumptions about what you're doing. If your organization manages dozens or hundreds of vendor relationships, each with their own set of CUECs, the aggregate exposure is significant and almost certainly untracked.</p>
+
+                    <p>Most TPRM programs treat SOC 2 review as a binary activity: receive the report, confirm it's a Type 2 with an unqualified opinion, check the box, move on. The CUECs don't factor into the risk assessment. They don't get mapped to internal controls. They don't get assigned to control owners. They exist in the report and nowhere else in your risk management framework.</p>
+
+                    <p>That means you have a population of controls that your vendors are formally relying on you to operate&mdash;documented in writing, referenced in the auditor's opinion&mdash;and your organization may have no visibility into whether those controls exist, let alone whether they're functioning effectively.</p>
+
+                    <h2>Why This Matters for Your Risk Assessment</h2>
+
+                    <p>A clean SOC 2 opinion means the vendor's controls operated effectively&mdash;within <a href="soc-2-system-description.html">the system boundary they defined</a>, for <a href="soc-2-scoping-problem.html">the criteria they selected</a>, during <a href="soc-2-timing-gap.html">a historical observation period</a>, assuming you're holding up your end of the CUECs. That's four layers of conditionality sitting underneath what most programs treat as blanket assurance.</p>
+
+                    <p>The SOC 2 scoping series comes down to this: the report isn't lying to you. It's telling you exactly what it covers, what it excludes, and what it assumes. Every limitation is documented. Every boundary is defined. Every assumption about your responsibilities is spelled out in the CUEC section. The question is whether anyone on your team is reading closely enough to hear what the report is actually saying&mdash;and whether your program is structured to act on it.</p>
+
+                    <h2>What to Do About It</h2>
+
+                    <p>The fix isn't complicated in concept, but it requires treating CUECs as actionable obligations rather than background reading:</p>
+
+                    <ul>
+                        <li><strong>Extract CUECs during SOC 2 review</strong>&mdash;Don't just read Section IV for control test results. Pull every CUEC out of the report and document it separately. This should be a standard step in your SOC 2 review process, not an occasional deep-dive.</li>
+                        <li><strong>Map CUECs to internal controls</strong>&mdash;For each CUEC, determine whether your organization has a corresponding control in place. Not "we probably do that somewhere"&mdash;a specific, documented control with an assigned owner and evidence of operation.</li>
+                        <li><strong>Flag gaps immediately</strong>&mdash;If a CUEC maps to nothing in your environment, that's a finding. It means the assurance you're deriving from that SOC 2 report has a hole in it. Treat it the same way you'd treat a control exception in the report itself.</li>
+                        <li><strong>Aggregate across vendors</strong>&mdash;Look at CUECs in the aggregate. You'll likely find common themes&mdash;log monitoring, encryption enforcement, access management&mdash;that point to systemic gaps in your own control environment rather than vendor-specific issues.</li>
+                        <li><strong>Include in risk ratings</strong>&mdash;A vendor whose CUECs you've fully mapped and validated is a different risk profile than a vendor whose CUECs you've never reviewed. Your risk assessment should reflect that distinction.</li>
+                    </ul>
+
+                    <h2>Read the Series</h2>
+
+                    <p>This article is Part 4 of a series on what SOC 2 reports actually tell you&mdash;and what they assume you'll figure out on your own.</p>
+
+                    <ul>
+                        <li><strong>Part 1:</strong> <a href="soc-2-timing-gap.html">The SOC 2 Timing Gap</a>&mdash;Why the report's observation period creates a gap between tested controls and current reality.</li>
+                        <li><strong>Part 2:</strong> <a href="soc-2-scoping-problem.html">The SOC 2 Scoping Problem</a>&mdash;How vendors define what gets audited, and what that means for your coverage assumptions.</li>
+                        <li><strong>Part 3:</strong> <a href="soc-2-system-description.html">The SOC 2 System Description Problem</a>&mdash;How system boundaries in Section III quietly exclude backend components from audit scope.</li>
+                        <li><strong>Part 4:</strong> The SOC 2 CUEC Problem (this article)&mdash;How complementary user entity controls shift responsibility to you without anyone noticing.</li>
+                    </ul>
+
+                    <p><em>For more perspectives on third-party risk management, <a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank">connect with me on LinkedIn</a>.</em></p>
+                </div>
+            </div>
+
+            <section class="author-box">
+                <div class="author-box-container">
+                    <div class="author-info">
+                        <div class="author-avatar">
+                            <img src="../images/trevor_kavanaugh_headshot.jpg" alt="Trevor Kavanaugh" style="object-position: center 25%;">
+                        </div>
+                        <div class="author-details">
+                            <h3>About the Author</h3>
+                            <p><strong>Trevor Kavanaugh</strong> | VP, Third-Party Risk Management</p>
+                            <p>With over a decade in banking, I've built my career across the risk spectrum—from compliance and BSA/AML to internal audit, now leading third-party risk management at an FDIC-chartered regional bank with DFPI oversight. This journey gave me a ground-level view of how risk actually functions across financial institutions.</p>
+                            <p>I believe in building risk frameworks designed for modern, evolving threats—not just satisfying checkboxes. Risk management runs deeper than prescriptive compliance rules. It's abstract, constantly shifting, and demands continuous adaptation. I challenge legacy thinking and status quo approaches to push our profession forward.</p>
+                            <p>My goal is simple: help everyone do better.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="related-articles">
+                <div class="container">
+                    <h2>Continue Reading</h2>
+                    <div class="related-articles-grid">
+                        <article class="article-card">
+                            <a href="soc-2-system-description.html" class="article-card-link">
+                                <div class="article-card-content">
+                                    <span class="article-category category-tprm">TPRM</span>
+                                    <h3 class="article-title">The SOC 2 System Description Problem</h3>
+                                    <p class="article-excerpt">The system description in Section III defines audit boundaries. Most reviewers skip it. That's where the real scoping decisions hide.</p>
+                                    <div class="article-meta">
+                                        <span class="article-date">February 19, 2026</span>
+                                        <span class="article-read-more">Read more</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                        <article class="article-card">
+                            <a href="soc-2-scoping-problem.html" class="article-card-link">
+                                <div class="article-card-content">
+                                    <span class="article-category category-tprm">TPRM</span>
+                                    <h3 class="article-title">The SOC 2 Scoping Problem</h3>
+                                    <p class="article-excerpt">SOC 2 audits let the vendor define the scope. Two identical services can produce reports with wildly different coverage. Know what to look for.</p>
+                                    <div class="article-meta">
+                                        <span class="article-date">February 17, 2026</span>
+                                        <span class="article-read-more">Read more</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                        <article class="article-card">
+                            <a href="soc-2-timing-gap.html" class="article-card-link">
+                                <div class="article-card-content">
+                                    <span class="article-category category-tprm">TPRM</span>
+                                    <h3 class="article-title">The SOC 2 Timing Gap</h3>
+                                    <p class="article-excerpt">SOC 2 reports tell you what controls looked like during a historical window. They don't tell you what they look like today. That gap is where risk lives.</p>
+                                    <div class="article-meta">
+                                        <span class="article-date">February 12, 2026</span>
+                                        <span class="article-read-more">Read more</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <section class="cta" id="contact">
+            <div class="container">
+                <h2>Continue the Conversation</h2>
+                <p>Have thoughts on this topic? I'd love to hear your perspective. Connect with me on LinkedIn or reach out directly.</p>
+                <div class="cta-buttons">
+                    <a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank" class="btn btn-cta">Connect on LinkedIn</a>
+                    <a href="mailto:trevor@trevorkavanaugh.com" class="btn btn-secondary">Send an Email</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <div class="logo-icon">TK</div>
+                <span>Trevor Kavanaugh</span>
+            </div>
+            <div class="footer-columns">
+                <div class="footer-col">
+                    <h3>Navigation</h3>
+                    <nav aria-label="Footer navigation">
+                        <ul>
+                            <li><a href="../index.html">Home</a></li>
+                            <li><a href="../about.html">About</a></li>
+                            <li><a href="../insights.html">Insights</a></li>
+                            <li><a href="../services.html">Advisory</a></li>
+                            <li><a href="../index.html#contact">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="footer-col">
+                    <h3>Connect</h3>
+                    <ul class="contact-info">
+                        <li><a href="mailto:trevor@trevorkavanaugh.com">trevor@trevorkavanaugh.com</a></li>
+                        <li><a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank">LinkedIn</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <p style="color: #8899aa; font-size: 14px; margin-bottom: 12px;">New articles every Tuesday & Thursday</p>
+                    <form id="newsletter-form" class="newsletter-form">
+                        <div class="newsletter-input-group">
+                            <input type="email" id="newsletter-email" placeholder="Enter your email" required>
+                            <button type="submit">Subscribe</button>
+                        </div>
+                        <p id="newsletter-message" class="newsletter-message"></p>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 Trevor Kavanaugh</p>
+                <nav class="legal-nav" aria-label="Legal navigation">
+                    <a href="../privacy.html">Privacy Policy</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

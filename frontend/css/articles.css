@@ -186,6 +186,11 @@
     color: #00695C;
 }
 
+.category-technology {
+    background-color: #EDE7F6;
+    color: #4527A0;
+}
+
 /* Article Card Title */
 .article-title {
     font-size: 22px;
