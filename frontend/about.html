@@ -87,7 +87,7 @@
 
         /* Connect Section */
         .connect-section {
-            padding: var(--spacing-3xl) 0;
+            padding: var(--spacing-2xl) 0;
             background-color: var(--color-white);
         }
 
@@ -115,6 +115,78 @@
             flex-wrap: wrap;
         }
 
+        /* Speaking & Recognition Section */
+        .speaking-section {
+            padding: var(--spacing-3xl) 0 var(--spacing-2xl);
+            background-color: var(--color-white);
+        }
+
+        .speaking-section h2 {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .speaking-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 960px;
+            margin: 0 auto;
+            background-color: var(--color-light-grey);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+        }
+
+        .speaking-badge {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .speaking-badge img {
+            display: block;
+            max-width: 560px;
+            width: 100%;
+            height: auto;
+            border-radius: var(--radius-md);
+        }
+
+        .speaking-event {
+            font-size: 16px;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .speaking-event strong {
+            color: var(--color-navy);
+            font-weight: 600;
+        }
+
+        .speaking-divider {
+            color: var(--color-border);
+            margin: 0 4px;
+        }
+
+        .speaking-details h3 {
+            font-size: 24px;
+            color: var(--color-navy);
+            margin-bottom: var(--spacing-md);
+            line-height: 1.3;
+        }
+
+        .speaking-description {
+            font-size: 17px;
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .speaking-panelists {
+            font-size: 15px;
+            color: var(--color-slate);
+            line-height: 1.6;
+            font-style: italic;
+            margin-bottom: 0;
+        }
+
         /* Responsive - Tablet */
         @media (max-width: 1024px) {
             .profile-container {
@@ -129,6 +201,10 @@
 
             .profile-image-wrapper {
                 position: static;
+            }
+
+            .speaking-badge img {
+                max-width: 480px;
             }
         }
 
@@ -170,6 +246,18 @@
 
             .profile-bio {
                 font-size: 17px;
+            }
+
+            .speaking-section {
+                padding: var(--spacing-2xl) 0;
+            }
+
+            .speaking-card {
+                padding: var(--spacing-lg);
+            }
+
+            .speaking-details h3 {
+                font-size: 20px;
             }
 
             .connect-section {
@@ -269,6 +357,24 @@
 
                             <p>My goal is simple: help everyone do better.</p>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Speaking & Recognition Section -->
+        <section class="speaking-section" id="speaking">
+            <div class="container">
+                <h2>Speaking &amp; Recognition</h2>
+                <div class="speaking-card">
+                    <div class="speaking-badge">
+                        <img src="images/garp-speaker-badge.png" alt="Trevor Kavanaugh - Speaker at 2026 GARP Financial Risk Symposium">
+                    </div>
+                    <div class="speaking-details">
+                        <p class="speaking-event"><strong>2026 GARP Financial Risk Symposium</strong> <span class="speaking-divider">|</span> March 4, 2026</p>
+                        <h3>Third Party Risk Management and Developing a Resilience Playbook</h3>
+                        <p class="speaking-description">Trevor joined a panel of senior risk leaders from CLS Bank, HarbourVest Partners, and Barclays to discuss identifying concentration risks in cloud and supply chain dependencies, evolving frameworks for the current threat environment, and proactive controls for organizational resilience.</p>
+                        <p class="speaking-panelists">Alongside Kelli Finnegan (SVP, HarbourVest Partners), Mark Frankel (Executive Director, CLS Bank), and moderator Matthew Moore (Director of Operational Risk, Barclays).</p>
                     </div>
                 </div>
             </div>
