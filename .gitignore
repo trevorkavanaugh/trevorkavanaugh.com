@@ -16,3 +16,6 @@ CLAUDE.md
 HANDOFF*.md
 SESSION*.md
 STATUS.md
+
+# LinkedIn Publisher pipeline state
+.pipeline-state.json

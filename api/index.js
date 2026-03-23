@@ -540,6 +540,31 @@ app.post('/api/newsletter/send', requireAdmin, async (req, res) => {
       return res.status(400).json({ error: 'subject, article_title, and article_content required' });
     }
 
+    const { test_mode, test_email } = req.body;
+
+    // Test mode: send to a single address instead of all subscribers
+    if (test_mode) {
+      if (!test_email) {
+        return res.status(400).json({ error: 'test_email required when test_mode is true' });
+      }
+      try {
+        await resend.emails.send({
+          from: 'Trevor Kavanaugh <newsletter@trevorkavanaugh.com>',
+          to: test_email,
+          subject: `[TEST] ${subject}`,
+          html: generateNewsletterHTML({
+            article_title,
+            article_content,
+            unsubscribe_url: `https://api.trevorkavanaugh.com/api/unsubscribe/test-token`
+          })
+        });
+        return res.json({ success: true, test_mode: true, sent: 1, test_email });
+      } catch (err) {
+        console.error(`Test send failed to ${test_email}:`, err);
+        return res.status(500).json({ error: 'Test send failed', details: err.message, test_mode: true });
+      }
+    }
+
     // Get confirmed, active subscribers
     const subscribers = db.prepare(`
       SELECT email, unsubscribe_token FROM subscribers

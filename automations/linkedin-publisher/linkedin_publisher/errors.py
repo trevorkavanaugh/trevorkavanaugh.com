@@ -24,3 +24,23 @@ class APIError(LinkedInPublisherError):
 
 class ValidationError(LinkedInPublisherError):
     """Post validation failed."""
+
+
+class ArticleGenerationError(LinkedInPublisherError):
+    """Article generation via Claude API failed."""
+
+
+class NewsletterError(LinkedInPublisherError):
+    """Newsletter build or send failed."""
+
+
+class DeploymentError(LinkedInPublisherError):
+    """Git commit/push or deployment verification failed."""
+
+
+class SiteUpdateError(LinkedInPublisherError):
+    """Failed to update site HTML files (insights.html or index.html)."""
+
+
+class PipelineError(LinkedInPublisherError):
+    """Pipeline orchestration failed (state load/save, step sequencing)."""
