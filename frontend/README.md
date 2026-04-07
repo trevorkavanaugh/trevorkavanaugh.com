@@ -6,7 +6,7 @@
 
 **Option 1: Python Simple Server (Recommended)**
 ```bash
-cd /home/owentheoracle/scripts/consulting_business/src
+cd /home/owentheoracle/work/thought-leadership/src
 python3 -m http.server 8000
 ```
 Then open in browser: `http://localhost:8000`
@@ -14,7 +14,7 @@ Then open in browser: `http://localhost:8000`
 **Option 2: Direct File Open**
 ```bash
 # Open directly in default browser
-xdg-open /home/owentheoracle/scripts/consulting_business/src/index.html
+xdg-open /home/owentheoracle/work/thought-leadership/src/index.html
 ```
 
 **Option 3: VS Code Live Server**

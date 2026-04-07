@@ -1,91 +1,109 @@
-# TPRM Insights
+# Trevor Kavanaugh - Professional Thought Leadership Platform
 
-Professional thought leadership profile focused on third-party risk management for financial institutions.
+Professional thought leadership platform for Third-Party Risk Management in banking and financial services.
 
-## Profile Overview
-
-**Focus:** Third-Party Risk Management (TPRM) Thought Leadership
-**Industry:** Banking and Financial Services
+**Live Site:** [trevorkavanaugh.com](https://trevorkavanaugh.com)
+**API:** [api.trevorkavanaugh.com](https://api.trevorkavanaugh.com)
+**Advisory Firm:** [Provenance Risk Advisory](https://www.provenanceriskadvisory.com)
 **Tagline:** "Practical Perspectives on Third-Party Risk Management"
-**Target Audience:** Risk management professionals, compliance officers, banking executives
 
-## Current Status
+## Tech Stack
 
-See [STATUS.md](STATUS.md) for detailed project status.
+- **Frontend:** Vanilla HTML5 / CSS3 / JavaScript (no framework, no build step)
+- **Backend API:** Express.js + SQLite on Digital Ocean droplet
+- **Fonts:** Google Fonts (Inter)
+- **Analytics:** Custom client-side tracking + API analytics dashboard
+- **Newsletter:** API-driven subscriber management and email sending
+- **Deployment:** GitHub Pages (frontend), Digital Ocean (API)
 
-**Quick Summary:**
-- ✅ Homepage complete and responsive (thought leadership profile)
-- ✅ Design system implemented
-- ✅ Articles/Insights section with 15 thought leadership pieces
-- ✅ Site rebrand from consulting business to thought leadership profile (2025-12-21)
+## Quick Start
+
+**Local preview:**
+```bash
+cd frontend && python3 -m http.server 8080
+# Visit http://localhost:8080
+```
+
+**Run API locally:**
+```bash
+cd api && npm install && node index.js
+```
+
+**Deploy frontend:**
+```bash
+git push  # GitHub Pages auto-deploys from frontend/
+```
+
+**Deploy API:**
+```bash
+ssh naughtymoddy@64.23.250.139
+# Then run deploy.sh on the droplet
+```
 
 ## Project Structure
 
 ```
 consulting_business/
-├── src/                    # Website source code (HTML, CSS, JS)
-├── content/                # Content marketing (articles, LinkedIn)
-├── docs/                   # Project documentation
-├── assets/                 # Shared assets (brand, images)
-├── archive/                # Completed work and old versions
-├── CLAUDE.md               # AI assistant instructions
-├── STATUS.md               # Current project state
-├── PROJECT_PLAN.md         # Development roadmap
-└── REQUIREMENTS.md         # Feature specifications
+├── CLAUDE.md                    # AI assistant PM/QA instructions
+├── STATUS.md                    # Current project state
+├── README.md                    # This file
+├── PROJECT_PLAN.md              # Development roadmap
+├── frontend/                    # Website (GitHub Pages at trevorkavanaugh.com)
+│   ├── index.html               # Homepage
+│   ├── about.html               # About page
+│   ├── insights.html            # All articles listing
+│   ├── services.html            # Services page
+│   ├── privacy.html             # Privacy policy
+│   ├── CNAME                    # Custom domain config
+│   ├── articles/                # 36 article pages
+│   ├── research/                # Research paper page + PDFs
+│   ├── analytics/               # Analytics dashboard
+│   ├── css/                     # Stylesheets
+│   ├── js/                      # JavaScript
+│   └── images/                  # Website images
+├── api/                         # Backend API (Digital Ocean)
+│   ├── index.js                 # Express server
+│   ├── analytics.db             # SQLite database
+│   ├── deploy.sh                # Deployment script
+│   └── package.json
+├── content/                     # Content marketing assets
+│   ├── articles/                # drafts, linkedin-originals, published, ideas
+│   ├── newsletters/             # 17 newsletter archives
+│   ├── playbook/                # Content strategy docs
+│   └── series/                  # Multi-part series planning
+├── docs/                        # Project documentation
+│   ├── methodologies/           # Content transformation guides
+│   ├── design/                  # Design decisions
+│   ├── research/                # Market and competitor research
+│   └── specs/                   # Technical specifications
+├── assets/                      # Brand, images, downloads
+└── archive/                     # Completed session summaries
 ```
 
-## Quick Start
+## Content Pipeline
 
-### View the Website
+LinkedIn posts are transformed into professional articles and newsletters using documented methodologies:
 
-1. Navigate to `src/` directory
-2. Open `index.html` in a browser
-3. No build process required - static files only
+1. **LinkedIn post** arrives in `content/articles/drafts/`
+2. **Article** created following `docs/methodologies/linkedin-to-article-methodology.md`
+3. **Newsletter** derived from finished article per `docs/methodologies/article-to-newsletter-methodology.md`
+4. **Test email** sent via API, reviewed, then published
 
-### Project Files
+## Key Pages
 
-| File | Purpose |
-|------|---------|
-| `STATUS.md` | Current state, what's done, what's next |
-| `PROJECT_PLAN.md` | Phased development approach |
-| `REQUIREMENTS.md` | Business and technical requirements |
-| `CLAUDE.md` | Instructions for AI assistant sessions |
-
-## Design
-
-**Color Palette:**
-- Navy: #1D3557 (primary)
-- Slate: #4C607B (secondary)
-- Medium Blue: #4A90E2 (accent)
-
-**Typography:** Inter (Google Fonts)
-
-**Design Style:** Modern Professional - clean, contemporary with strategic blue accents
-
-## Content Strategy
-
-LinkedIn thought leadership posts are being converted to website articles. Content pillars:
-
-1. **TPRM Excellence** - Vendor risk, portfolio management
-2. **M&A Integration** - Risk culture, compliance harmonization
-3. **Building Compliance** - Limited resources, efficiency
-4. **Regulatory Navigation** - OCC, FFIEC, compliance
-5. **Leadership & Strategy** - Risk management organizations
-
-## Technology Stack
-
-- **Frontend:** Vanilla HTML5, CSS3, JavaScript (ES6+)
-- **Build:** None (static files)
-- **Fonts:** Google Fonts (Inter)
-- **Deployment:** TBD
+| Page | URL |
+|------|-----|
+| Homepage | trevorkavanaugh.com |
+| Insights (all articles) | trevorkavanaugh.com/insights.html |
+| About | trevorkavanaugh.com/about.html |
+| Services | trevorkavanaugh.com/services.html |
+| Analytics Dashboard | trevorkavanaugh.com/analytics/ |
 
 ## Documentation
 
-- [STATUS.md](STATUS.md) - Project status and tracking
-- [PROJECT_PLAN.md](PROJECT_PLAN.md) - Development phases
-- [REQUIREMENTS.md](REQUIREMENTS.md) - Specifications
-- [docs/design/](docs/design/) - Design decisions
-- [docs/specs/HOMEPAGE_GUIDE.md](docs/specs/HOMEPAGE_GUIDE.md) - Implementation details
+- [STATUS.md](STATUS.md) - Current project state and progress tracking
+- [PROJECT_PLAN.md](PROJECT_PLAN.md) - Development roadmap and phases
+- [docs/methodologies/](docs/methodologies/) - Content transformation guides
 
 ## License
 

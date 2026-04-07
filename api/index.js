@@ -258,6 +258,8 @@ app.use('/analytics', express.static(path.join(__dirname, 'public', 'analytics')
 const allowedOrigins = [
   'https://trevorkavanaugh.com',
   'https://www.trevorkavanaugh.com',
+  'https://provenanceriskadvisory.com',
+  'https://www.provenanceriskadvisory.com',
   'http://localhost:8000',
   'http://127.0.0.1:8000',
   'http://localhost:5173',  // For analytics dashboard dev
@@ -315,7 +317,7 @@ function checkSuspicious(req) {
 
   if (!origin) suspicious.push('no_origin');
   if (origin && !allowedOrigins.includes(origin)) suspicious.push('bad_origin');
-  if (!referer || !referer.includes('trevorkavanaugh.com')) suspicious.push('bad_referer');
+  if (!referer || (!referer.includes('trevorkavanaugh.com') && !referer.includes('provenanceriskadvisory.com'))) suspicious.push('bad_referer');
 
   const botPatterns = /curl|wget|python|httpie|postman|insomnia|bot|crawler|spider|scraper/i;
   if (botPatterns.test(userAgent)) suspicious.push('bot_ua');

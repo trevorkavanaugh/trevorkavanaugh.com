@@ -2,137 +2,122 @@
 
 ## Approach
 
-This project follows a research-driven, iterative design approach:
+Iterative, research-driven development. Build incrementally, refine based on feedback, publish content continuously.
 
-1. Research competitor websites to identify industry standards
-2. Present multiple design options for stakeholder selection
-3. Build incrementally, refining based on feedback
+**Website source lives in `frontend/` (deployed to GitHub Pages)**
+**API source lives in `api/` (deployed to Digital Ocean)**
 
-## Development Phases
+---
 
-### Phase 1: UI Design Layout Selection
-**Status:** ✓ COMPLETED
-**Objectives:**
-- Research similar consulting firm websites
-- Identify common design patterns and elements
-- Create 2-3 design layout mockups
-- Select preferred layout direction
+## Completed Phases
 
-**Deliverables:**
-- ✓ Competitive analysis document
-- ✓ Design mockup options (3 detailed options)
-- ✓ Selected layout: Modern Professional with Medium Blue accent
+### Phase 1: Design Selection (2025-11-30)
+Selected Modern Professional design with Inter font and Navy/Slate/Blue palette (#1D3557, #4C607B, #4A90E2). Competitive analysis of consulting firm websites informed the decision.
 
-**Decision:**
-- **Design:** Modern Professional
-- **Color Palette:** Navy #1D3557, Slate #4C607B, Medium Blue #4A90E2
-- **Typography:** Inter (modern sans-serif)
-- **Style:** Contemporary, clean with strategic blue accents
+### Phase 2: Static Elements Planning (2025-11-30)
+Defined navigation structure (Home, About, Services, Insights, Contact), header/footer specs, responsive breakpoints (Mobile/Tablet/Desktop/Wide), and mobile menu behavior.
 
-### Phase 2: Static Elements Planning
-**Status:** ✓ COMPLETED
-**Objectives:**
-- Design navigation menu structure
-- Plan header component (logo placement, navigation)
-- Plan footer component (contact info, links, legal)
-- Define responsive behavior for static elements
+### Phase 3: Homepage Development (2025-11-30)
+Built full homepage with hero section, thought leadership positioning, featured insights, and responsive design. Files: `frontend/index.html`, `frontend/css/styles.css`, `frontend/js/main.js`.
 
-**Deliverables:**
-- ✓ Navigation hierarchy document (5 main items)
-- ✓ Header/footer specifications (all breakpoints)
-- ✓ Responsive breakpoint definitions (Mobile/Tablet/Desktop/Wide)
-- ✓ Logo and branding guidelines (3 concepts, recommendations)
+### Phase 4: Project Organization (2025-12-21)
+Established CLAUDE.md, STATUS.md, content directory structure, and documentation standards for ongoing development.
 
-**Key Decisions:**
-- **Navigation:** Home, About, Services, Insights, Contact
-- **Header:** Sticky with scroll shadow, 80px desktop height
-- **Footer:** 3-column desktop, single-column mobile, charcoal background
-- **Mobile Menu:** Slide-in from right with overlay
-- **Logo Direction:** Geometric monogram recommended (temporary text logo for development)
+### Phase 4.5: Articles Section (2025-12-21)
+Created `frontend/insights.html` with category filtering. Converted initial 15 LinkedIn posts into full article pages under `frontend/articles/`.
 
-### Phase 3: Homepage Development
-**Status:** ✓ COMPLETED
-**Objectives:**
-- Implement hero section with tagline
-- Create thought leadership overview
-- Develop value proposition sections
-- Add call-to-action elements
+### Phase 5: Site Rebrand (2025-12-21)
+Pivoted from consulting business to thought leadership profile. Removed consulting-focused sections (Stats, Services, Process, Case Study). Streamlined homepage around insights.
 
-**Deliverables:**
-- ✓ Fully functional homepage (HTML/CSS/JS)
-- ✓ Responsive design (mobile/tablet/desktop)
-- ✓ Interactive features (mobile menu, smooth scroll, sticky header)
+### Phase 5.5: About Page (2025-12-22)
+Built professional profile page at `frontend/about.html`.
 
-**Files Created:**
-- `src/index.html` - Complete homepage structure
-- `src/css/styles.css` - Full design system and responsive styles
-- `src/js/main.js` - Interactive functionality
-- `docs/HOMEPAGE_GUIDE.md` - Implementation documentation
+### Phase 6: Personal Branding (2025-12-24)
+Rebranded to "Trevor Kavanaugh" personal brand. Implemented TK logo, cleaned up footer, added author bios to articles.
 
-**Original Sections (Pre-Rebrand):**
-1. Sticky header with navigation
-2. Hero section (asymmetric layout)
-3. Stats/credibility bar
-4. About/value proposition
-5. Services (4 cards)
-6. Process timeline
-7. Case study
-8. Insights/blog preview
-9. Testimonials
-10. CTA section
-11. Footer (3-column)
+### Phase 7: Deployment & Infrastructure (2025-12-26 → 2026-01)
+- GitHub Pages deployment with custom domain (trevorkavanaugh.com)
+- Digital Ocean API server (api.trevorkavanaugh.com) with Express/SQLite
+- Analytics tracking system with dashboard at trevorkavanaugh.com/analytics/
+- Newsletter subscriber management and send API
+- CNAME and DNS configuration
 
-**Current Sections (Post-Rebrand to Thought Leadership):**
-1. Sticky header with navigation
-2. Hero section with thought leadership positioning
-3. Insights section with featured articles
-4. Footer
+### Phase 8: Content Expansion (2026-01 → present)
+- Grew from 15 to 29 published articles across TPRM, SOC 2 series, and software supply chain topics
+- 17 newsletters sent via the API pipeline
+- Built LinkedIn Publisher CLI tool for content scheduling
+- Established content pipeline methodologies (LinkedIn → Article → Newsletter)
+- Published research paper on the site
 
-### Phase 4: Articles Section
-**Status:** ✓ COMPLETED (2025-12-21)
-**Deliverables:**
-- ✓ insights.html - Article listing page with category filtering
-- ✓ 15 article detail pages converted from LinkedIn posts
-- ✓ Responsive article layouts
+### Phase 9: Advisory Integration (2026-01 → 2026-04-05)
+- Added advisory services page with Cal.com scheduling integration
+- Rebuilt as Provenance Risk Advisory bridge page connecting thought leadership to advisory practice
 
-### Phase 5: Site Rebrand to Thought Leadership
-**Status:** ✓ COMPLETED (2025-12-21)
-**Deliverables:**
-- ✓ Rebranded from consulting business to thought leadership profile
-- ✓ Updated tagline and positioning
-- ✓ Removed consulting-focused sections (Stats, Services, Process, Case Study)
-- ✓ Streamlined homepage focused on insights
+---
 
-### Future Phases (TBD)
-- About/Profile page development
-- Contact page (for speaking/collaboration)
-- Performance optimization
-- SEO implementation
-- Deployment and hosting
+## Current Phase: Ongoing Content Operations
+
+Active, continuous work stream with no defined end date.
+
+**Regular publishing pipeline:**
+1. LinkedIn post created/provided
+2. Convert to professional article following `docs/methodologies/linkedin-to-article-methodology.md`
+3. Create newsletter from finished article following `docs/methodologies/article-to-newsletter-methodology.md`
+4. Test newsletter → User review → Publish to production → Send to subscribers
+
+**Content areas:**
+- Third-Party Risk Management (core)
+- SOC 2 series
+- Software supply chain composition
+- Banking/financial services risk topics
+
+**Current stats:** 29 articles, 17 newsletters sent
+
+---
+
+## Future / Planned
+
+### SEO Optimization
+- Open Graph meta tags across all pages
+- `sitemap.xml` generation
+- Canonical URLs
+- Structured data (JSON-LD) for articles
+
+### Performance Optimization
+- Image compression and lazy loading
+- CSS/JS minification
+- Core Web Vitals improvements
+
+### Continued Content Publishing
+- Ongoing LinkedIn → Article → Newsletter pipeline
+- New topic series as they develop
+- Research papers and long-form content
+
+---
 
 ## Design Principles
 
 ### Color Palette
-- Primary: Navy blues
-- Secondary: Greys (light to charcoal)
-- Accents: Tans, warm neutrals
-- High contrast for readability and accessibility
+- **Primary:** Navy #1D3557
+- **Secondary:** Slate #4C607B
+- **Accent:** Medium Blue #4A90E2
+- **Supporting:** Greys (light to charcoal), warm neutrals
 
 ### Typography
-- Professional, readable fonts
+- **Font:** Inter (modern sans-serif)
 - Clear hierarchy (headings, body, captions)
-- Banking/financial industry aesthetic
+- Professional banking/financial industry aesthetic
 
 ### User Experience
 - Clear information architecture
 - Trust indicators (credentials, experience)
-- Easy contact/inquiry flow
 - Mobile-responsive design
+- Fast load times and accessibility compliance
 
 ## Success Criteria
 
-- Professional appearance that builds credibility
-- Clear communication of expertise and value
-- Easy navigation and information discovery
-- Fast load times and accessibility compliance
+- Professional appearance that builds credibility in banking/TPRM space
+- Clear communication of expertise through published content
+- Easy navigation and content discovery
 - Mobile-friendly responsive design
+- Consistent publishing cadence with quality content

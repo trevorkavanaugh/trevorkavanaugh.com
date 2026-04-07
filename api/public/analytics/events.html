@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Custom Events Analytics - TPRM Analytics Dashboard">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Custom Events | TPRM Analytics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-logo">
+                    <div class="sidebar-logo-icon">TK</div>
+                    <span class="sidebar-logo-text">Analytics</span>
+                </a>
+            </div>
+
+            <nav class="sidebar-nav" aria-label="Main navigation">
+                <div class="nav-section">
+                    <div class="nav-section-title">Overview</div>
+                    <a href="index.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                        Dashboard
+                    </a>
+                    <a href="realtime.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        Real-time
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Reports</div>
+                    <a href="pages.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                        Pages
+                    </a>
+                    <a href="referrers.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                        Referrers
+                    </a>
+                    <a href="linkedin.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                        LinkedIn
+                    </a>
+                    <a href="events.html" class="nav-link active">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                        Events
+                    </a>
+                    <a href="downloads.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Downloads
+                    </a>
+                    <a href="subscribers.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        Subscribers
+                    </a>
+                    <a href="funnels.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+                        Funnels
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Settings</div>
+                    <a href="settings.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                        Settings
+                    </a>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-user-avatar">TK</div>
+                    <div class="sidebar-user-info">
+                        <div class="sidebar-user-name">Trevor Kavanaugh</div>
+                        <div class="sidebar-user-role">Admin</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Mobile sidebar toggle -->
+        <button class="sidebar-toggle" aria-label="Toggle sidebar">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+        <div class="sidebar-overlay"></div>
+
+        <!-- Main Content -->
+        <main id="main-content" class="main-content">
+            <!-- Top Bar -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <h1 class="topbar-title">Custom Events</h1>
+                </div>
+                <div class="topbar-right">
+                    <div class="date-range-picker">
+                        <input type="date" id="date-start" aria-label="Start date">
+                        <span>to</span>
+                        <input type="date" id="date-end" aria-label="End date">
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Data Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">All Events</h2>
+                    </div>
+                    <div class="card-body card-body--no-padding">
+                        <div style="overflow-x: auto;">
+                            <table class="data-table" id="events-table">
+                                <thead>
+                                    <tr>
+                                        <th>Event Name</th>
+                                        <th class="sortable sorted" data-column="count">Count <span class="sort-icon">&#8595;</span></th>
+                                        <th class="sortable" data-column="unique_visitors">Unique Visitors <span class="sort-icon">&#8645;</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="events-tbody">
+                                    <tr><td colspan="3" class="table-loading"><span class="visually-hidden">Loading...</span></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Event Details Modal -->
+    <div class="modal-overlay" id="event-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modal-event-name">Event Details</h2>
+                <button class="modal-close" aria-label="Close modal">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <p>Loading event details...</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn--secondary" data-close-modal>Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/reports.js"></script>
+    <script>
+        (async function() {
+            'use strict';
+
+            // Check authentication
+            if (!await Reports.checkAuth()) return;
+
+            // Key events to highlight
+            const keyEvents = ['pdf_download', 'newsletter_signup', 'contact_click', 'linkedin_click', 'paper_download'];
+
+            // Load data
+            async function loadData() {
+                Reports.showLoading('events-tbody');
+
+                try {
+                    const response = await Reports.apiGet('/events');
+
+                    if (response.success && response.data.events) {
+                        renderTable(response.data.events);
+                    } else {
+                        Reports.showEmpty('events-tbody', 'No event data available');
+                    }
+                } catch (err) {
+                    console.error('Failed to load events:', err);
+                    Reports.showError('events-tbody', 'Failed to load event data');
+                }
+            }
+
+            // Render table
+            function renderTable(events) {
+                const tbody = document.getElementById('events-tbody');
+
+                if (!events || events.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="3" class="table-empty">No events found</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = events.map(event => {
+                    const isKeyEvent = keyEvents.includes(event.name);
+                    const icon = Reports.getEventIcon(event.name);
+
+                    return `
+                        <tr class="clickable" data-event="${Reports.escapeHtml(event.name)}">
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    ${isKeyEvent ? `<span class="live-event-icon live-event-icon--${event.name}" style="width: 28px; height: 28px;">${icon}</span>` : ''}
+                                    <span style="${isKeyEvent ? 'font-weight: 600;' : ''}">${Reports.escapeHtml(event.name)}</span>
+                                </div>
+                            </td>
+                            <td class="numeric">${Reports.formatNumber(event.count)}</td>
+                            <td class="numeric">${Reports.formatNumber(event.unique_visitors)}</td>
+                        </tr>
+                    `;
+                }).join('');
+
+                // Add click handlers for row details
+                tbody.querySelectorAll('tr.clickable').forEach(row => {
+                    row.addEventListener('click', () => {
+                        const eventName = row.dataset.event;
+                        showEventDetails(eventName, events.find(e => e.name === eventName));
+                    });
+                });
+            }
+
+            // Show event details in modal
+            function showEventDetails(eventName, eventData) {
+                const modalTitle = document.getElementById('modal-event-name');
+                const modalBody = document.getElementById('modal-body');
+
+                modalTitle.textContent = eventName;
+
+                if (eventData) {
+                    modalBody.innerHTML = `
+                        <div class="stats-grid" style="grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 24px;">
+                            <div class="stat-card">
+                                <div class="stat-label">Total Count</div>
+                                <div class="stat-value">${Reports.formatNumber(eventData.count)}</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-label">Unique Visitors</div>
+                                <div class="stat-value">${Reports.formatNumber(eventData.unique_visitors)}</div>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 8px;">Event Type</h3>
+                            <p style="color: var(--color-text-secondary); font-size: 14px;">
+                                ${getEventDescription(eventName)}
+                            </p>
+                        </div>
+                    `;
+                } else {
+                    modalBody.innerHTML = '<p>Event details not available.</p>';
+                }
+
+                Reports.openModal('event-modal');
+            }
+
+            // Get event description
+            function getEventDescription(eventName) {
+                const descriptions = {
+                    'pdf_download': 'User clicked to download a PDF file from the site.',
+                    'paper_download': 'User downloaded the research paper.',
+                    'newsletter_signup': 'User subscribed to the email newsletter.',
+                    'contact_click': 'User clicked a contact link (email or phone).',
+                    'linkedin_click': 'User clicked the LinkedIn profile link.',
+                    'page_view': 'A page was viewed on the site.',
+                    'email_click': 'User clicked an email link.'
+                };
+                return descriptions[eventName] || 'Custom event tracked on the site.';
+            }
+
+            // Initialize sorting
+            Reports.initTableSorting('events-table', async (column, order) => {
+                // Reload with sort
+                const response = await Reports.apiGet('/events');
+                if (response.success && response.data.events) {
+                    const sorted = Reports.sortTableData(response.data.events, column, order);
+                    renderTable(sorted);
+                }
+            });
+
+            // Listen for date changes
+            document.addEventListener('dateRangeChanged', loadData);
+
+            // Initial load
+            loadData();
+        })();
+    </script>
+</body>
+</html>

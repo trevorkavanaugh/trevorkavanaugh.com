@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Traffic Sources Analytics - TPRM Analytics Dashboard">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Traffic Sources | TPRM Analytics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-logo">
+                    <div class="sidebar-logo-icon">TK</div>
+                    <span class="sidebar-logo-text">Analytics</span>
+                </a>
+            </div>
+
+            <nav class="sidebar-nav" aria-label="Main navigation">
+                <div class="nav-section">
+                    <div class="nav-section-title">Overview</div>
+                    <a href="index.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                        Dashboard
+                    </a>
+                    <a href="realtime.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        Real-time
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Reports</div>
+                    <a href="pages.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                        Pages
+                    </a>
+                    <a href="referrers.html" class="nav-link active">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                        Referrers
+                    </a>
+                    <a href="linkedin.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                        LinkedIn
+                    </a>
+                    <a href="events.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                        Events
+                    </a>
+                    <a href="downloads.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Downloads
+                    </a>
+                    <a href="subscribers.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        Subscribers
+                    </a>
+                    <a href="funnels.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+                        Funnels
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Settings</div>
+                    <a href="settings.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                        Settings
+                    </a>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-user-avatar">TK</div>
+                    <div class="sidebar-user-info">
+                        <div class="sidebar-user-name">Trevor Kavanaugh</div>
+                        <div class="sidebar-user-role">Admin</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Mobile sidebar toggle -->
+        <button class="sidebar-toggle" aria-label="Toggle sidebar">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+        <div class="sidebar-overlay"></div>
+
+        <!-- Main Content -->
+        <main id="main-content" class="main-content">
+            <!-- Top Bar -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <h1 class="topbar-title">Traffic Sources</h1>
+                </div>
+                <div class="topbar-right">
+                    <div class="date-range-picker">
+                        <input type="date" id="date-start" aria-label="Start date">
+                        <span>to</span>
+                        <input type="date" id="date-end" aria-label="End date">
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Filter Tabs -->
+                <div class="filter-tabs" role="tablist" aria-label="Filter by source type">
+                    <button class="filter-tab active" role="tab" data-type="">All</button>
+                    <button class="filter-tab" role="tab" data-type="direct">Direct</button>
+                    <button class="filter-tab" role="tab" data-type="search">Search</button>
+                    <button class="filter-tab" role="tab" data-type="social">Social</button>
+                    <button class="filter-tab" role="tab" data-type="referral">Referral</button>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 300px; gap: var(--spacing-lg);">
+                    <!-- Data Table -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Traffic Sources</h2>
+                        </div>
+                        <div class="card-body card-body--no-padding">
+                            <div style="overflow-x: auto;">
+                                <table class="data-table" id="referrers-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Source</th>
+                                            <th>Type</th>
+                                            <th class="sortable sorted" data-column="visits">Visits <span class="sort-icon">&#8595;</span></th>
+                                            <th class="sortable" data-column="page_views">Page Views <span class="sort-icon">&#8645;</span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="referrers-tbody">
+                                        <tr><td colspan="4" class="table-loading"><span class="visually-hidden">Loading...</span></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pie Chart -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Distribution by Type</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container chart-container--small">
+                                <canvas id="type-pie-chart"></canvas>
+                            </div>
+                            <div class="pie-chart-legend" id="pie-legend"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/reports.js"></script>
+    <script>
+        (async function() {
+            'use strict';
+
+            // Check authentication
+            if (!await Reports.checkAuth()) return;
+
+            // State
+            let currentType = '';
+            let allData = null;
+
+            // Load data
+            async function loadData() {
+                Reports.showLoading('referrers-tbody');
+
+                try {
+                    const params = {};
+                    if (currentType) {
+                        params.type = currentType;
+                    }
+
+                    const response = await Reports.apiGet('/referrers', params);
+
+                    if (response.success && response.data) {
+                        allData = response.data;
+                        renderTable(response.data.referrers);
+                        renderPieChart(response.data.by_type);
+                    } else {
+                        Reports.showEmpty('referrers-tbody', 'No referrer data available');
+                    }
+                } catch (err) {
+                    console.error('Failed to load referrers:', err);
+                    Reports.showError('referrers-tbody', 'Failed to load referrer data');
+                }
+            }
+
+            // Render table
+            function renderTable(referrers) {
+                const tbody = document.getElementById('referrers-tbody');
+
+                if (!referrers || referrers.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="4" class="table-empty">No referrers found</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = referrers.map(ref => `
+                    <tr>
+                        <td>${Reports.escapeHtml(ref.domain)}</td>
+                        <td>${Reports.getReferrerBadge(ref.type)}</td>
+                        <td class="numeric">${Reports.formatNumber(ref.visits)}</td>
+                        <td class="numeric">${Reports.formatNumber(ref.page_views)}</td>
+                    </tr>
+                `).join('');
+            }
+
+            // Render pie chart
+            function renderPieChart(byType) {
+                if (!byType) return;
+
+                const labels = ['Direct', 'Search', 'Social', 'Referral'];
+                const data = [
+                    byType.direct || 0,
+                    byType.search || 0,
+                    byType.social || 0,
+                    byType.referral || 0
+                ];
+                const colors = ['#3730A3', '#166534', '#991B1B', '#92400E'];
+
+                Reports.createPieChart('type-pie-chart', data, labels, colors);
+
+                // Render legend
+                const legend = document.getElementById('pie-legend');
+                const total = data.reduce((a, b) => a + b, 0);
+
+                legend.innerHTML = labels.map((label, i) => {
+                    const percent = total > 0 ? Math.round((data[i] / total) * 100) : 0;
+                    return `
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: ${colors[i]}"></div>
+                            <span>${label}: ${percent}%</span>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            // Initialize sorting
+            Reports.initTableSorting('referrers-table', (column, order) => {
+                if (allData && allData.referrers) {
+                    const sorted = Reports.sortTableData(allData.referrers, column, order);
+                    renderTable(sorted);
+                }
+            });
+
+            // Filter tabs
+            document.querySelectorAll('.filter-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    currentType = tab.dataset.type;
+                    loadData();
+                });
+            });
+
+            // Listen for date changes
+            document.addEventListener('dateRangeChanged', loadData);
+
+            // Initial load
+            loadData();
+        })();
+    </script>
+</body>
+</html>

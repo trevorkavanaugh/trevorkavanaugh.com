@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Page Performance Analytics - TPRM Analytics Dashboard">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Page Performance | TPRM Analytics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-logo">
+                    <div class="sidebar-logo-icon">TK</div>
+                    <span class="sidebar-logo-text">Analytics</span>
+                </a>
+            </div>
+
+            <nav class="sidebar-nav" aria-label="Main navigation">
+                <div class="nav-section">
+                    <div class="nav-section-title">Overview</div>
+                    <a href="index.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                        Dashboard
+                    </a>
+                    <a href="realtime.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        Real-time
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Reports</div>
+                    <a href="pages.html" class="nav-link active">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                        Pages
+                    </a>
+                    <a href="referrers.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                        Referrers
+                    </a>
+                    <a href="linkedin.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                        LinkedIn
+                    </a>
+                    <a href="events.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                        Events
+                    </a>
+                    <a href="downloads.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Downloads
+                    </a>
+                    <a href="subscribers.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        Subscribers
+                    </a>
+                    <a href="funnels.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+                        Funnels
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Settings</div>
+                    <a href="settings.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                        Settings
+                    </a>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-user-avatar">TK</div>
+                    <div class="sidebar-user-info">
+                        <div class="sidebar-user-name">Trevor Kavanaugh</div>
+                        <div class="sidebar-user-role">Admin</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Mobile sidebar toggle -->
+        <button class="sidebar-toggle" aria-label="Toggle sidebar">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+        <div class="sidebar-overlay"></div>
+
+        <!-- Main Content -->
+        <main id="main-content" class="main-content">
+            <!-- Top Bar -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <h1 class="topbar-title">Page Performance</h1>
+                </div>
+                <div class="topbar-right">
+                    <div class="date-range-picker">
+                        <input type="date" id="date-start" aria-label="Start date">
+                        <span>to</span>
+                        <input type="date" id="date-end" aria-label="End date">
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Search Filter -->
+                <div class="search-input-wrapper">
+                    <svg class="search-input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" id="search-filter" class="search-input" placeholder="Filter pages..." aria-label="Filter pages">
+                </div>
+
+                <!-- Data Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">All Pages</h2>
+                        <span id="total-count" class="badge badge--unknown">Loading...</span>
+                    </div>
+                    <div class="card-body card-body--no-padding">
+                        <div style="overflow-x: auto;">
+                            <table class="data-table" id="pages-table">
+                                <thead>
+                                    <tr>
+                                        <th class="sortable" data-column="path">Path <span class="sort-icon">&#8645;</span></th>
+                                        <th class="sortable sorted" data-column="views">Views <span class="sort-icon">&#8595;</span></th>
+                                        <th class="sortable" data-column="unique_visitors">Unique Visitors <span class="sort-icon">&#8645;</span></th>
+                                        <th class="sortable" data-column="avg_time">Avg. Time <span class="sort-icon">&#8645;</span></th>
+                                        <th class="sortable" data-column="avg_scroll">Scroll Depth <span class="sort-icon">&#8645;</span></th>
+                                        <th class="sortable" data-column="bounce_rate">Bounce Rate <span class="sort-icon">&#8645;</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="pages-tbody">
+                                    <tr><td colspan="6" class="table-loading"><span class="visually-hidden">Loading...</span></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div id="pagination" class="pagination"></div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/reports.js"></script>
+    <script>
+        (async function() {
+            'use strict';
+
+            // Check authentication
+            if (!await Reports.checkAuth()) return;
+
+            // State
+            let allData = [];
+            let filteredData = [];
+
+            // Load data
+            async function loadData() {
+                Reports.showLoading('pages-tbody');
+
+                try {
+                    const response = await Reports.apiGet('/pages', {
+                        sort_by: Reports.state.sortBy || 'views',
+                        order: Reports.state.sortOrder
+                    });
+
+                    if (response.success && response.data.pages) {
+                        allData = response.data.pages;
+                        filteredData = [...allData];
+                        renderTable();
+                    } else {
+                        Reports.showEmpty('pages-tbody', 'No page data available');
+                    }
+                } catch (err) {
+                    console.error('Failed to load pages:', err);
+                    Reports.showError('pages-tbody', 'Failed to load page data');
+                }
+            }
+
+            // Render table
+            function renderTable() {
+                const tbody = document.getElementById('pages-tbody');
+                const totalCount = document.getElementById('total-count');
+
+                if (filteredData.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="6" class="table-empty">No pages found</td></tr>';
+                    totalCount.textContent = '0 pages';
+                    return;
+                }
+
+                // Update count
+                totalCount.textContent = `${filteredData.length} pages`;
+
+                // Paginate
+                const pageData = Reports.paginateData(filteredData, Reports.state.currentPage, Reports.state.pageSize);
+
+                // Render rows
+                tbody.innerHTML = pageData.map(page => `
+                    <tr>
+                        <td class="path" title="${Reports.escapeHtml(page.path)}">${Reports.escapeHtml(page.path)}</td>
+                        <td class="numeric">${Reports.formatNumber(page.views)}</td>
+                        <td class="numeric">${Reports.formatNumber(page.unique_visitors)}</td>
+                        <td class="numeric">${Reports.formatDuration(page.avg_time)}</td>
+                        <td class="numeric">${Reports.formatPercent(page.avg_scroll)}</td>
+                        <td class="numeric">${Reports.formatPercent(page.bounce_rate)}</td>
+                    </tr>
+                `).join('');
+
+                // Update pagination
+                Reports.createPagination('pagination', filteredData.length, (page) => {
+                    Reports.state.currentPage = page;
+                    renderTable();
+                });
+            }
+
+            // Filter function
+            function filterData(query) {
+                if (!query) {
+                    filteredData = [...allData];
+                } else {
+                    const q = query.toLowerCase();
+                    filteredData = allData.filter(page =>
+                        page.path.toLowerCase().includes(q)
+                    );
+                }
+                Reports.state.currentPage = 1;
+                renderTable();
+            }
+
+            // Initialize sorting
+            Reports.initTableSorting('pages-table', (column, order) => {
+                filteredData = Reports.sortTableData(filteredData, column, order);
+                renderTable();
+            });
+
+            // Search filter
+            const searchInput = document.getElementById('search-filter');
+            searchInput.addEventListener('input', Reports.debounce((e) => {
+                filterData(e.target.value);
+            }, 300));
+
+            // Listen for date changes
+            document.addEventListener('dateRangeChanged', () => {
+                Reports.state.currentPage = 1;
+                loadData();
+            });
+
+            // Initial load
+            loadData();
+        })();
+    </script>
+</body>
+</html>

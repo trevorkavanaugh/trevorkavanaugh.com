@@ -37,13 +37,13 @@ Complete implementation of the homepage based on the Modern Professional design 
 ## Viewing the Website
 
 ### Option 1: Direct File Open
-1. Navigate to: `/home/owentheoracle/scripts/consulting_business/src/`
+1. Navigate to: `/home/owentheoracle/work/thought-leadership/src/`
 2. Open `index.html` in your web browser
 3. Note: Some features may not work with `file://` protocol
 
 ### Option 2: Local Server (Recommended)
 ```bash
-cd /home/owentheoracle/scripts/consulting_business/src
+cd /home/owentheoracle/work/thought-leadership/src
 python3 -m http.server 8000
 ```
 Then open: `http://localhost:8000`

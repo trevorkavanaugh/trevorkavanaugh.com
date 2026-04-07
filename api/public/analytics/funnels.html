@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Conversion Funnels - TPRM Analytics Dashboard">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Conversion Funnels | TPRM Analytics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-logo">
+                    <div class="sidebar-logo-icon">TK</div>
+                    <span class="sidebar-logo-text">Analytics</span>
+                </a>
+            </div>
+
+            <nav class="sidebar-nav" aria-label="Main navigation">
+                <div class="nav-section">
+                    <div class="nav-section-title">Overview</div>
+                    <a href="index.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                        Dashboard
+                    </a>
+                    <a href="realtime.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        Real-time
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Reports</div>
+                    <a href="pages.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                        Pages
+                    </a>
+                    <a href="referrers.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                        Referrers
+                    </a>
+                    <a href="linkedin.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                        LinkedIn
+                    </a>
+                    <a href="events.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                        Events
+                    </a>
+                    <a href="downloads.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Downloads
+                    </a>
+                    <a href="subscribers.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        Subscribers
+                    </a>
+                    <a href="funnels.html" class="nav-link active">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+                        Funnels
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Settings</div>
+                    <a href="settings.html" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                        Settings
+                    </a>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-user-avatar">TK</div>
+                    <div class="sidebar-user-info">
+                        <div class="sidebar-user-name">Trevor Kavanaugh</div>
+                        <div class="sidebar-user-role">Admin</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Mobile sidebar toggle -->
+        <button class="sidebar-toggle" aria-label="Toggle sidebar">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+        <div class="sidebar-overlay"></div>
+
+        <!-- Main Content -->
+        <main id="main-content" class="main-content">
+            <!-- Top Bar -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <h1 class="topbar-title">Conversion Funnels</h1>
+                </div>
+                <div class="topbar-right">
+                    <div class="date-range-picker">
+                        <input type="date" id="date-start" aria-label="Start date">
+                        <span>to</span>
+                        <input type="date" id="date-end" aria-label="End date">
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Preset Funnels -->
+                <div class="card" style="margin-bottom: var(--spacing-lg);">
+                    <div class="card-header">
+                        <h2 class="card-title">Preset Funnels</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="preset-funnel" class="form-label">Select a preset funnel</label>
+                            <select id="preset-funnel" class="form-input form-select">
+                                <option value="">Choose a preset...</option>
+                                <option value="homepage-paper-download">Homepage &rarr; Research Paper &rarr; Download</option>
+                                <option value="any-newsletter">Any Page &rarr; Newsletter Signup</option>
+                                <option value="insights-article-contact">Insights &rarr; Article &rarr; Contact</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Custom Funnel Builder -->
+                <div class="card" style="margin-bottom: var(--spacing-lg);">
+                    <div class="card-header">
+                        <h2 class="card-title">Custom Funnel Builder</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="funnel-builder">
+                            <p class="funnel-builder-title">Add steps to your funnel (max 5 steps)</p>
+                            <p style="font-size: 13px; color: var(--color-text-secondary); margin-bottom: var(--spacing-md);">
+                                Enter page paths (e.g., /research/paper) or event names (e.g., pdf_download)
+                            </p>
+
+                            <div class="funnel-steps-inputs" id="funnel-steps">
+                                <div class="funnel-step-input-wrapper">
+                                    <span class="funnel-step-number">1</span>
+                                    <input type="text" class="funnel-step-input" placeholder="Page path or event name" data-step="1">
+                                    <button class="funnel-step-remove" disabled aria-label="Remove step">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                    </button>
+                                </div>
+                                <div class="funnel-step-input-wrapper">
+                                    <span class="funnel-step-number">2</span>
+                                    <input type="text" class="funnel-step-input" placeholder="Page path or event name" data-step="2">
+                                    <button class="funnel-step-remove" aria-label="Remove step">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="funnel-builder-actions">
+                                <button class="btn btn--secondary" id="add-step-btn">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                    Add Step
+                                </button>
+                                <button class="btn btn--primary" id="analyze-btn">
+                                    Analyze Funnel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Funnel Visualization -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Funnel Results</h2>
+                    </div>
+                    <div class="card-body">
+                        <div id="funnel-results">
+                            <div class="table-empty" style="padding: var(--spacing-2xl);">
+                                Select a preset funnel or build a custom one to see results
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/reports.js"></script>
+    <script>
+        (async function() {
+            'use strict';
+
+            // Check authentication
+            if (!await Reports.checkAuth()) return;
+
+            // Preset funnel definitions
+            const presetFunnels = {
+                'homepage-paper-download': ['/', '/research/paper', 'pdf_download'],
+                'any-newsletter': ['page_view', 'newsletter_signup'],
+                'insights-article-contact': ['/insights.html', 'page_view', 'contact_click']
+            };
+
+            // State
+            let stepCount = 2;
+            const maxSteps = 5;
+
+            // Load autocomplete data
+            await Reports.loadAutocompleteData();
+
+            // Analyze funnel
+            async function analyzeFunnel(steps) {
+                const resultsContainer = document.getElementById('funnel-results');
+                resultsContainer.innerHTML = '<div class="table-loading"><span class="visually-hidden">Loading...</span></div>';
+
+                try {
+                    const response = await Reports.apiGet('/funnel', {
+                        steps: JSON.stringify(steps)
+                    });
+
+                    if (response.success && response.data.steps) {
+                        Reports.renderFunnel('funnel-results', response.data.steps);
+                    } else {
+                        resultsContainer.innerHTML = '<div class="alert alert--error">Failed to analyze funnel</div>';
+                    }
+                } catch (err) {
+                    console.error('Funnel analysis error:', err);
+                    resultsContainer.innerHTML = `<div class="alert alert--error">${err.message || 'Failed to analyze funnel'}</div>`;
+                }
+            }
+
+            // Get steps from inputs
+            function getStepsFromInputs() {
+                const inputs = document.querySelectorAll('.funnel-step-input');
+                const steps = [];
+
+                inputs.forEach(input => {
+                    const value = input.value.trim();
+                    if (value) {
+                        steps.push(value);
+                    }
+                });
+
+                return steps;
+            }
+
+            // Add step input
+            function addStepInput() {
+                if (stepCount >= maxSteps) {
+                    Reports.showAlert('Maximum 5 steps allowed', 'warning');
+                    return;
+                }
+
+                stepCount++;
+                const container = document.getElementById('funnel-steps');
+
+                const wrapper = document.createElement('div');
+                wrapper.className = 'funnel-step-input-wrapper';
+                wrapper.innerHTML = `
+                    <span class="funnel-step-number">${stepCount}</span>
+                    <input type="text" class="funnel-step-input" placeholder="Page path or event name" data-step="${stepCount}">
+                    <button class="funnel-step-remove" aria-label="Remove step">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                `;
+
+                container.appendChild(wrapper);
+
+                // Add remove handler
+                wrapper.querySelector('.funnel-step-remove').addEventListener('click', () => {
+                    removeStepInput(wrapper);
+                });
+
+                updateAddButton();
+            }
+
+            // Remove step input
+            function removeStepInput(wrapper) {
+                if (stepCount <= 2) return;
+
+                wrapper.remove();
+                stepCount--;
+
+                // Renumber steps
+                const wrappers = document.querySelectorAll('.funnel-step-input-wrapper');
+                wrappers.forEach((w, i) => {
+                    w.querySelector('.funnel-step-number').textContent = i + 1;
+                    w.querySelector('.funnel-step-input').dataset.step = i + 1;
+                });
+
+                updateAddButton();
+            }
+
+            // Update add button state
+            function updateAddButton() {
+                const addBtn = document.getElementById('add-step-btn');
+                addBtn.disabled = stepCount >= maxSteps;
+            }
+
+            // Preset funnel change handler
+            document.getElementById('preset-funnel').addEventListener('change', (e) => {
+                const preset = e.target.value;
+                if (!preset || !presetFunnels[preset]) return;
+
+                const steps = presetFunnels[preset];
+                analyzeFunnel(steps);
+            });
+
+            // Add step button
+            document.getElementById('add-step-btn').addEventListener('click', addStepInput);
+
+            // Remove step buttons (for initial steps)
+            document.querySelectorAll('.funnel-step-remove').forEach((btn, index) => {
+                if (index > 0) { // First step can't be removed
+                    btn.addEventListener('click', () => {
+                        const wrapper = btn.closest('.funnel-step-input-wrapper');
+                        removeStepInput(wrapper);
+                    });
+                }
+            });
+
+            // Analyze button
+            document.getElementById('analyze-btn').addEventListener('click', () => {
+                const steps = getStepsFromInputs();
+
+                if (steps.length < 2) {
+                    Reports.showAlert('Please enter at least 2 steps', 'warning');
+                    return;
+                }
+
+                analyzeFunnel(steps);
+            });
+
+            // Listen for date changes
+            document.addEventListener('dateRangeChanged', () => {
+                // Re-analyze if we have steps
+                const steps = getStepsFromInputs();
+                if (steps.length >= 2) {
+                    analyzeFunnel(steps);
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
