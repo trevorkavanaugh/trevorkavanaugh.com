@@ -322,6 +322,9 @@
         }
     }
 
+    // Expose refreshData for site-selector
+    window.refreshData = loadData;
+
     // ============================================
     // Initialize on DOM Ready
     // ============================================

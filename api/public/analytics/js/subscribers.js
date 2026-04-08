@@ -157,7 +157,8 @@
         hideError();
 
         try {
-            const response = await fetch(`${API_BASE}/api/analytics/dashboard/subscribers`, {
+            const siteParam = typeof getSelectedSite === 'function' ? '?site=' + encodeURIComponent(getSelectedSite()) : '';
+            const response = await fetch(`${API_BASE}/api/analytics/dashboard/subscribers${siteParam}`, {
                 credentials: 'include'
             });
 
@@ -336,6 +337,9 @@
             elements.errorMessage.classList.remove('visible');
         }
     }
+
+    // Expose refreshData for site-selector
+    window.refreshData = loadData;
 
     // Initialize on DOM ready
     if (document.readyState === 'loading') {

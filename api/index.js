@@ -50,6 +50,7 @@ db.exec(`
     user_agent TEXT,
     ip_hash TEXT,
     suspicious INTEGER DEFAULT 0,
+    site_domain TEXT NOT NULL DEFAULT 'trevorkavanaugh.com',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   );
 
@@ -131,6 +132,7 @@ db.exec(`
     language TEXT,
     timezone TEXT,
     is_bot INTEGER DEFAULT 0,
+    site_domain TEXT NOT NULL DEFAULT 'trevorkavanaugh.com',
     created_at TEXT DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (visitor_id) REFERENCES visitors(id)
   );
@@ -146,6 +148,7 @@ db.exec(`
     referrer_url TEXT,
     time_on_page_seconds INTEGER,
     scroll_depth_percent INTEGER,
+    site_domain TEXT NOT NULL DEFAULT 'trevorkavanaugh.com',
     timestamp TEXT NOT NULL,
     created_at TEXT DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (session_id) REFERENCES sessions(id),
@@ -156,6 +159,7 @@ db.exec(`
   CREATE TABLE IF NOT EXISTS daily_stats (
     date TEXT NOT NULL,
     page_path TEXT NOT NULL,
+    site_domain TEXT NOT NULL DEFAULT 'trevorkavanaugh.com',
     page_views INTEGER DEFAULT 0,
     unique_visitors INTEGER DEFAULT 0,
     sessions INTEGER DEFAULT 0,
@@ -164,7 +168,7 @@ db.exec(`
     bounce_count INTEGER DEFAULT 0,
     entries INTEGER DEFAULT 0,
     exits INTEGER DEFAULT 0,
-    PRIMARY KEY (date, page_path)
+    PRIMARY KEY (date, page_path, site_domain)
   );
 
   -- Referrer Aggregates
@@ -172,18 +176,20 @@ db.exec(`
     date TEXT NOT NULL,
     referrer_domain TEXT NOT NULL,
     referrer_type TEXT NOT NULL,
+    site_domain TEXT NOT NULL DEFAULT 'trevorkavanaugh.com',
     visits INTEGER DEFAULT 0,
     page_views INTEGER DEFAULT 0,
-    PRIMARY KEY (date, referrer_domain)
+    PRIMARY KEY (date, referrer_domain, site_domain)
   );
 
   -- Event Aggregates
   CREATE TABLE IF NOT EXISTS daily_event_stats (
     date TEXT NOT NULL,
     event_name TEXT NOT NULL,
+    site_domain TEXT NOT NULL DEFAULT 'trevorkavanaugh.com',
     count INTEGER DEFAULT 0,
     unique_visitors INTEGER DEFAULT 0,
-    PRIMARY KEY (date, event_name)
+    PRIMARY KEY (date, event_name, site_domain)
   );
 
   -- MFA Users (Analytics Dashboard Authentication)
@@ -233,6 +239,12 @@ db.exec(`
   CREATE INDEX IF NOT EXISTS idx_daily_stats_date ON daily_stats(date);
   CREATE INDEX IF NOT EXISTS idx_auth_sessions_user_id ON auth_sessions(user_id);
   CREATE INDEX IF NOT EXISTS idx_auth_sessions_expires ON auth_sessions(expires_at);
+
+  -- Site domain indexes for multi-site analytics
+  CREATE INDEX IF NOT EXISTS idx_page_views_site_domain ON page_views(site_domain);
+  CREATE INDEX IF NOT EXISTS idx_sessions_site_domain ON sessions(site_domain);
+  CREATE INDEX IF NOT EXISTS idx_events_site_domain ON events(site_domain);
+  CREATE INDEX IF NOT EXISTS idx_daily_stats_site_domain ON daily_stats(site_domain);
 `);
 
 // Middleware
@@ -1002,6 +1014,10 @@ app.post('/api/analytics/collect', analyticsCollectLimiter, express.text({ type:
       return res.status(204).end();
     }
 
+    // Extract site domain from Origin header
+    const origin = req.get('origin') || '';
+    const siteDomain = origin.replace(/^https?:\/\//, '').replace(/^www\./, '').split('/')[0] || 'unknown';
+
     // Detect bot
     const userAgent = req.get('user-agent') || '';
     const isBotRequest = isBot(userAgent);
@@ -1074,8 +1090,8 @@ app.post('/api/analytics/collect', analyticsCollectLimiter, express.text({ type:
           utm_source, utm_medium, utm_campaign, utm_term, utm_content,
           country, region, city,
           device_type, browser, browser_version, os, screen_resolution, language, timezone,
-          is_bot, created_at
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+          is_bot, site_domain, created_at
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `).run(
         session_id,
         visitor_id,
@@ -1103,6 +1119,7 @@ app.post('/api/analytics/collect', analyticsCollectLimiter, express.text({ type:
         ctx.language?.substring(0, 10) || null,
         ctx.timezone?.substring(0, 50) || null,
         isBotRequest ? 1 : 0,
+        siteDomain,
         now
       );
     }
@@ -1117,8 +1134,8 @@ app.post('/api/analytics/collect', analyticsCollectLimiter, express.text({ type:
 
     // Prepared statements for efficiency
     const insertPageView = db.prepare(`
-      INSERT INTO page_views (id, session_id, visitor_id, url, path, title, referrer_url, timestamp, created_at)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO page_views (id, session_id, visitor_id, url, path, title, referrer_url, site_domain, timestamp, created_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `);
 
     const updatePageViewMetrics = db.prepare(`
@@ -1131,8 +1148,8 @@ app.post('/api/analytics/collect', analyticsCollectLimiter, express.text({ type:
     `);
 
     const insertEvent = db.prepare(`
-      INSERT INTO events (event_type, event_label, page_url, referrer, user_agent, ip_hash, suspicious, created_at)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO events (event_type, event_label, page_url, referrer, user_agent, ip_hash, suspicious, site_domain, created_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     `);
 
     // Track page view IDs by path for updates
@@ -1155,6 +1172,7 @@ app.post('/api/analytics/collect', analyticsCollectLimiter, express.text({ type:
             eventData.path?.substring(0, 200) || '/',
             eventData.title?.substring(0, 200) || null,
             eventData.referrer_url?.substring(0, 500) || null,
+            siteDomain,
             eventTimestamp,
             now
           );
@@ -1250,6 +1268,7 @@ app.post('/api/analytics/collect', analyticsCollectLimiter, express.text({ type:
             userAgent?.substring(0, 500) || null,
             hashIP(req.ip),
             isBotRequest ? 1 : 0,
+            siteDomain,
             eventTimestamp
           );
           break;

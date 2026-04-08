@@ -111,6 +111,11 @@
                 </div>
             </header>
 
+            <div class="site-tabs">
+                <button class="site-tab active" data-site="trevorkavanaugh.com">trevorkavanaugh.com</button>
+                <button class="site-tab" data-site="provenanceriskadvisory.com">provenanceriskadvisory.com</button>
+            </div>
+
             <!-- Page Content -->
             <div class="page-content">
                 <!-- Preset Funnels -->
@@ -190,6 +195,7 @@
         </main>
     </div>
 
+    <script src="js/site-selector.js"></script>
     <script src="js/reports.js"></script>
     <script>
         (async function() {
@@ -334,6 +340,14 @@
 
                 analyzeFunnel(steps);
             });
+
+            // Expose refreshData for site-selector
+            window.refreshData = function() {
+                var steps = getStepsFromInputs();
+                if (steps.length >= 2) {
+                    analyzeFunnel(steps);
+                }
+            };
 
             // Listen for date changes
             document.addEventListener('dateRangeChanged', () => {

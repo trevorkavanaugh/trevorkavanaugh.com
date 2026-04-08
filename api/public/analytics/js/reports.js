@@ -66,6 +66,11 @@
 
         console.log('[Reports] apiGet called:', endpoint, 'dateRange:', state.dateRange);
 
+        // Add site param
+        if (typeof getSelectedSite === 'function') {
+            url.searchParams.set('site', getSelectedSite());
+        }
+
         // Add date range params
         url.searchParams.set('start_date', state.dateRange.start);
         url.searchParams.set('end_date', state.dateRange.end);
@@ -753,6 +758,10 @@
                 end_date: state.dateRange.end,
                 type: type
             });
+
+            if (typeof getSelectedSite === 'function') {
+                params.set('site', getSelectedSite());
+            }
 
             const response = await fetch(`${API_BASE}/analytics/dashboard/export?${params}`, {
                 credentials: 'include'

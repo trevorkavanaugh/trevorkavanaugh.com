@@ -159,6 +159,7 @@ function register(app, db) {
   app.get('/api/analytics/dashboard/overview', auth, async (req, res) => {
     try {
       const { start_date, end_date } = req.query;
+      const siteDomain = req.query.site || 'trevorkavanaugh.com';
       const dateRange = parseDateRange(start_date, end_date);
 
       if (!dateRange.valid) {
@@ -177,7 +178,8 @@ function register(app, db) {
           AVG(time_on_page_seconds) as avg_duration
         FROM page_views
         WHERE DATE(timestamp) BETWEEN ? AND ?
-      `).get(start, end);
+          AND site_domain = ?
+      `).get(start, end, siteDomain);
 
       // Previous period metrics for comparison
       const previousMetrics = db.prepare(`
@@ -188,7 +190,8 @@ function register(app, db) {
           AVG(time_on_page_seconds) as avg_duration
         FROM page_views
         WHERE DATE(timestamp) BETWEEN ? AND ?
-      `).get(prev.start, prev.end);
+          AND site_domain = ?
+      `).get(prev.start, prev.end, siteDomain);
 
       // Bounce rate calculation (sessions with only 1 page view)
       const currentBounce = db.prepare(`
@@ -197,7 +200,8 @@ function register(app, db) {
         FROM sessions
         WHERE DATE(started_at) BETWEEN ? AND ?
           AND is_bot = 0
-      `).get(start, end);
+          AND site_domain = ?
+      `).get(start, end, siteDomain);
 
       const previousBounce = db.prepare(`
         SELECT
@@ -205,7 +209,8 @@ function register(app, db) {
         FROM sessions
         WHERE DATE(started_at) BETWEEN ? AND ?
           AND is_bot = 0
-      `).get(prev.start, prev.end);
+          AND site_domain = ?
+      `).get(prev.start, prev.end, siteDomain);
 
       // Top pages
       const topPages = db.prepare(`
@@ -215,10 +220,11 @@ function register(app, db) {
           COUNT(DISTINCT visitor_id) as unique_visitors
         FROM page_views
         WHERE DATE(timestamp) BETWEEN ? AND ?
+          AND site_domain = ?
         GROUP BY path
         ORDER BY views DESC
         LIMIT 10
-      `).all(start, end);
+      `).all(start, end, siteDomain);
 
       // Top referrers
       const topReferrers = db.prepare(`
@@ -231,10 +237,11 @@ function register(app, db) {
           AND referrer_domain IS NOT NULL
           AND referrer_domain != ''
           AND is_bot = 0
+          AND site_domain = ?
         GROUP BY referrer_domain, referrer_type
         ORDER BY visits DESC
         LIMIT 10
-      `).all(start, end);
+      `).all(start, end, siteDomain);
 
       // Chart data - daily visitors over the date range
       const chartDataRows = db.prepare(`
@@ -243,9 +250,10 @@ function register(app, db) {
           COUNT(DISTINCT visitor_id) as visitors
         FROM page_views
         WHERE DATE(timestamp) BETWEEN ? AND ?
+          AND site_domain = ?
         GROUP BY DATE(timestamp)
         ORDER BY date
-      `).all(start, end);
+      `).all(start, end, siteDomain);
 
       // Generate all dates in range and fill with data
       const chartLabels = [];
@@ -316,6 +324,7 @@ function register(app, db) {
   // ----------------------------------------
   app.get('/api/analytics/dashboard/realtime', auth, async (req, res) => {
     try {
+      const siteDomain = req.query.site || 'trevorkavanaugh.com';
       const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000).toISOString();
 
       // Active visitors (unique visitors with activity in last 5 minutes)
@@ -323,7 +332,8 @@ function register(app, db) {
         SELECT COUNT(DISTINCT visitor_id) as count
         FROM page_views
         WHERE timestamp >= ?
-      `).get(fiveMinutesAgo);
+          AND site_domain = ?
+      `).get(fiveMinutesAgo, siteDomain);
 
       // Pages currently being viewed
       const pagesViewing = db.prepare(`
@@ -332,10 +342,11 @@ function register(app, db) {
           COUNT(DISTINCT visitor_id) as visitors
         FROM page_views
         WHERE timestamp >= ?
+          AND site_domain = ?
         GROUP BY path
         ORDER BY visitors DESC
         LIMIT 10
-      `).all(fiveMinutesAgo);
+      `).all(fiveMinutesAgo, siteDomain);
 
       // Recent events (last 20)
       const recentEvents = db.prepare(`
@@ -346,9 +357,10 @@ function register(app, db) {
         FROM events
         WHERE created_at >= datetime('now', '-5 minutes')
           AND suspicious = 0
+          AND site_domain = ?
         ORDER BY created_at DESC
         LIMIT 20
-      `).all();
+      `).all(siteDomain);
 
       res.json({
         success: true,
@@ -379,6 +391,7 @@ function register(app, db) {
   app.get('/api/analytics/dashboard/pages', auth, async (req, res) => {
     try {
       const { start_date, end_date, sort_by, order } = req.query;
+      const siteDomain = req.query.site || 'trevorkavanaugh.com';
       const dateRange = parseDateRange(start_date, end_date);
 
       if (!dateRange.valid) {
@@ -404,10 +417,11 @@ function register(app, db) {
             SUM(bounce_count) * 100.0 / NULLIF(SUM(entries), 0) as bounce_rate
           FROM daily_stats
           WHERE date BETWEEN ? AND ?
+            AND site_domain = ?
           GROUP BY page_path
           ORDER BY ${sortColumn === 'views' ? 'views' : sortColumn} ${sortOrder}
           LIMIT 50
-        `).all(start, end);
+        `).all(start, end, siteDomain);
 
         return res.json({
           success: true,
@@ -436,32 +450,33 @@ function register(app, db) {
           AVG(scroll_depth_percent) as avg_scroll
         FROM page_views
         WHERE DATE(timestamp) BETWEEN ? AND ?
+          AND site_domain = ?
         GROUP BY path
         ORDER BY ${sortColumn === 'views' ? 'views' : sortColumn === 'unique_visitors' ? 'unique_visitors' : sortColumn === 'avg_time' ? 'avg_time' : sortColumn === 'avg_scroll' ? 'avg_scroll' : 'views'} ${sortOrder}
         LIMIT 50
-      `).all(start, end);
+      `).all(start, end, siteDomain);
 
       // Get entry/exit data separately
       const entriesData = db.prepare(`
         SELECT entry_page as path, COUNT(*) as entries
         FROM sessions
-        WHERE DATE(started_at) BETWEEN ? AND ? AND is_bot = 0
+        WHERE DATE(started_at) BETWEEN ? AND ? AND is_bot = 0 AND site_domain = ?
         GROUP BY entry_page
-      `).all(start, end);
+      `).all(start, end, siteDomain);
 
       const exitsData = db.prepare(`
         SELECT exit_page as path, COUNT(*) as exits
         FROM sessions
-        WHERE DATE(started_at) BETWEEN ? AND ? AND exit_page IS NOT NULL AND is_bot = 0
+        WHERE DATE(started_at) BETWEEN ? AND ? AND exit_page IS NOT NULL AND is_bot = 0 AND site_domain = ?
         GROUP BY exit_page
-      `).all(start, end);
+      `).all(start, end, siteDomain);
 
       const bouncesData = db.prepare(`
         SELECT entry_page as path, COUNT(*) as bounces
         FROM sessions
-        WHERE DATE(started_at) BETWEEN ? AND ? AND page_count = 1 AND is_bot = 0
+        WHERE DATE(started_at) BETWEEN ? AND ? AND page_count = 1 AND is_bot = 0 AND site_domain = ?
         GROUP BY entry_page
-      `).all(start, end);
+      `).all(start, end, siteDomain);
 
       // Merge data
       const entriesMap = new Map(entriesData.map(e => [e.path, e.entries]));
@@ -501,6 +516,7 @@ function register(app, db) {
   app.get('/api/analytics/dashboard/referrers', auth, async (req, res) => {
     try {
       const { start_date, end_date, type } = req.query;
+      const siteDomain = req.query.site || 'trevorkavanaugh.com';
       const dateRange = parseDateRange(start_date, end_date);
 
       if (!dateRange.valid) {
@@ -519,8 +535,9 @@ function register(app, db) {
             SUM(page_views) as page_views
           FROM daily_referrer_stats
           WHERE date BETWEEN ? AND ?
+            AND site_domain = ?
         `;
-        const params = [start, end];
+        const params = [start, end, siteDomain];
 
         if (type) {
           referrersQuery += ' AND referrer_type = ?';
@@ -542,8 +559,9 @@ function register(app, db) {
             SUM(visits) as visits
           FROM daily_referrer_stats
           WHERE date BETWEEN ? AND ?
+            AND site_domain = ?
           GROUP BY referrer_type
-        `).all(start, end);
+        `).all(start, end, siteDomain);
 
         const byTypeObj = {
           direct: 0,
@@ -581,8 +599,9 @@ function register(app, db) {
         FROM sessions
         WHERE DATE(started_at) BETWEEN ? AND ?
           AND is_bot = 0
+          AND site_domain = ?
       `;
-      const params = [start, end];
+      const params = [start, end, siteDomain];
 
       if (type) {
         referrersQuery += ' AND referrer_type = ?';
@@ -605,8 +624,9 @@ function register(app, db) {
         FROM sessions
         WHERE DATE(started_at) BETWEEN ? AND ?
           AND is_bot = 0
+          AND site_domain = ?
         GROUP BY referrer_type
-      `).all(start, end);
+      `).all(start, end, siteDomain);
 
       const byTypeObj = {
         direct: 0,
@@ -647,6 +667,7 @@ function register(app, db) {
   app.get('/api/analytics/dashboard/events', auth, async (req, res) => {
     try {
       const { start_date, end_date, name } = req.query;
+      const siteDomain = req.query.site || 'trevorkavanaugh.com';
       const dateRange = parseDateRange(start_date, end_date);
 
       if (!dateRange.valid) {
@@ -664,8 +685,9 @@ function register(app, db) {
             SUM(unique_visitors) as unique_visitors
           FROM daily_event_stats
           WHERE date BETWEEN ? AND ?
+            AND site_domain = ?
         `;
-        const params = [start, end];
+        const params = [start, end, siteDomain];
 
         if (name) {
           eventsQuery += ' AND event_name = ?';
@@ -701,8 +723,9 @@ function register(app, db) {
         FROM events
         WHERE DATE(created_at) BETWEEN ? AND ?
           AND suspicious = 0
+          AND site_domain = ?
       `;
-      const params = [start, end];
+      const params = [start, end, siteDomain];
 
       if (name) {
         eventsQuery += ' AND event_type = ?';
@@ -741,6 +764,7 @@ function register(app, db) {
   app.get('/api/analytics/dashboard/downloads', auth, async (req, res) => {
     try {
       const { start_date, end_date } = req.query;
+      const siteDomain = req.query.site || 'trevorkavanaugh.com';
       const dateRange = parseDateRange(start_date, end_date);
 
       if (!dateRange.valid) {
@@ -759,10 +783,11 @@ function register(app, db) {
         WHERE DATE(created_at) BETWEEN ? AND ?
           AND event_type IN ('pdf_download', 'paper_download', 'download')
           AND suspicious = 0
+          AND site_domain = ?
         GROUP BY event_label
         ORDER BY count DESC
         LIMIT 20
-      `).all(start, end);
+      `).all(start, end, siteDomain);
 
       // Helper to extract filename from event_label
       // Handles both old format (plain filename) and new format (JSON with filename field)
@@ -790,7 +815,8 @@ function register(app, db) {
           AND event_type IN ('pdf_download', 'paper_download', 'download')
           AND suspicious = 0
           AND referrer IS NOT NULL
-      `).all(start, end);
+          AND site_domain = ?
+      `).all(start, end, siteDomain);
 
       // Group referrers by download
       const referrersByDownload = new Map();
@@ -818,9 +844,10 @@ function register(app, db) {
         WHERE DATE(created_at) BETWEEN ? AND ?
           AND event_type IN ('pdf_download', 'paper_download', 'download')
           AND suspicious = 0
+          AND site_domain = ?
         GROUP BY DATE(created_at)
         ORDER BY date ASC
-      `).all(start, end);
+      `).all(start, end, siteDomain);
 
       res.json({
         success: true,
@@ -859,6 +886,7 @@ function register(app, db) {
   app.get('/api/analytics/dashboard/geo', auth, async (req, res) => {
     try {
       const { start_date, end_date } = req.query;
+      const siteDomain = req.query.site || 'trevorkavanaugh.com';
       const dateRange = parseDateRange(start_date, end_date);
 
       if (!dateRange.valid) {
@@ -878,9 +906,10 @@ function register(app, db) {
           AND is_bot = 0
           AND country IS NOT NULL
           AND country != ''
+          AND site_domain = ?
         GROUP BY country
         ORDER BY visitors DESC
-      `).all(start, end);
+      `).all(start, end, siteDomain);
 
       // Get visitor counts by city (top 10)
       const cities = db.prepare(`
@@ -895,10 +924,11 @@ function register(app, db) {
           AND is_bot = 0
           AND city IS NOT NULL
           AND city != ''
+          AND site_domain = ?
         GROUP BY city, region, country
         ORDER BY visitors DESC
         LIMIT 10
-      `).all(start, end);
+      `).all(start, end, siteDomain);
 
       // Get total unique visitors for percentage calculation
       const total = db.prepare(`
@@ -906,7 +936,8 @@ function register(app, db) {
         FROM sessions
         WHERE DATE(started_at) BETWEEN ? AND ?
           AND is_bot = 0
-      `).get(start, end);
+          AND site_domain = ?
+      `).get(start, end, siteDomain);
 
       res.json({
         success: true,
@@ -1046,6 +1077,7 @@ function register(app, db) {
   app.get('/api/analytics/dashboard/timeseries', auth, async (req, res) => {
     try {
       const { start_date, end_date, metric, granularity } = req.query;
+      const siteDomain = req.query.site || 'trevorkavanaugh.com';
       const dateRange = parseDateRange(start_date, end_date);
 
       if (!dateRange.valid) {
@@ -1081,6 +1113,7 @@ function register(app, db) {
               COUNT(DISTINCT visitor_id) as value
             FROM page_views
             WHERE DATE(timestamp) BETWEEN ? AND ?
+              AND site_domain = ?
             GROUP BY strftime('${dateFormat}', timestamp)
             ORDER BY timestamp
           `;
@@ -1093,6 +1126,7 @@ function register(app, db) {
             FROM sessions
             WHERE DATE(started_at) BETWEEN ? AND ?
               AND is_bot = 0
+              AND site_domain = ?
             GROUP BY strftime('${dateFormat}', started_at)
             ORDER BY timestamp
           `;
@@ -1105,12 +1139,13 @@ function register(app, db) {
               COUNT(*) as value
             FROM page_views
             WHERE DATE(timestamp) BETWEEN ? AND ?
+              AND site_domain = ?
             GROUP BY strftime('${dateFormat}', timestamp)
             ORDER BY timestamp
           `;
       }
 
-      const series = db.prepare(query).all(start, end);
+      const series = db.prepare(query).all(start, end, siteDomain);
 
       res.json({
         success: true,
@@ -1135,6 +1170,7 @@ function register(app, db) {
   app.get('/api/analytics/dashboard/visitors', auth, async (req, res) => {
     try {
       const { start_date, end_date } = req.query;
+      const siteDomain = req.query.site || 'trevorkavanaugh.com';
       const dateRange = parseDateRange(start_date, end_date);
 
       if (!dateRange.valid) {
@@ -1152,9 +1188,10 @@ function register(app, db) {
           SELECT DISTINCT pv.visitor_id
           FROM page_views pv
           WHERE DATE(pv.timestamp) BETWEEN ? AND ?
+            AND pv.site_domain = ?
         ) active
         JOIN visitors v ON active.visitor_id = v.id
-      `).get(start, end);
+      `).get(start, end, siteDomain);
 
       // By country (from sessions)
       const byCountry = db.prepare(`
@@ -1164,10 +1201,11 @@ function register(app, db) {
         FROM sessions
         WHERE DATE(started_at) BETWEEN ? AND ?
           AND is_bot = 0
+          AND site_domain = ?
         GROUP BY country
         ORDER BY count DESC
         LIMIT 10
-      `).all(start, end);
+      `).all(start, end, siteDomain);
 
       // By device type
       const byDevice = db.prepare(`
@@ -1177,8 +1215,9 @@ function register(app, db) {
         FROM sessions
         WHERE DATE(started_at) BETWEEN ? AND ?
           AND is_bot = 0
+          AND site_domain = ?
         GROUP BY device_type
-      `).all(start, end);
+      `).all(start, end, siteDomain);
 
       const deviceObj = {
         desktop: 0,
@@ -1202,10 +1241,11 @@ function register(app, db) {
         FROM sessions
         WHERE DATE(started_at) BETWEEN ? AND ?
           AND is_bot = 0
+          AND site_domain = ?
         GROUP BY browser
         ORDER BY count DESC
         LIMIT 10
-      `).all(start, end);
+      `).all(start, end, siteDomain);
 
       res.json({
         success: true,
@@ -1237,6 +1277,7 @@ function register(app, db) {
   app.get('/api/analytics/dashboard/funnel', auth, async (req, res) => {
     try {
       const { start_date, end_date, steps } = req.query;
+      const siteDomain = req.query.site || 'trevorkavanaugh.com';
       const dateRange = parseDateRange(start_date, end_date);
 
       if (!dateRange.valid) {
@@ -1273,7 +1314,8 @@ function register(app, db) {
             FROM page_views
             WHERE DATE(timestamp) BETWEEN ? AND ?
               AND path = ?
-          `).get(start, end, step);
+              AND site_domain = ?
+          `).get(start, end, step, siteDomain);
           count = pageResult.count;
         } else {
           // Event name
@@ -1283,7 +1325,8 @@ function register(app, db) {
             WHERE DATE(created_at) BETWEEN ? AND ?
               AND event_type = ?
               AND suspicious = 0
-          `).get(start, end, step);
+              AND site_domain = ?
+          `).get(start, end, step, siteDomain);
           count = eventResult.count;
         }
 
@@ -1323,6 +1366,7 @@ function register(app, db) {
   app.get('/api/analytics/dashboard/export', auth, async (req, res) => {
     try {
       const { start_date, end_date, type } = req.query;
+      const siteDomain = req.query.site || 'trevorkavanaugh.com';
       const dateRange = parseDateRange(start_date, end_date);
 
       if (!dateRange.valid) {
@@ -1357,9 +1401,10 @@ function register(app, db) {
             FROM sessions
             WHERE DATE(started_at) BETWEEN ? AND ?
               AND is_bot = 0
+              AND site_domain = ?
             ORDER BY started_at DESC
             LIMIT 10000
-          `).all(start, end);
+          `).all(start, end, siteDomain);
           filename = `sessions_${start}_${end}.csv`;
           break;
 
@@ -1374,9 +1419,10 @@ function register(app, db) {
             FROM events
             WHERE DATE(created_at) BETWEEN ? AND ?
               AND suspicious = 0
+              AND site_domain = ?
             ORDER BY created_at DESC
             LIMIT 10000
-          `).all(start, end);
+          `).all(start, end, siteDomain);
           filename = `events_${start}_${end}.csv`;
           break;
 
@@ -1394,9 +1440,10 @@ function register(app, db) {
               scroll_depth_percent
             FROM page_views
             WHERE DATE(timestamp) BETWEEN ? AND ?
+              AND site_domain = ?
             ORDER BY timestamp DESC
             LIMIT 10000
-          `).all(start, end);
+          `).all(start, end, siteDomain);
           filename = `page_views_${start}_${end}.csv`;
       }
 

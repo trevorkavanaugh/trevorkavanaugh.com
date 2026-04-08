@@ -276,6 +276,11 @@
     function getDateParams() {
         const params = new URLSearchParams();
 
+        // Add site param
+        if (typeof getSelectedSite === 'function') {
+            params.append('site', getSelectedSite());
+        }
+
         if (state.dateRange.start) {
             params.append('start_date', formatDate(state.dateRange.start));
         }
@@ -898,7 +903,8 @@
      */
     async function fetchRealtimeData() {
         try {
-            const response = await fetch(`${API_BASE}/analytics/dashboard/realtime`, {
+            const siteParam = typeof getSelectedSite === 'function' ? '?site=' + encodeURIComponent(getSelectedSite()) : '';
+            const response = await fetch(`${API_BASE}/analytics/dashboard/realtime${siteParam}`, {
                 credentials: 'include'
             });
 
@@ -1210,6 +1216,11 @@
         div.textContent = text;
         return div.innerHTML;
     }
+
+    // Expose refreshData for site-selector
+    window.refreshData = function() {
+        loadDashboardData();
+    };
 
     // Initialize when DOM is ready
     if (document.readyState === 'loading') {
