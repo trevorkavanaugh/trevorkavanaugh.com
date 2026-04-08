@@ -344,7 +344,7 @@ Thought leadership advertising builds awareness over time. Track engagement metr
 ### Your Unique Selling Points (Use in Ad Copy)
 - VP, Third-Party Risk Management (real practitioner, not consultant)
 - FDIC-chartered bank experience
-- 500+ vendor relationships managed
+- 600+ vendor relationships managed
 - Software development background (technical credibility)
 - GARP featured speaker/author (when applicable)
 
