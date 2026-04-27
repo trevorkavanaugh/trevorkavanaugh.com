@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WXHBC0YD0Z"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WXHBC0YD0Z');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="When an auditor failed our shadow vendor remediation for being 'detective not preventative,' it exposed a fundamental misunderstanding of how risk controls actually work.">
+    <title>When an Auditor Got Stuck on Control Type Instead of Control Effectiveness | Trevor Kavanaugh</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/articles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="/js/analytics.js" defer></script>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="site-header" id="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">TK</div>
+                <span class="logo-text">Trevor Kavanaugh</span>
+            </a>
+            <nav class="main-nav" aria-label="Main navigation">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="../insights.html" class="active">Insights</a></li>
+                    <li><a href="../services.html">Advisory</a></li>
+                    <li><a href="../index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="menu-toggle" aria-label="Open navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobile-menu">
+        <button class="menu-close" aria-label="Close navigation menu">
+            <span>&times;</span>
+        </button>
+        <nav aria-label="Mobile navigation">
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../insights.html">Insights</a></li>
+                <li><a href="../services.html">Advisory</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu-contact">
+                <a href="mailto:trevor@trevorkavanaugh.com">trevor@trevorkavanaugh.com</a>
+                <a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank">LinkedIn</a>
+            </div>
+        </nav>
+    </div>
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+
+    <main id="main-content">
+        <article class="article-page">
+            <header class="article-hero">
+                <div class="article-hero-container">
+                    <span class="article-category category-tprm">TPRM</span>
+                    <h1>When an Auditor Got Stuck on Control Type Instead of Control Effectiveness</h1>
+                    <div class="article-meta-line">
+                        <time datetime="2026-04-21">April 21, 2026</time>
+                        <span class="separator">-</span>
+                        <span class="read-time">4 min read</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="article-content-wrapper">
+                <div class="article-content">
+                    <p>I <a href="discovering-shadow-vendors.html">recently wrote about discovering 150+ vendors operating outside our policies</a> - vendors that had been onboarded, contracted, and paid without ever going through our TPRM program. What happened next, when an external auditor came in to validate our remediation, was even more frustrating than the discovery itself. It exposed something I've seen repeatedly in risk management: the fixation on control classification over control effectiveness.</p>
+
+                    <h2>The Auditor's Objection</h2>
+
+                    <p>I walked the auditor through what we had built: a new vendor approval form requiring my department's sign-off before accounts payable would process first-time invoices, plus a process to scrub 12 months of AP data against our vendor inventory to catch anything that had already slipped through. It was a real, functioning system that gave us visibility we hadn't had before.</p>
+
+                    <p>His response: "This control seems detective, not preventative. I'm going to have to fail it."</p>
+
+                    <p>We ended up in a room - my team, internal audit, and this external auditor - discussing what a "preventative" control would look like for this specific risk.</p>
+
+                    <p>Someone suggested: if a vendor isn't in our system, they don't get paid.</p>
+
+                    <p>I pushed back immediately. That's not a preventative control either. All it does is introduce a new risk - failing to pay entities we are contractually obligated to pay because someone upstream already signed the contract without following policy. The engagement already happened. The horse already left the barn. Blocking payment at that point doesn't prevent the policy violation. It punishes accounts payable for someone else's noncompliance, while also exposing the institution to breach of contract liability.</p>
+
+                    <h2>The Fundamental Misunderstanding</h2>
+
+                    <p>There is no such thing as a genuinely preventative control for an employee choosing to be noncompliant with policy. Unless you want to assign one dedicated monitor to every employee in the company whose sole job is standing over their shoulder making sure they don't sign a DocuSign or print a contract without authorization - you cannot prevent this from happening.</p>
+
+                    <p>Policy violations rooted in human behavior don't have true preventative controls. They have <strong>deterrent controls</strong> (training, accountability, disciplinary risk), <strong>detective controls</strong> (monitoring, reconciliation, audits), and <strong>corrective controls</strong> (remediation workflows). The audit community broadly understands this distinction. What surprised me was an external auditor who couldn't see it in front of him.</p>
+
+                    <p>He was so fixated on checking the "preventative" box in his audit program that he couldn't evaluate the actual risk reduction sitting in the room with him. This is the same pattern I've written about in the context of <a href="compliance-theater-vs-real-risk-management.html">compliance theater</a> - when the form of risk management displaces the substance of it.</p>
+
+                    <h2>Control Type vs. Control Effectiveness</h2>
+
+                    <p>Let me be specific about what we actually built and what it delivered.</p>
+
+                    <p><strong>Before the control:</strong> Zero visibility. No process, no monitoring, no way to know if vendors were falling through the cracks. Unknown vendors could operate indefinitely with no detection mechanism.</p>
+
+                    <p><strong>After the control:</strong> Unknown vendors get caught within a billing cycle and flagged for onboarding. We retroactively identified and remediated over 150 vendors who had bypassed the program. We now have a systematic process that runs continuously.</p>
+
+                    <p>That is meaningful, demonstrable risk reduction. The AP scrub alone was forensic-level work - reconciling a year of payment data against our inventory, identifying every vendor relationship that hadn't been through due diligence, and building a remediation queue. The forward-looking approval workflow closed the gap for future engagements.</p>
+
+                    <p>A detective control that catches 150 unknown vendors and gets them remediated within 90 days reduced more risk than any preventative control that existed before it - because before it, no control existed at all. You cannot compare a real detective control against a theoretical preventative control and conclude the detective control is insufficient.</p>
+
+                    <h2>What Risk Management Actually Is</h2>
+
+                    <p>I am a risk manager, not a risk eliminator. Risk exists regardless of what controls I put in place. My job is to minimize it, detect it when it occurs, and make sure it doesn't cause material damage to the institution.</p>
+
+                    <p>Demanding a control type that is structurally impossible for a given risk category isn't rigor. It's a misunderstanding of what risk management actually does. Audit programs that score controls based on classification type rather than effectiveness produce a perverse incentive - organizations chase the right label instead of building the right control.</p>
+
+                    <p>The auditor eventually moved on without validating the remediation while I was there. The control continued running. Vendors continued being caught and onboarded. The risk continued declining.</p>
+
+                    <p>Classification is a useful taxonomy for documentation. It is not a proxy for effectiveness. The question that matters isn't "is this detective or preventative?" It's "does this reduce risk, and by how much?"</p>
+
+                    <p><em>For more perspectives on third-party risk management, <a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank">connect with me on LinkedIn</a>.</em></p>
+                </div>
+            </div>
+
+            <section class="author-box">
+                <div class="author-box-container">
+                    <div class="author-info">
+                        <div class="author-avatar">
+                            <img src="../images/trevor_kavanaugh_headshot.jpg" alt="Trevor Kavanaugh" style="object-position: center 25%;">
+                        </div>
+                        <div class="author-details">
+                            <h3>About the Author</h3>
+                            <p><strong>Trevor Kavanaugh</strong> | Founder, Provenance Risk Advisory</p>
+                            <p>With over a decade in banking, I've built my career across the risk spectrum - from compliance and BSA/AML to internal audit, now running Provenance Risk Advisory, helping financial institutions build TPRM and cyber supply chain risk programs. This journey gave me a ground-level view of how risk actually functions across financial institutions.</p>
+                            <p>I believe in building risk frameworks designed for modern, evolving threats - not just satisfying checkboxes. Risk management runs deeper than prescriptive compliance rules. It's abstract, constantly shifting, and demands continuous adaptation. I challenge legacy thinking and status quo approaches to push our profession forward.</p>
+                            <p>My goal is simple: help everyone do better.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="related-articles">
+                <div class="container">
+                    <h2>Continue Reading</h2>
+                    <div class="related-articles-grid">
+                        <article class="article-card">
+                            <a href="discovering-shadow-vendors.html" class="article-card-link">
+                                <div class="article-card-content">
+                                    <span class="article-category category-tprm">TPRM</span>
+                                    <h3 class="article-title">How I Discovered 150+ Vendors Operating Outside Our Program</h3>
+                                    <p class="article-excerpt">A routine AP data scrub revealed over 150 vendors that had never been through our TPRM program. Here's how it happened and what we did about it.</p>
+                                    <div class="article-meta">
+                                        <span class="article-date">April 14, 2026</span>
+                                        <span class="article-read-more">Read more</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                        <article class="article-card">
+                            <a href="compliance-theater-vs-real-risk-management.html" class="article-card-link">
+                                <div class="article-card-content">
+                                    <span class="article-category category-tprm">TPRM</span>
+                                    <h3 class="article-title">Compliance Theater vs. Real Risk Management</h3>
+                                    <p class="article-excerpt">Why treating regulatory compliance as your risk management ceiling instead of your floor creates dangerous blind spots.</p>
+                                    <div class="article-meta">
+                                        <span class="article-date">January 29, 2026</span>
+                                        <span class="article-read-more">Read more</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                        <article class="article-card">
+                            <a href="information-system-data-rot.html" class="article-card-link">
+                                <div class="article-card-content">
+                                    <span class="article-category category-tprm">TPRM</span>
+                                    <h3 class="article-title">Information System Data Rot</h3>
+                                    <p class="article-excerpt">The biggest threat to your TPRM program isn't framework sophistication - it's vendor data integrity degrading over time.</p>
+                                    <div class="article-meta">
+                                        <span class="article-date">November 20, 2025</span>
+                                        <span class="article-read-more">Read more</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <section class="cta" id="contact">
+            <div class="container">
+                <h2>Continue the Conversation</h2>
+                <p>Have thoughts on this topic? I'd love to hear your perspective. Connect with me on LinkedIn or reach out directly.</p>
+                <div class="cta-buttons">
+                    <a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank" class="btn btn-cta">Connect on LinkedIn</a>
+                    <a href="mailto:trevor@trevorkavanaugh.com" class="btn btn-secondary">Send an Email</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <div class="logo-icon">TK</div>
+                <span>Trevor Kavanaugh</span>
+            </div>
+            <div class="footer-columns">
+                <div class="footer-col">
+                    <h3>Navigation</h3>
+                    <nav aria-label="Footer navigation">
+                        <ul>
+                            <li><a href="../index.html">Home</a></li>
+                            <li><a href="../about.html">About</a></li>
+                            <li><a href="../insights.html">Insights</a></li>
+                            <li><a href="../services.html">Advisory</a></li>
+                            <li><a href="../index.html#contact">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="footer-col">
+                    <h3>Connect</h3>
+                    <ul class="contact-info">
+                        <li><a href="mailto:trevor@trevorkavanaugh.com">trevor@trevorkavanaugh.com</a></li>
+                        <li><a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank">LinkedIn</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <p style="color: #8899aa; font-size: 14px; margin-bottom: 12px;">New articles every Tuesday &amp; Thursday</p>
+                    <form id="newsletter-form" class="newsletter-form">
+                        <div class="newsletter-input-group">
+                            <input type="email" id="newsletter-email" placeholder="Enter your email" required>
+                            <button type="submit">Subscribe</button>
+                        </div>
+                        <p id="newsletter-message" class="newsletter-message"></p>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 Trevor Kavanaugh</p>
+                <nav class="legal-nav" aria-label="Legal navigation">
+                    <a href="../privacy.html">Privacy Policy</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>
