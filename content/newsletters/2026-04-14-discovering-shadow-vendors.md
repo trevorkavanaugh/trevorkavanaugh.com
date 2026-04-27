@@ -3,8 +3,8 @@ title: "Discovering Shadow Vendors"
 date: 2026-04-14
 article_slug: discovering-shadow-vendors
 article_url: https://trevorkavanaugh.com/articles/discovering-shadow-vendors.html
-sent_date: 
-subscribers_sent: 
+sent_date: 2026-04-27
+subscribers_sent: 2
 ---
 
 # Discovering Shadow Vendors
@@ -108,9 +108,8 @@ Most TPRM programs are built to manage the vendors they know about. The harder q
 
 - **Subject Line**: Discovering Shadow Vendors
 - **Preview Text**: How a 12-month AP payment data analysis uncovered 150+ active vendors with no due diligence on file - and what that gap means for your TPRM program.
-- **Sent**: 
-- **Recipients**: 
-
+- **Sent**: April 27, 2026
+- **Recipients**: 2 confirmed subscribers
 ## Email HTML Content
 
 <!-- Use this content for the article_content field when sending via API -->

@@ -3,8 +3,8 @@ title: "Introducing C-SCRM"
 date: 2026-04-23
 article_slug: introducing-c-scrm
 article_url: https://trevorkavanaugh.com/articles/introducing-c-scrm.html
-sent_date: 
-subscribers_sent: 
+sent_date: 2026-04-27
+subscribers_sent: 2
 ---
 
 # Introducing C-SCRM
@@ -65,9 +65,8 @@ Start by asking a simple question about your highest-risk technology vendors: do
 
 - **Subject Line**: Introducing C-SCRM
 - **Preview Text**: C-SCRM asks a different question than TPRM: not whether your vendor is secure, but whether what they're shipping you can be trusted. Here's why it matters.
-- **Sent**: 
-- **Recipients**: 
-
+- **Sent**: April 27, 2026
+- **Recipients**: 2 confirmed subscribers
 ## Email HTML Content
 
 <!-- Use this content for the article_content field when sending via API -->

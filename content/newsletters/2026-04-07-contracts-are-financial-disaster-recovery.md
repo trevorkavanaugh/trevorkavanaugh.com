@@ -3,8 +3,8 @@ title: "Contracts Are Financial Disaster Recovery"
 date: 2026-04-07
 article_slug: contracts-are-financial-disaster-recovery
 article_url: https://trevorkavanaugh.com/articles/contracts-are-financial-disaster-recovery.html
-sent_date: 
-subscribers_sent: 
+sent_date: 2026-04-27
+subscribers_sent: 2
 ---
 
 # Contracts Are Financial Disaster Recovery
@@ -71,9 +71,8 @@ If your TPRM program has strong contract language but limited ability to evaluat
 
 - **Subject Line**: Contracts Are Financial Disaster Recovery
 - **Preview Text**: Contract clauses don't prevent vendor failures - they allocate liability after damage is done. Most TPRM programs confuse downstream cleanup with upstream prevention.
-- **Sent**: 
-- **Recipients**: 
-
+- **Sent**: April 27, 2026
+- **Recipients**: 2 confirmed subscribers
 ## Email HTML Content
 
 <!-- Use this content for the article_content field when sending via API -->

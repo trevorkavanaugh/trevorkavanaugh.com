@@ -3,8 +3,8 @@ title: "When an Auditor Got Stuck on Control Type Instead of Control Effectivene
 date: 2026-04-21
 article_slug: preventative-vs-detective-controls
 article_url: https://trevorkavanaugh.com/articles/preventative-vs-detective-controls.html
-sent_date: 
-subscribers_sent: 
+sent_date: 2026-04-27
+subscribers_sent: 2
 ---
 
 # When an Auditor Got Stuck on Control Type Instead of Control Effectiveness
@@ -83,9 +83,8 @@ Classification is a useful taxonomy for documentation. It is not a proxy for eff
 
 - **Subject Line**: When an Auditor Got Stuck on Control Type Instead of Control Effectiveness
 - **Preview Text**: When an auditor failed our shadow vendor remediation for being 'detective not preventative,' it exposed a fundamental misunderstanding of how risk controls actually work.
-- **Sent**: 
-- **Recipients**: 
-
+- **Sent**: April 27, 2026
+- **Recipients**: 2 confirmed subscribers
 ## Email HTML Content
 
 <!-- Use this content for the article_content field when sending via API -->

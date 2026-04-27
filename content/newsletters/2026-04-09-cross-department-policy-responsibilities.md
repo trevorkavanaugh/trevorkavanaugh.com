@@ -3,8 +3,8 @@ title: "Cross-Department Policy Responsibilities: The Accountability Gap"
 date: 2026-04-09
 article_slug: cross-department-policy-responsibilities
 article_url: https://trevorkavanaugh.com/articles/cross-department-policy-responsibilities.html
-sent_date: 
-subscribers_sent: 
+sent_date: 2026-04-27
+subscribers_sent: 2
 ---
 
 # Cross-Department Policy Responsibilities: The Accountability Gap
@@ -97,9 +97,8 @@ If the answer is no to all three, you don't have a control. You have a policy st
 
 - **Subject Line**: Cross-Department Policy Responsibilities: The Accountability Gap
 - **Preview Text**: TPRM policies that assign responsibilities to other departments without corresponding accountability are gaps waiting to surface in your next exam.
-- **Sent**: 
-- **Recipients**: 
-
+- **Sent**: April 27, 2026
+- **Recipients**: 2 confirmed subscribers
 ## Email HTML Content
 
 <!-- Use this content for the article_content field when sending via API -->
