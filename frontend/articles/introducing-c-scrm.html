@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WXHBC0YD0Z"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WXHBC0YD0Z');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="C-SCRM asks a different question than TPRM: not whether your vendor is secure, but whether what they're shipping you can be trusted. Here's why it matters.">
+    <title>Introducing C-SCRM | Trevor Kavanaugh</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/articles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="/js/analytics.js" defer></script>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="site-header" id="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">TK</div>
+                <span class="logo-text">Trevor Kavanaugh</span>
+            </a>
+            <nav class="main-nav" aria-label="Main navigation">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="../insights.html" class="active">Insights</a></li>
+                    <li><a href="../services.html">Advisory</a></li>
+                    <li><a href="../index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="menu-toggle" aria-label="Open navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobile-menu">
+        <button class="menu-close" aria-label="Close navigation menu">
+            <span>&times;</span>
+        </button>
+        <nav aria-label="Mobile navigation">
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../insights.html">Insights</a></li>
+                <li><a href="../services.html">Advisory</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu-contact">
+                <a href="mailto:trevor@trevorkavanaugh.com">trevor@trevorkavanaugh.com</a>
+                <a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank">LinkedIn</a>
+            </div>
+        </nav>
+    </div>
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+
+    <main id="main-content">
+        <article class="article-page">
+            <header class="article-hero">
+                <div class="article-hero-container">
+                    <span class="article-category category-technology">Technology</span>
+                    <h1>Introducing C-SCRM</h1>
+                    <div class="article-meta-line">
+                        <time datetime="2026-04-23">April 23, 2026</time>
+                        <span class="separator">-</span>
+                        <span class="read-time">4 min read</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="article-content-wrapper">
+                <div class="article-content">
+                    <p>Most TPRM programs evaluate vendors - their controls, their financials, their compliance posture. That's the job, and it's necessary work. But there's a discipline most practitioners have never been formally introduced to that asks a fundamentally different question. Not "is this vendor secure?" but "what is inside the product they're delivering to us, and how does it get here?" That discipline is Cybersecurity Supply Chain Risk Management - C-SCRM - and understanding it changes how you think about the boundaries of third-party risk.</p>
+
+                    <h2>Where TPRM Stops</h2>
+
+                    <p>TPRM evaluates the vendor as an entity. Do they have a SOC 2? Did they pass their penetration test? Do they have an incident response plan? Are they financially stable? These are important questions about the organization you're doing business with, and they belong in any serious due diligence program.</p>
+
+                    <p>But they tell you very little about the product itself. What <a href="software-supply-chain-composition.html">open-source libraries are embedded in the code</a>? What dependencies does the software rely on that the vendor may not even be fully aware of? How does the software get built, compiled, and delivered to your environment? Who has access to that delivery pipeline?</p>
+
+                    <p>TPRM asks "can we trust this vendor?" C-SCRM asks "can we trust what this vendor is shipping us?" Those are different questions, and they require different methods to answer.</p>
+
+                    <h2>Why the Distinction Matters</h2>
+
+                    <p>SolarWinds had security controls. They would have looked acceptable on a vendor questionnaire. Their environment wasn't breached in the traditional sense - attackers compromised their build pipeline and injected malicious code during the software compilation process. The product itself was weaponized before it ever reached customers. <a href="software-supply-chain-delivery.html">How software gets built and delivered to your environment</a> is a risk dimension that traditional vendor assessments weren't designed to evaluate.</p>
+
+                    <p>Log4j was an open-source logging component buried deep in dependency chains across thousands of products. Most vendors didn't even know it was in their codebase until the vulnerability was disclosed. Your due diligence wouldn't have surfaced it because nobody was asking about software composition - and <a href="software-supply-chain-visibility.html">many vendors still can't answer those questions accurately</a> even when asked.</p>
+
+                    <p>These weren't vendor security failures in the way TPRM is designed to assess. They were supply chain failures - risks that live deeper than the vendor entity itself. The distinction matters because the remediation path is different too. You can't questionnaire your way to understanding a vendor's dependency graph.</p>
+
+                    <h2>What This Means Practically</h2>
+
+                    <p>NIST published SP 800-161 specifically for this - a framework for managing cybersecurity risks in supply chains. It's not a replacement for TPRM. It's a different lens on a different layer of risk that traditional vendor assessments were never built to evaluate. The two disciplines are complementary, not competing.</p>
+
+                    <p>Most banks don't have a C-SCRM program. Most don't even use the term. But the risks it addresses - <a href="software-supply-chain-composition.html">software composition</a>, <a href="software-supply-chain-delivery.html">delivery integrity</a>, <a href="software-supply-chain-visibility.html">dependency mapping</a> - are already present in every vendor relationship that involves technology. Which in 2026 is essentially all of them. The risk doesn't disappear because nobody has named it yet in your program documentation.</p>
+
+                    <p>The <a href="visibility-gap-assessing-software-not-vendors.html">gap between assessing vendors and assessing what vendors deliver</a> is one of the most consequential blind spots in financial services TPRM today. <a href="finish-the-last-assignment.html">Every year the vulnerability count accelerates</a> and the software supply chain gets more complex, that gap widens.</p>
+
+                    <h2>The Starting Point</h2>
+
+                    <p>This isn't something programs need to build overnight. C-SCRM maturity takes time, and most organizations are still working through the fundamentals of traditional TPRM. But understanding that TPRM and C-SCRM are different disciplines solving different problems is the necessary first step toward closing a gap most programs don't yet know they have.</p>
+
+                    <p>Start by asking a simple question about your highest-risk technology vendors: do you know what their software is made of, and do you have any visibility into how it gets to you? If the answer is no - and for most programs, it will be - that's the gap C-SCRM is designed to address.</p>
+
+                    <p><em>For more perspectives on third-party risk management, <a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank">connect with me on LinkedIn</a>.</em></p>
+                </div>
+            </div>
+
+            <section class="author-box">
+                <div class="author-box-container">
+                    <div class="author-info">
+                        <div class="author-avatar">
+                            <img src="../images/trevor_kavanaugh_headshot.jpg" alt="Trevor Kavanaugh" style="object-position: center 25%;">
+                        </div>
+                        <div class="author-details">
+                            <h3>About the Author</h3>
+                            <p><strong>Trevor Kavanaugh</strong> | VP, Third-Party Risk Management</p>
+                            <p>With over a decade in banking, I've built my career across the risk spectrum - from compliance and BSA/AML to internal audit, now running Provenance Risk Advisory, helping financial institutions build TPRM and cyber supply chain risk programs. This journey gave me a ground-level view of how risk actually functions across financial institutions.</p>
+                            <p>I believe in building risk frameworks designed for modern, evolving threats - not just satisfying checkboxes. Risk management runs deeper than prescriptive compliance rules. It's abstract, constantly shifting, and demands continuous adaptation. I challenge legacy thinking and status quo approaches to push our profession forward.</p>
+                            <p>My goal is simple: help everyone do better.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="related-articles">
+                <div class="container">
+                    <h2>Continue Reading</h2>
+                    <div class="related-articles-grid">
+                        <article class="article-card">
+                            <a href="software-supply-chain-pt1.html" class="article-card-link">
+                                <div class="article-card-content">
+                                    <span class="article-category category-technology">Technology</span>
+                                    <h3 class="article-title">Software Supply Chain Risk</h3>
+                                    <p class="article-excerpt">The risks that live below the vendor entity - in the code itself, the dependencies, and the infrastructure it runs on.</p>
+                                    <div class="article-meta">
+                                        <span class="article-date">December 30, 2025</span>
+                                        <span class="article-read-more">Read more</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                        <article class="article-card">
+                            <a href="software-supply-chain-delivery.html" class="article-card-link">
+                                <div class="article-card-content">
+                                    <span class="article-category category-technology">Technology</span>
+                                    <h3 class="article-title">How Your Vendor's Software Gets Delivered</h3>
+                                    <p class="article-excerpt">SolarWinds and CrowdStrike had nothing to do with software quality. They had everything to do with how software gets delivered to your systems.</p>
+                                    <div class="article-meta">
+                                        <span class="article-date">January 8, 2026</span>
+                                        <span class="article-read-more">Read more</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                        <article class="article-card">
+                            <a href="visibility-gap-assessing-software-not-vendors.html" class="article-card-link">
+                                <div class="article-card-content">
+                                    <span class="article-category category-technology">Technology</span>
+                                    <h3 class="article-title">The Visibility Gap: Why We Should Be Assessing Software, Not Just Vendors</h3>
+                                    <p class="article-excerpt">Dell sources processors from Intel with contracts and warranties. Your vendor sources open source libraries from volunteers with no legal obligation.</p>
+                                    <div class="article-meta">
+                                        <span class="article-date">February 10, 2026</span>
+                                        <span class="article-read-more">Read more</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <section class="cta" id="contact">
+            <div class="container">
+                <h2>Continue the Conversation</h2>
+                <p>Have thoughts on this topic? I'd love to hear your perspective. Connect with me on LinkedIn or reach out directly.</p>
+                <div class="cta-buttons">
+                    <a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank" class="btn btn-cta">Connect on LinkedIn</a>
+                    <a href="mailto:trevor@trevorkavanaugh.com" class="btn btn-secondary">Send an Email</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <div class="logo-icon">TK</div>
+                <span>Trevor Kavanaugh</span>
+            </div>
+            <div class="footer-columns">
+                <div class="footer-col">
+                    <h3>Navigation</h3>
+                    <nav aria-label="Footer navigation">
+                        <ul>
+                            <li><a href="../index.html">Home</a></li>
+                            <li><a href="../about.html">About</a></li>
+                            <li><a href="../insights.html">Insights</a></li>
+                            <li><a href="../services.html">Advisory</a></li>
+                            <li><a href="../index.html#contact">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="footer-col">
+                    <h3>Connect</h3>
+                    <ul class="contact-info">
+                        <li><a href="mailto:trevor@trevorkavanaugh.com">trevor@trevorkavanaugh.com</a></li>
+                        <li><a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank">LinkedIn</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <p style="color: #8899aa; font-size: 14px; margin-bottom: 12px;">New articles every Tuesday &amp; Thursday</p>
+                    <form id="newsletter-form" class="newsletter-form">
+                        <div class="newsletter-input-group">
+                            <input type="email" id="newsletter-email" placeholder="Enter your email" required>
+                            <button type="submit">Subscribe</button>
+                        </div>
+                        <p id="newsletter-message" class="newsletter-message"></p>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 Trevor Kavanaugh</p>
+                <nav class="legal-nav" aria-label="Legal navigation">
+                    <a href="../privacy.html">Privacy Policy</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>
