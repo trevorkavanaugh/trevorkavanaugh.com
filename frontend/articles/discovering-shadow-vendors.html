@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WXHBC0YD0Z"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WXHBC0YD0Z');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="How a 12-month AP payment data analysis uncovered 150+ active vendors with no due diligence on file - and what that gap means for your TPRM program.">
+    <title>Discovering Shadow Vendors | Trevor Kavanaugh</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/articles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="/js/analytics.js" defer></script>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="site-header" id="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">TK</div>
+                <span class="logo-text">Trevor Kavanaugh</span>
+            </a>
+            <nav class="main-nav" aria-label="Main navigation">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="../insights.html" class="active">Insights</a></li>
+                    <li><a href="../services.html">Advisory</a></li>
+                    <li><a href="../index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="menu-toggle" aria-label="Open navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobile-menu">
+        <button class="menu-close" aria-label="Close navigation menu">
+            <span>&times;</span>
+        </button>
+        <nav aria-label="Mobile navigation">
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../insights.html">Insights</a></li>
+                <li><a href="../services.html">Advisory</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu-contact">
+                <a href="mailto:trevor@trevorkavanaugh.com">trevor@trevorkavanaugh.com</a>
+                <a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank">LinkedIn</a>
+            </div>
+        </nav>
+    </div>
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+
+    <main id="main-content">
+        <article class="article-page">
+            <header class="article-hero">
+                <div class="article-hero-container">
+                    <span class="article-category category-tprm">TPRM</span>
+                    <h1>Discovering Shadow Vendors</h1>
+                    <div class="article-meta-line">
+                        <time datetime="2026-04-14">April 14, 2026</time>
+                        <span class="separator">-</span>
+                        <span class="read-time">6 min read</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="article-content-wrapper">
+                <div class="article-content">
+                    <p>When I took over vendor management at a previous institution, one question kept nagging at me: what if a business unit simply signed a contract with a new vendor and routed the invoices to Accounts Payable? How would the TPRM function ever know? That question turned into a formal investigation. The answer was worse than I expected - over 150 entities were operating as active vendors with no due diligence on file. No risk assessments. No certificates of insurance. Nothing from my department. Because nobody had ever told us they existed.</p>
+
+                    <h2>Finding the Gap</h2>
+
+                    <p>I asked around when I first started. Nobody had a clear answer about what happened when a business unit engaged a vendor outside the formal intake process. Some people vaguely thought there was an integration or an approval workflow somewhere. There wasn't.</p>
+
+                    <p>Accounts Payable had no obligation to check with vendor management before paying a new entity for the first time. No form. No approval workflow. No trigger that would route a new payee through our risk review process. If a business unit engaged a vendor and never told us, that vendor could operate indefinitely - receiving payments, accessing systems, handling data - with zero due diligence, no insurance verification, and no risk assessment. And we'd have no idea.</p>
+
+                    <p>I reported it as a management self-identified issue. The head of ERM told me it would be a waste of time and effort that wouldn't lead to any discoveries. My intuition said otherwise. If a gap exists, things fall through it.</p>
+
+                    <p>I worked with AP to build a new vendor approval form. Any new entity that didn't meet specific exemption criteria - SBA referrals, employee reimbursements, and similar one-time disbursements - had to be approved by my department before AP would process the invoice. That closed the gap going forward.</p>
+
+                    <p>But I still needed to know what had already fallen through.</p>
+
+                    <h2>Looking Backward: The AP Data Analysis</h2>
+
+                    <p>Vendors bill monthly, quarterly, or annually. It's rare for a vendor to bill on a cycle longer than 12 months. That means 12 months of AP payment data would surface virtually every active vendor the institution was using at that point in time.</p>
+
+                    <p>My first approach was to ask AP to run every entity through the new approval form retroactively for the prior 12 months. They declined - too much manual work, not enough capacity. So I built an alternative process: compare 12 months of AP payment data against our vendor inventory. Every entity AP had paid that didn't appear in our system got flagged and manually classified into one of four buckets:</p>
+
+                    <ul>
+                        <li><strong>Known vendor</strong> - in our inventory under a different name or legal entity</li>
+                        <li><strong>Possible vendor</strong> - payment pattern suggests an ongoing service relationship</li>
+                        <li><strong>Former vendor</strong> - previously in inventory, relationship ended but payments continued</li>
+                        <li><strong>Not a vendor</strong> - one-time disbursement, exempt category, or clearly non-vendor</li>
+                    </ul>
+
+                    <p>The results came back. Over 150 entities appeared to be active vendors with no due diligence on file.</p>
+
+                    <h2>What Happened Next</h2>
+
+                    <p>I reported to the risk committee that 150+ entities believed to be vendors were operating outside our policies and procedures. The head of ERM who had told me this would be a waste of time was sitting in that meeting.</p>
+
+                    <p>The finding was elevated to senior leadership with a directive that it needed to be resolved immediately. I had been trying to get business units to complete reconciliation forms for months with no traction - the typical friction of asking people to do administrative work that isn't their priority. The escalation gave me a direct path to the COO and CEO. With that pressure behind it, the entire list was remediated within 90 days.</p>
+
+                    <p>The gap ERM said wasn't worth investigating had 150 things fall through it.</p>
+
+                    <p>What came next was its own lesson. After remediation, <a href="preventative-vs-detective-controls.html">the auditor who reviewed the finding demanded a "preventative" control</a> - an approval gate that would stop unapproved vendors from entering the payment stream in the first place, rather than relying on the detective analysis I had built. That distinction matters, and it's worth understanding before you face the same question.</p>
+
+                    <h2>Why This Gap Is More Common Than It Should Be</h2>
+
+                    <p>The shadow vendor problem isn't a failure of intent. Nobody in those business units decided to circumvent risk management. They engaged vendors the same way they always had - found a service they needed, negotiated terms, and sent an invoice to AP. The TPRM function was simply never built into that workflow.</p>
+
+                    <p>This is a structural problem, not a behavior problem. The fix isn't training business units to "remember" to submit intake forms. The fix is making vendor intake a required step in the payment flow - so it's impossible to pay a new entity without triggering a review. That's <a href="compliance-theater-vs-real-risk-management.html">the difference between a control that actually manages risk and one that only creates documentation</a>.</p>
+
+                    <p>The backward-looking analysis matters for the same reason. Even after you close the gap prospectively, you don't know what's already operating outside your program. A one-time AP reconciliation - comparing payment history against your inventory - gives you a ground-truth picture of your actual vendor population versus the one you think you have. For most institutions that haven't done this, the number will surprise you.</p>
+
+                    <h2>Questions Worth Asking Your Program</h2>
+
+                    <p>The self-assessment questions this experience raised aren't complicated, but they're worth working through honestly:</p>
+
+                    <ul>
+                        <li>Does AP have any obligation to notify vendor management before paying a new entity?</li>
+                        <li>Could a business unit engage a vendor today without triggering your intake process?</li>
+                        <li>When did you last compare your AP payment history against your vendor inventory?</li>
+                        <li>If a vendor has been operating outside your program for 18 months, how would you know?</li>
+                    </ul>
+
+                    <p>Most TPRM programs are built to manage the vendors they know about. The harder question - and the more important one - is whether the vendors in your system represent your actual vendor population, or just the vendors who went through the front door. <a href="information-system-data-rot.html">Vendor data degrades over time even for known vendors</a>. For shadow vendors, the degradation starts at zero.</p>
+
+                    <p><em>For more perspectives on third-party risk management, <a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank">connect with me on LinkedIn</a>.</em></p>
+                </div>
+            </div>
+
+            <section class="author-box">
+                <div class="author-box-container">
+                    <div class="author-info">
+                        <div class="author-avatar">
+                            <img src="../images/trevor_kavanaugh_headshot.jpg" alt="Trevor Kavanaugh" style="object-position: center 25%;">
+                        </div>
+                        <div class="author-details">
+                            <h3>About the Author</h3>
+                            <p><strong>Trevor Kavanaugh</strong> | VP, Third-Party Risk Management</p>
+                            <p>With over a decade in banking, I've built my career across the risk spectrum - from compliance and BSA/AML to internal audit, now running Provenance Risk Advisory, helping financial institutions build TPRM and cyber supply chain risk programs. This journey gave me a ground-level view of how risk actually functions across financial institutions.</p>
+                            <p>I believe in building risk frameworks designed for modern, evolving threats - not just satisfying checkboxes. Risk management runs deeper than prescriptive compliance rules. It's abstract, constantly shifting, and demands continuous adaptation. I challenge legacy thinking and status quo approaches to push our profession forward.</p>
+                            <p>My goal is simple: help everyone do better.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="related-articles">
+                <div class="container">
+                    <h2>Continue Reading</h2>
+                    <div class="related-articles-grid">
+                        <article class="article-card">
+                            <a href="information-system-data-rot.html" class="article-card-link">
+                                <div class="article-card-content">
+                                    <span class="article-category category-tprm">TPRM</span>
+                                    <h3 class="article-title">Information System Data Rot</h3>
+                                    <p class="article-excerpt">The biggest threat to your TPRM program isn't framework sophistication - it's vendor data integrity degrading over time.</p>
+                                    <div class="article-meta">
+                                        <span class="article-date">November 20, 2025</span>
+                                        <span class="article-read-more">Read more</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                        <article class="article-card">
+                            <a href="compliance-theater-vs-real-risk-management.html" class="article-card-link">
+                                <div class="article-card-content">
+                                    <span class="article-category category-tprm">TPRM</span>
+                                    <h3 class="article-title">Compliance Theater vs. Real Risk Management</h3>
+                                    <p class="article-excerpt">Why treating regulatory compliance as your risk management ceiling instead of your floor creates dangerous blind spots.</p>
+                                    <div class="article-meta">
+                                        <span class="article-date">December 11, 2025</span>
+                                        <span class="article-read-more">Read more</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                        <article class="article-card">
+                            <a href="optimizing-tprm-efficiency.html" class="article-card-link">
+                                <div class="article-card-content">
+                                    <span class="article-category category-tprm">TPRM</span>
+                                    <h3 class="article-title">Optimizing TPRM Efficiency Under Increasing Requirements</h3>
+                                    <p class="article-excerpt">How to build a vendor risk program that scales without sacrificing coverage or accuracy.</p>
+                                    <div class="article-meta">
+                                        <span class="article-date">December 16, 2025</span>
+                                        <span class="article-read-more">Read more</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <section class="cta" id="contact">
+            <div class="container">
+                <h2>Continue the Conversation</h2>
+                <p>Have thoughts on this topic? I'd love to hear your perspective. Connect with me on LinkedIn or reach out directly.</p>
+                <div class="cta-buttons">
+                    <a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank" class="btn btn-cta">Connect on LinkedIn</a>
+                    <a href="mailto:trevor@trevorkavanaugh.com" class="btn btn-secondary">Send an Email</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <div class="logo-icon">TK</div>
+                <span>Trevor Kavanaugh</span>
+            </div>
+            <div class="footer-columns">
+                <div class="footer-col">
+                    <h3>Navigation</h3>
+                    <nav aria-label="Footer navigation">
+                        <ul>
+                            <li><a href="../index.html">Home</a></li>
+                            <li><a href="../about.html">About</a></li>
+                            <li><a href="../insights.html">Insights</a></li>
+                            <li><a href="../services.html">Advisory</a></li>
+                            <li><a href="../index.html#contact">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="footer-col">
+                    <h3>Connect</h3>
+                    <ul class="contact-info">
+                        <li><a href="mailto:trevor@trevorkavanaugh.com">trevor@trevorkavanaugh.com</a></li>
+                        <li><a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank">LinkedIn</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <p style="color: #8899aa; font-size: 14px; margin-bottom: 12px;">New articles every Tuesday &amp; Thursday</p>
+                    <form id="newsletter-form" class="newsletter-form">
+                        <div class="newsletter-input-group">
+                            <input type="email" id="newsletter-email" placeholder="Enter your email" required>
+                            <button type="submit">Subscribe</button>
+                        </div>
+                        <p id="newsletter-message" class="newsletter-message"></p>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 Trevor Kavanaugh</p>
+                <nav class="legal-nav" aria-label="Legal navigation">
+                    <a href="../privacy.html">Privacy Policy</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>
