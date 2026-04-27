@@ -1,0 +1,395 @@
+#!/usr/bin/env python3
+"""
+article-to-newsletter - convert a finished article HTML into a newsletter archive file.
+
+Reads frontend/articles/<slug>.html, produces content/newsletters/YYYY-MM-DD-<slug>.md
+containing:
+  - YAML frontmatter (title, date, article_slug, article_url, sent_date, subscribers_sent)
+  - Article body in markdown (for archival readability)
+  - Newsletter Metadata section (Subject Line, Preview Text, Sent, Recipients)
+  - Email HTML Content section (inline-styled, table-based, email-safe HTML for API send)
+
+Conversion follows docs/methodologies/article-to-newsletter-methodology.md.
+
+Usage:
+  article-to-newsletter <slug-or-path> [--out <path>] [--date YYYY-MM-DD] [--dry-run]
+
+Examples:
+  article-to-newsletter compliance-theater-vs-real-risk-management
+  article-to-newsletter frontend/articles/finish-the-last-assignment.html
+  article-to-newsletter the-cuec-problem --date 2026-04-25
+  article-to-newsletter <slug> --dry-run    # print to stdout, don't write file
+"""
+
+import argparse
+import re
+import sys
+from datetime import date as DateClass
+from pathlib import Path
+
+try:
+    from bs4 import BeautifulSoup, NavigableString, Tag
+except ImportError:
+    print("error: beautifulsoup4 not installed. Run: pip install beautifulsoup4", file=sys.stderr)
+    sys.exit(2)
+
+
+# Style mappings from docs/methodologies/article-to-newsletter-methodology.md
+EMAIL_STYLES = {
+    "h1": "margin: 0 0 24px 0; font-size: 26px; line-height: 1.3; color: #1a2a3a;",
+    "h2": "margin: 32px 0 16px 0; font-size: 20px; color: #1a2a3a;",
+    "h3": "margin: 24px 0 12px 0; font-size: 17px; color: #1a2a3a;",
+    "p":  "margin: 0 0 16px 0; color: #4a5568; line-height: 1.8; font-size: 16px;",
+    "strong": "color: #1a2a3a;",
+    "em": "",
+    "ul": "margin: 0 0 16px 0; padding-left: 24px; color: #4a5568;",
+    "ol": "margin: 0 0 16px 0; padding-left: 24px; color: #4a5568;",
+    "li": "margin-bottom: 8px; line-height: 1.6;",
+    "a":  "color: #4A90E2; text-decoration: underline;",
+}
+
+SITE_BASE_URL = "https://trevorkavanaugh.com"
+
+
+def find_project_root(start: Path) -> Path:
+    """Walk up looking for a directory that contains both 'frontend' and 'content'."""
+    cur = start.resolve()
+    for d in [cur] + list(cur.parents):
+        if (d / "frontend").is_dir() and (d / "content").is_dir():
+            return d
+    # Fallback to the canonical thought-leadership location
+    return Path("~/work/thought-leadership").expanduser()
+
+
+def resolve_input(arg: str, root: Path) -> Path:
+    """Accept either a slug or a path. Return the article HTML path."""
+    p = Path(arg)
+    if p.is_file():
+        return p.resolve()
+    # Try as a slug
+    candidate = root / "frontend" / "articles" / f"{arg}.html"
+    if candidate.is_file():
+        return candidate
+    # Try with .html stripped if the user passed e.g. 'foo.html' as a slug
+    if arg.endswith(".html"):
+        candidate2 = root / "frontend" / "articles" / arg
+        if candidate2.is_file():
+            return candidate2
+    raise FileNotFoundError(f"could not resolve '{arg}' as a slug or path")
+
+
+def slug_from_path(article_path: Path) -> str:
+    return article_path.stem
+
+
+def absolutize_url(href: str, slug: str) -> str:
+    """Convert a relative URL to absolute. Leaves absolute URLs alone."""
+    if not href:
+        return href
+    if href.startswith("http://") or href.startswith("https://"):
+        return href
+    if href.startswith("mailto:") or href.startswith("#"):
+        return href
+    # Relative path - resolve against the article's URL
+    if href.startswith("../"):
+        # Article pages live at /articles/<slug>.html, so '../' goes up to root
+        return SITE_BASE_URL + "/" + href.lstrip("./")
+    if href.startswith("/"):
+        return SITE_BASE_URL + href
+    # Relative without leading ./ or ../ - assume sibling of the article
+    return f"{SITE_BASE_URL}/articles/{href}"
+
+
+def extract_article_content(soup: BeautifulSoup) -> Tag:
+    """Find the main article body. Tries <div class="article-content"> first, then
+    <article class="article-page">, then <main>."""
+    candidates = [
+        ("div", {"class": "article-content"}),
+        ("article", {"class": "article-page"}),
+        ("main", {"id": "main-content"}),
+        ("main", {}),
+        ("article", {}),
+    ]
+    for tag, attrs in candidates:
+        el = soup.find(tag, attrs)
+        if el:
+            return el
+    raise RuntimeError("could not locate article body in HTML")
+
+
+def extract_title(soup: BeautifulSoup, content: Tag) -> str:
+    """Article title - prefer <h1> within content, fall back to <title> tag."""
+    h1 = content.find("h1")
+    if h1:
+        return h1.get_text(strip=True)
+    if soup.title:
+        # Strip ' | Trevor Kavanaugh' suffix if present
+        t = soup.title.get_text(strip=True)
+        return re.sub(r"\s*\|\s*Trevor Kavanaugh\s*$", "", t)
+    return "Untitled"
+
+
+def extract_meta_description(soup: BeautifulSoup) -> str:
+    el = soup.find("meta", attrs={"name": "description"})
+    if el and el.get("content"):
+        return el["content"].strip()
+    return ""
+
+
+# Markdown rendering ---------------------------------------------------------
+
+def render_markdown(node: Tag) -> str:
+    """Walk content tree, emit markdown for archival readability."""
+    out = []
+    for child in node.children:
+        if isinstance(child, NavigableString):
+            text = str(child)
+            if text.strip():
+                out.append(text)
+            continue
+        if not isinstance(child, Tag):
+            continue
+        name = child.name
+        if name == "h1":
+            out.append("\n# " + child.get_text(strip=True) + "\n")
+        elif name == "h2":
+            out.append("\n## " + child.get_text(strip=True) + "\n")
+        elif name == "h3":
+            out.append("\n### " + child.get_text(strip=True) + "\n")
+        elif name == "p":
+            out.append("\n" + render_md_inline(child) + "\n")
+        elif name in ("ul", "ol"):
+            out.append("\n")
+            for i, li in enumerate(child.find_all("li", recursive=False), 1):
+                marker = "- " if name == "ul" else f"{i}. "
+                out.append(marker + render_md_inline(li) + "\n")
+            out.append("")
+        elif name == "blockquote":
+            text = render_md_inline(child)
+            for line in text.splitlines() or [text]:
+                out.append("> " + line.strip())
+            out.append("")
+        elif name in ("div", "section", "article"):
+            # Recurse into structural wrappers
+            out.append(render_markdown(child))
+        elif name == "hr":
+            out.append("\n---\n")
+        elif name in ("img", "figure"):
+            # Skip images for the markdown archive
+            continue
+        # Other tags ignored for markdown output
+    return "\n".join(s for s in out if s is not None)
+
+
+def render_md_inline(node: Tag) -> str:
+    """Render inline elements as markdown (bold, italic, links)."""
+    parts = []
+    for child in node.children:
+        if isinstance(child, NavigableString):
+            parts.append(str(child))
+            continue
+        if not isinstance(child, Tag):
+            continue
+        if child.name in ("strong", "b"):
+            parts.append("**" + render_md_inline(child) + "**")
+        elif child.name in ("em", "i"):
+            parts.append("*" + render_md_inline(child) + "*")
+        elif child.name == "a":
+            href = child.get("href", "")
+            parts.append("[" + render_md_inline(child) + "](" + href + ")")
+        elif child.name == "br":
+            parts.append("\n")
+        elif child.name == "code":
+            parts.append("`" + child.get_text() + "`")
+        else:
+            parts.append(render_md_inline(child))
+    return "".join(parts).strip()
+
+
+# Email HTML rendering -------------------------------------------------------
+
+def render_email_html(node: Tag, slug: str) -> str:
+    """Walk content tree, emit inline-styled email-safe HTML per the methodology doc."""
+    out = []
+    for child in node.children:
+        if isinstance(child, NavigableString):
+            text = str(child).strip()
+            if text:
+                out.append(text)
+            continue
+        if not isinstance(child, Tag):
+            continue
+        name = child.name
+        if name in ("h1", "h2", "h3"):
+            inner = render_email_inline(child, slug)
+            out.append(f'<{name} style="{EMAIL_STYLES[name]}">{inner}</{name}>')
+        elif name == "p":
+            inner = render_email_inline(child, slug)
+            if inner.strip():
+                out.append(f'<p style="{EMAIL_STYLES["p"]}">{inner}</p>')
+        elif name in ("ul", "ol"):
+            out.append(f'<{name} style="{EMAIL_STYLES[name]}">')
+            for li in child.find_all("li", recursive=False):
+                inner = render_email_inline(li, slug)
+                out.append(f'<li style="{EMAIL_STYLES["li"]}">{inner}</li>')
+            out.append(f"</{name}>")
+        elif name == "blockquote":
+            # Methodology: replace blockquotes with table-styled callouts
+            inner = render_email_inline(child, slug)
+            out.append(
+                '<table border="0" cellpadding="0" cellspacing="0" width="100%" '
+                'style="margin: 24px 0;">\n'
+                "<tr>\n"
+                '<td style="border-left: 4px solid #4A90E2; padding: 16px 20px; '
+                'background-color: #f8fafc;">\n'
+                f'<p style="margin: 0; color: #2d3748; line-height: 1.6; font-size: 16px; '
+                f'font-style: italic;">{inner}</p>\n'
+                "</td>\n"
+                "</tr>\n"
+                "</table>"
+            )
+        elif name in ("div", "section", "article"):
+            out.append(render_email_html(child, slug))
+        elif name == "hr":
+            out.append('<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 24px 0;" />')
+        elif name in ("img", "figure", "script", "style", "nav", "header", "footer"):
+            continue
+        # Skip unknown structural tags
+    return "\n\n".join(s for s in out if s.strip())
+
+
+def render_email_inline(node: Tag, slug: str) -> str:
+    """Render inline elements with inline styles. Absolutize anchor hrefs."""
+    parts = []
+    for child in node.children:
+        if isinstance(child, NavigableString):
+            parts.append(str(child))
+            continue
+        if not isinstance(child, Tag):
+            continue
+        if child.name in ("strong", "b"):
+            inner = render_email_inline(child, slug)
+            parts.append(f'<strong style="{EMAIL_STYLES["strong"]}">{inner}</strong>')
+        elif child.name in ("em", "i"):
+            inner = render_email_inline(child, slug)
+            parts.append(f"<em>{inner}</em>")
+        elif child.name == "a":
+            href = absolutize_url(child.get("href", ""), slug)
+            inner = render_email_inline(child, slug)
+            parts.append(f'<a href="{href}" style="{EMAIL_STYLES["a"]}">{inner}</a>')
+        elif child.name == "br":
+            parts.append("<br />")
+        elif child.name == "code":
+            parts.append(f"<code>{child.get_text()}</code>")
+        else:
+            parts.append(render_email_inline(child, slug))
+    return "".join(parts)
+
+
+# Newsletter file assembly ---------------------------------------------------
+
+def first_paragraph_excerpt(content: Tag, max_chars: int = 160) -> str:
+    """Get the first paragraph's text, trimmed to a preview-text length."""
+    p = content.find("p")
+    if not p:
+        return ""
+    text = p.get_text(" ", strip=True)
+    if len(text) <= max_chars:
+        return text
+    return text[:max_chars - 3].rstrip() + "..."
+
+
+def assemble_newsletter(article_path: Path, out_date: DateClass, slug: str,
+                        title: str, content_node: Tag, meta_desc: str) -> str:
+    """Build the full newsletter md file content."""
+    article_url = f"{SITE_BASE_URL}/articles/{slug}.html"
+    md_body = render_markdown(content_node).strip()
+    email_html = render_email_html(content_node, slug)
+    preview = meta_desc or first_paragraph_excerpt(content_node)
+
+    parts = [
+        "---",
+        f'title: "{title}"',
+        f"date: {out_date.isoformat()}",
+        f"article_slug: {slug}",
+        f"article_url: {article_url}",
+        f"sent_date: ",
+        f"subscribers_sent: ",
+        "---",
+        "",
+        f"# {title}",
+        "",
+        md_body,
+        "",
+        "---",
+        "",
+        "## Newsletter Metadata",
+        "",
+        f"- **Subject Line**: {title}",
+        f"- **Preview Text**: {preview}",
+        f"- **Sent**: ",
+        f"- **Recipients**: ",
+        "",
+        "## Email HTML Content",
+        "",
+        "<!-- Use this content for the article_content field when sending via API -->",
+        "",
+        email_html,
+        "",
+    ]
+    return "\n".join(parts)
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(
+        prog="article-to-newsletter",
+        description="Convert a finished article HTML into a newsletter archive file",
+    )
+    ap.add_argument("article", help="Slug or path to the article HTML")
+    ap.add_argument("--out", help="Override output path (default: content/newsletters/YYYY-MM-DD-<slug>.md)")
+    ap.add_argument("--date", help="Override date in YYYY-MM-DD (default: today)")
+    ap.add_argument("--dry-run", action="store_true", help="Print to stdout instead of writing the file")
+    args = ap.parse_args()
+
+    root = find_project_root(Path.cwd())
+    try:
+        article_path = resolve_input(args.article, root)
+    except FileNotFoundError as e:
+        print(f"error: {e}", file=sys.stderr)
+        return 2
+
+    slug = slug_from_path(article_path)
+    out_date = (
+        DateClass.fromisoformat(args.date) if args.date else DateClass.today()
+    )
+
+    html = article_path.read_text(encoding="utf-8")
+    soup = BeautifulSoup(html, "html.parser")
+    content_node = extract_article_content(soup)
+    title = extract_title(soup, content_node)
+    meta_desc = extract_meta_description(soup)
+
+    output = assemble_newsletter(article_path, out_date, slug, title, content_node, meta_desc)
+
+    # Size check (warn, don't error)
+    size_kb = len(output.encode("utf-8")) / 1024
+    if size_kb > 100:
+        print(f"warning: output is {size_kb:.1f}KB (>100KB Gmail clip threshold)", file=sys.stderr)
+
+    if args.dry_run:
+        print(output)
+        return 0
+
+    out_path = (
+        Path(args.out).expanduser()
+        if args.out
+        else root / "content" / "newsletters" / f"{out_date.isoformat()}-{slug}.md"
+    )
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(output, encoding="utf-8")
+    print(f"wrote {out_path}  ({size_kb:.1f}KB)")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

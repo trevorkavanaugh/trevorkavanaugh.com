@@ -1,0 +1,220 @@
+#!/usr/bin/env python3
+"""
+insert-article-card - add a new article card to insights.html and rotate index.html's Latest Insights.
+
+Reads metadata directly from the finished article HTML (title, category, date, read-time, excerpt)
+and patches both frontend pages:
+  - frontend/insights.html: prepends a new <article class="article-card"> at the top of the
+    .articles-grid container
+  - frontend/index.html:    prepends a new <article class="insight-card"> at the top of the
+    .insights-grid container AND removes the LAST card to keep the front page at 3 entries
+
+Usage:
+  insert-article-card <slug-or-path> [--dry-run] [--no-rotate]
+
+Options:
+  --dry-run    print the diffs to stdout instead of writing the files
+  --no-rotate  insert into index.html without removing the oldest card
+"""
+
+import argparse
+import re
+import sys
+from pathlib import Path
+
+try:
+    from bs4 import BeautifulSoup
+except ImportError:
+    print("error: beautifulsoup4 not installed", file=sys.stderr)
+    sys.exit(2)
+
+
+def find_project_root(start: Path) -> Path:
+    cur = start.resolve()
+    for d in [cur] + list(cur.parents):
+        if (d / "frontend").is_dir() and (d / "content").is_dir():
+            return d
+    return Path("~/work/thought-leadership").expanduser()
+
+
+def resolve_input(arg: str, root: Path) -> Path:
+    p = Path(arg)
+    if p.is_file():
+        return p.resolve()
+    candidate = root / "frontend" / "articles" / f"{arg}.html"
+    if candidate.is_file():
+        return candidate
+    raise FileNotFoundError(f"could not resolve '{arg}' as a slug or path")
+
+
+def extract_metadata(article_html: str) -> dict:
+    """Pull title, category (display + slug), date display, read-time, excerpt from the article HTML."""
+    soup = BeautifulSoup(article_html, "html.parser")
+    # Title - prefer <h1> in the article hero
+    h1 = soup.find("h1")
+    title = h1.get_text(strip=True) if h1 else "Untitled"
+    # Category - look for span.article-category in the article hero, where class list
+    # also contains a "category-<slug>" entry. The article hero is at the top of the
+    # page, so we want the first such span found (skip cards in the "More Insights" section).
+    category_label = ""
+    category_slug = "tprm"
+    for span in soup.find_all("span", class_="article-category"):
+        classes = span.get("class", [])
+        slug_class = next((c for c in classes if c.startswith("category-")), None)
+        if slug_class:
+            category_label = span.get_text(strip=True)
+            category_slug = slug_class[len("category-"):]
+            break
+    # Date - look for <time datetime="YYYY-MM-DD">Display</time>
+    time_el = soup.find("time")
+    date_display = time_el.get_text(strip=True) if time_el else ""
+    # Read time - <span class="read-time">N min read</span>
+    rt_el = soup.find("span", class_="read-time")
+    read_time = rt_el.get_text(strip=True) if rt_el else ""
+    # Excerpt - <meta name="description">
+    meta = soup.find("meta", attrs={"name": "description"})
+    excerpt = meta["content"].strip() if meta and meta.get("content") else ""
+    return {
+        "title": title,
+        "category_label": category_label,
+        "category_slug": category_slug,
+        "date_display": date_display,
+        "read_time": read_time,
+        "excerpt": excerpt,
+    }
+
+
+def build_insights_card(slug: str, m: dict) -> str:
+    """Card markup for insights.html (.article-card)."""
+    return (
+        f'                    <article class="article-card" data-category="{m["category_slug"]}">\n'
+        f'                        <a href="articles/{slug}.html" class="article-card-link">\n'
+        f'                            <div class="article-content">\n'
+        f'                                <span class="article-category {m["category_slug"]}">{m["category_label"]}</span>\n'
+        f'                                <h3 class="article-title">{m["title"]}</h3>\n'
+        f'                                <p class="article-excerpt">{m["excerpt"]}</p>\n'
+        f'                                <div class="article-footer">\n'
+        f'                                    <span class="article-date">{m["date_display"]} • {m["read_time"]}</span>\n'
+        f'                                    <span class="article-link">Read more →</span>\n'
+        f'                                </div>\n'
+        f'                            </div>\n'
+        f'                        </a>\n'
+        f'                    </article>\n'
+        f'\n'
+        f'                    <!-- Article: {m["title"]} -->\n'
+    )
+
+
+def build_index_card(slug: str, m: dict) -> str:
+    """Card markup for index.html (.insight-card)."""
+    return (
+        f'                    <article class="insight-card">\n'
+        f'                        <a href="articles/{slug}.html">\n'
+        f'                            <div class="insight-content">\n'
+        f'                                <span class="insight-category">{m["category_label"]}</span>\n'
+        f'                                <h3>{m["title"]}</h3>\n'
+        f'                                <p>{m["excerpt"]}</p>\n'
+        f'                                <div class="insight-meta">\n'
+        f'                                    <span class="read-time">{m["read_time"]}</span>\n'
+        f'                                    <span class="insight-date">{m["date_display"]}</span>\n'
+        f'                                </div>\n'
+        f'                            </div>\n'
+        f'                        </a>\n'
+        f'                    </article>\n'
+    )
+
+
+# Regex-based insertion points (preserve exact existing whitespace)
+INSIGHTS_GRID_OPEN = re.compile(r'(<div class="articles-grid">[ \t]*\n)')
+INDEX_GRID_OPEN = re.compile(r'(<div class="insights-grid">[ \t]*\n)')
+INDEX_GRID_LAST_CARD = re.compile(
+    r'([ \t]*<article class="insight-card">.*?</article>\n)(?=[ \t]*</div>\s*<!-- /insights-grid)?',
+    re.DOTALL,
+)
+# Simpler last-card finder: find all insight-card blocks and remove the last
+INSIGHT_CARD_BLOCK = re.compile(
+    r'[ \t]*<article class="insight-card">.*?</article>\n',
+    re.DOTALL,
+)
+
+
+def insert_into_insights_html(html: str, card: str) -> str:
+    """Prepend the card immediately after <div class="articles-grid">."""
+    if not INSIGHTS_GRID_OPEN.search(html):
+        raise RuntimeError('could not find <div class="articles-grid"> in insights.html')
+    return INSIGHTS_GRID_OPEN.sub(lambda m: m.group(1) + card, html, count=1)
+
+
+def rotate_index_html(html: str, card: str, rotate: bool = True) -> str:
+    """Prepend the card after <div class="insights-grid"> and remove the last existing card."""
+    if not INDEX_GRID_OPEN.search(html):
+        raise RuntimeError('could not find <div class="insights-grid"> in index.html')
+    new_html = INDEX_GRID_OPEN.sub(lambda m: m.group(1) + card, html, count=1)
+    if rotate:
+        # Remove the LAST insight-card block (which was previously the third one,
+        # now becomes the fourth after we prepended)
+        matches = list(INSIGHT_CARD_BLOCK.finditer(new_html))
+        if len(matches) > 3:
+            last = matches[-1]
+            new_html = new_html[: last.start()] + new_html[last.end():]
+    return new_html
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(
+        prog="insert-article-card",
+        description="Add a new article card to insights.html and rotate index.html",
+    )
+    ap.add_argument("article", help="Slug or path to the article HTML")
+    ap.add_argument("--dry-run", action="store_true", help="Print diffs, don't write files")
+    ap.add_argument("--no-rotate", action="store_true",
+                    help="Insert into index.html without removing the oldest card")
+    args = ap.parse_args()
+
+    root = find_project_root(Path.cwd())
+    try:
+        article_path = resolve_input(args.article, root)
+    except FileNotFoundError as e:
+        print(f"error: {e}", file=sys.stderr)
+        return 2
+
+    slug = article_path.stem
+    article_html = article_path.read_text(encoding="utf-8")
+    m = extract_metadata(article_html)
+
+    missing = [k for k in ("title", "category_label", "date_display", "read_time", "excerpt") if not m[k]]
+    if missing:
+        print(f"warning: extracted metadata missing fields: {missing}", file=sys.stderr)
+        print(f"extracted: {m}", file=sys.stderr)
+
+    insights_card = build_insights_card(slug, m)
+    index_card = build_index_card(slug, m)
+
+    insights_path = root / "frontend" / "insights.html"
+    index_path = root / "frontend" / "index.html"
+
+    insights_html = insights_path.read_text(encoding="utf-8")
+    index_html = index_path.read_text(encoding="utf-8")
+
+    new_insights = insert_into_insights_html(insights_html, insights_card)
+    new_index = rotate_index_html(index_html, index_card, rotate=not args.no_rotate)
+
+    if args.dry_run:
+        print(f"=== insights.html card to be inserted ===\n{insights_card}")
+        print(f"=== index.html card to be inserted ===\n{index_card}")
+        if not args.no_rotate:
+            print("(rotation enabled - oldest card from index.html would be removed)")
+        return 0
+
+    insights_path.write_text(new_insights, encoding="utf-8")
+    index_path.write_text(new_index, encoding="utf-8")
+    print(f"updated {insights_path}")
+    print(f"updated {index_path}{' (rotated)' if not args.no_rotate else ''}")
+    print(f"  title: {m['title']}")
+    print(f"  category: {m['category_label']} ({m['category_slug']})")
+    print(f"  date: {m['date_display']}  read-time: {m['read_time']}")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
