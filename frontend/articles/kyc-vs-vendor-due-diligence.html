@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WXHBC0YD0Z"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WXHBC0YD0Z');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="If banks ran KYC the way TPRM runs vendor due diligence - self-reported, vendor-scoped, redacted - regulators would shut them down in a week. Here's the asymmetry.">
+    <title>If We Did KYC the Way We Do Vendor Due Diligence | Trevor Kavanaugh</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/articles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="/js/analytics.js" defer></script>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="site-header" id="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">TK</div>
+                <span class="logo-text">Trevor Kavanaugh</span>
+            </a>
+            <nav class="main-nav" aria-label="Main navigation">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="../insights.html" class="active">Insights</a></li>
+                    <li><a href="../services.html">Advisory</a></li>
+                    <li><a href="../index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="menu-toggle" aria-label="Open navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobile-menu">
+        <button class="menu-close" aria-label="Close navigation menu">
+            <span>&times;</span>
+        </button>
+        <nav aria-label="Mobile navigation">
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../insights.html">Insights</a></li>
+                <li><a href="../services.html">Advisory</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu-contact">
+                <a href="mailto:trevor@trevorkavanaugh.com">trevor@trevorkavanaugh.com</a>
+                <a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank">LinkedIn</a>
+            </div>
+        </nav>
+    </div>
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+
+    <main id="main-content">
+        <article class="article-page">
+            <header class="article-hero">
+                <div class="article-hero-container">
+                    <span class="article-category category-tprm">TPRM</span>
+                    <h1>If We Did KYC the Way We Do Vendor Due Diligence</h1>
+                    <div class="article-meta-line">
+                        <time datetime="2026-04-28">April 28, 2026</time>
+                        <span class="separator">-</span>
+                        <span class="read-time">4 min read</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="article-content-wrapper">
+                <div class="article-content">
+                    <p>Imagine if banks did KYC the way we do vendor due diligence.</p>
+
+                    <p>A new customer walks in to open an account. Instead of verifying their identity independently, we hand them a questionnaire and ask them to tell us about themselves. We take every answer at face value. No independent verification. Just their word.</p>
+
+                    <p>They hire whatever company they want to confirm they're a real person - and that company only checks the things the customer asked them to check. The customer defines the scope.</p>
+
+                    <p>We ask for copies of their policies and procedures. They send us a table of contents. Or a redacted version with the actual content blacked out. We file it and move on.</p>
+
+                    <p>Every ID they provide, every license, every proof of address - redacted. We accept it anyway.</p>
+
+                    <p>Regulators would shut that bank down in a week. It would be the most egregious KYC failure in examination history.</p>
+
+                    <h2>That's Vendor Due Diligence</h2>
+
+                    <p>Vendor risk questionnaires are <a href="the-self-attestation-problem.html">self-reported</a>. The vendor tells you about their own control environment. You take the answers, maybe ask a follow-up or two, and file the results. The questionnaire becomes the artifact, the artifact becomes evidence, and the evidence becomes the foundation of the risk decision - all without anyone independent looking at the actual controls.</p>
+
+                    <p>Their SOC 2 is performed by an auditor the vendor selected, under <a href="soc-2-scoping-problem.html">scoping the vendor defined</a>, covering the <a href="soc-2-system-description.html">system boundaries the vendor drew</a>. The opinion is clean because the auditor tested exactly what the vendor asked them to test. Whatever fell outside that scope - whatever the vendor didn't want examined - never appears in the report.</p>
+
+                    <p>You request their information security policy. Half the time you get a table of contents or a summary. Sometimes you get the full document with sections redacted. You file it because getting the unredacted version would take three months of back-and-forth you don't have time for. The deadline is real, the document gap isn't documented, and the program moves on.</p>
+
+                    <p>And the <a href="soc-2-cuec-problem.html">complementary user entity controls</a> in the SOC 2 report shift responsibility back to your organization without anyone necessarily mapping them against what your organization actually does. The audit opinion was conditional. Most TPRM programs treat the conditions as fine print.</p>
+
+                    <h2>The Trust Asymmetry</h2>
+
+                    <p>In KYC, we independently verify. We run OFAC screens. We check government databases. We validate documents against independent sources. The customer doesn't get to define what we check or choose who checks it. The framework was built on the assumption that the customer's word, on its own, is not sufficient evidence.</p>
+
+                    <p>In TPRM, we run OFAC. That's about where independent verification ends. After that, the vendor controls almost every variable. What gets assessed, who assesses it, what documentation you see, and how much of it is redacted. The entire process depends on the vendor's honesty and willingness to be transparent. The framework was built on the assumption that the vendor's word, on its own, is sufficient evidence.</p>
+
+                    <p>We call both of these "due diligence." One of them actually is.</p>
+
+                    <h2>Calling It What It Is</h2>
+
+                    <p>Vendor questionnaires and SOC 2 reports still provide useful information. The signal they generate has real value, especially when read carefully and challenged where the answers don't make sense. But we should be honest about what we're actually doing when we collect them. We're conducting trust-based assessments, not independent verification. <a href="compliance-theater-vs-real-risk-management.html">Calling something what it isn't</a> is how programs end up surprised when an incident exposes the gap between assumed controls and actual ones.</p>
+
+                    <p>The moment we start naming the trust-based mechanism for what it is, we can start having real conversations about where independent verification is needed and where trust-based assessment is acceptable given the risk. Not every vendor relationship requires KYC-grade scrutiny. Some categorically do. The argument was never that everything should be independently verified. The argument is that we should know which is which - and we should stop pretending the trust-based path is something it isn't.</p>
+
+                    <p>If we held vendor due diligence to KYC standards, the first thing that would break is the assumption that what we have today is rigorous enough to call due diligence in the first place.</p>
+
+                    <p><em>For more perspectives on third-party risk management, <a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank">connect with me on LinkedIn</a>.</em></p>
+                </div>
+            </div>
+
+            <section class="author-box">
+                <div class="author-box-container">
+                    <div class="author-info">
+                        <div class="author-avatar">
+                            <img src="../images/trevor_kavanaugh_headshot.jpg" alt="Trevor Kavanaugh" style="object-position: center 25%;">
+                        </div>
+                        <div class="author-details">
+                            <h3>About the Author</h3>
+                            <p><strong>Trevor Kavanaugh</strong> | Founder, Provenance Risk Advisory</p>
+                            <p>With over a decade in banking, I've built my career across the risk spectrum - from compliance and BSA/AML to internal audit, now running Provenance Risk Advisory, helping financial institutions build TPRM and cyber supply chain risk programs. This journey gave me a ground-level view of how risk actually functions across financial institutions.</p>
+                            <p>I believe in building risk frameworks designed for modern, evolving threats - not just satisfying checkboxes. Risk management runs deeper than prescriptive compliance rules. It's abstract, constantly shifting, and demands continuous adaptation. I challenge legacy thinking and status quo approaches to push our profession forward.</p>
+                            <p>My goal is simple: help everyone do better.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="related-articles">
+                <div class="container">
+                    <h2>Continue Reading</h2>
+                    <div class="related-articles-grid">
+                        <article class="article-card">
+                            <a href="the-self-attestation-problem.html" class="article-card-link">
+                                <div class="article-card-content">
+                                    <span class="article-category category-tprm">TPRM</span>
+                                    <h3 class="article-title">The Self-Attestation Problem</h3>
+                                    <p class="article-excerpt">Vendor risk questionnaires are self-reported. The vendor tells you about their own control environment, and you take the answers as evidence.</p>
+                                    <div class="article-meta">
+                                        <span class="article-date">February 17, 2026</span>
+                                        <span class="article-read-more">Read more</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                        <article class="article-card">
+                            <a href="soc-2-scoping-problem.html" class="article-card-link">
+                                <div class="article-card-content">
+                                    <span class="article-category category-tprm">TPRM</span>
+                                    <h3 class="article-title">The SOC 2 Scoping Problem</h3>
+                                    <p class="article-excerpt">A SOC 2 report only covers what the vendor scoped in. What's outside the boundary is invisible to your assessment, no matter how clean the opinion.</p>
+                                    <div class="article-meta">
+                                        <span class="article-date">February 24, 2026</span>
+                                        <span class="article-read-more">Read more</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                        <article class="article-card">
+                            <a href="compliance-theater-vs-real-risk-management.html" class="article-card-link">
+                                <div class="article-card-content">
+                                    <span class="article-category category-tprm">TPRM</span>
+                                    <h3 class="article-title">Compliance Theater vs. Real Risk Management</h3>
+                                    <p class="article-excerpt">One protects the institution. The other protects the audit file. Here's how to tell which one you're running - and what happens when incidents expose the difference.</p>
+                                    <div class="article-meta">
+                                        <span class="article-date">January 29, 2026</span>
+                                        <span class="article-read-more">Read more</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <section class="cta" id="contact">
+            <div class="container">
+                <h2>Continue the Conversation</h2>
+                <p>Have thoughts on this topic? I'd love to hear your perspective. Connect with me on LinkedIn or reach out directly.</p>
+                <div class="cta-buttons">
+                    <a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank" class="btn btn-cta">Connect on LinkedIn</a>
+                    <a href="mailto:trevor@trevorkavanaugh.com" class="btn btn-secondary">Send an Email</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <div class="logo-icon">TK</div>
+                <span>Trevor Kavanaugh</span>
+            </div>
+            <div class="footer-columns">
+                <div class="footer-col">
+                    <h3>Navigation</h3>
+                    <nav aria-label="Footer navigation">
+                        <ul>
+                            <li><a href="../index.html">Home</a></li>
+                            <li><a href="../about.html">About</a></li>
+                            <li><a href="../insights.html">Insights</a></li>
+                            <li><a href="../services.html">Advisory</a></li>
+                            <li><a href="../index.html#contact">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="footer-col">
+                    <h3>Connect</h3>
+                    <ul class="contact-info">
+                        <li><a href="mailto:trevor@trevorkavanaugh.com">trevor@trevorkavanaugh.com</a></li>
+                        <li><a href="https://www.linkedin.com/in/trevorkavanaugh/" target="_blank">LinkedIn</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <p style="color: #8899aa; font-size: 14px; margin-bottom: 12px;">New articles every Tuesday & Thursday</p>
+                    <form id="newsletter-form" class="newsletter-form">
+                        <div class="newsletter-input-group">
+                            <input type="email" id="newsletter-email" placeholder="Enter your email" required>
+                            <button type="submit">Subscribe</button>
+                        </div>
+                        <p id="newsletter-message" class="newsletter-message"></p>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 Trevor Kavanaugh</p>
+                <nav class="legal-nav" aria-label="Legal navigation">
+                    <a href="../privacy.html">Privacy Policy</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>
