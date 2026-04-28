@@ -3,8 +3,8 @@ title: "If We Did KYC the Way We Do Vendor Due Diligence"
 date: 2026-04-28
 article_slug: kyc-vs-vendor-due-diligence
 article_url: https://trevorkavanaugh.com/articles/kyc-vs-vendor-due-diligence.html
-sent_date: 
-subscribers_sent: 
+sent_date: 2026-04-28
+subscribers_sent: 2
 ---
 
 # If We Did KYC the Way We Do Vendor Due Diligence
@@ -74,9 +74,8 @@ If we held vendor due diligence to KYC standards, the first thing that would bre
 
 - **Subject Line**: If We Did KYC the Way We Do Vendor Due Diligence
 - **Preview Text**: If banks ran KYC the way TPRM runs vendor due diligence - self-reported, vendor-scoped, redacted - regulators would shut them down in a week. Here's the asymmetry.
-- **Sent**: 
-- **Recipients**: 
-
+- **Sent**: April 28, 2026
+- **Recipients**: 2 confirmed subscribers
 ## Email HTML Content
 
 <!-- Use this content for the article_content field when sending via API -->
