@@ -3,8 +3,8 @@ title: "Every Vendor Is Incentivized to Hide Bad News"
 date: 2026-04-30
 article_slug: why-vendors-withhold
 article_url: https://trevorkavanaugh.com/articles/why-vendors-withhold.html
-sent_date: 
-subscribers_sent: 
+sent_date: 2026-04-30
+subscribers_sent: 2
 ---
 
 # Every Vendor Is Incentivized to Hide Bad News
@@ -77,9 +77,8 @@ That requires buyers - the institutions doing the assessing - to actually weigh 
 
 - **Subject Line**: Every Vendor Is Incentivized to Hide Bad News
 - **Preview Text**: Vendors aren't malicious when they hide bad news. The system rewards withholding and punishes transparency. Until the math flips, the incentive structure works against you.
-- **Sent**: 
-- **Recipients**: 
-
+- **Sent**: April 30, 2026
+- **Recipients**: 2 confirmed subscribers
 ## Email HTML Content
 
 <!-- Use this content for the article_content field when sending via API -->
