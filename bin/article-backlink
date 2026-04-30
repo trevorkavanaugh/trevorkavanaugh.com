@@ -1,0 +1,264 @@
+#!/usr/bin/env python3
+"""
+article-backlink - close the asymmetric link-graph debt.
+
+Takes a new article slug, finds outgoing internal article links in its HTML,
+and for each target proposes appending a back-link card to the target's
+Continue Reading section.
+
+Default mode is dry-run (prints unified diffs). --apply writes the patches.
+Idempotent: re-runs skip targets that already have a card linking back to the
+new article.
+
+Usage:
+  article-backlink <new-article-slug-or-path> [--dry-run] [--apply]
+
+Scope (v1):
+- Only appends to the .related-articles-grid container under <h2>Continue Reading</h2>
+- Does NOT attempt inline "see also" insertion in prose (editorial judgment, deferred)
+- Skips external links and non-article anchors
+"""
+
+import argparse
+import re
+import sys
+from pathlib import Path
+
+try:
+    from bs4 import BeautifulSoup
+except ImportError:
+    print("error: beautifulsoup4 not installed", file=sys.stderr)
+    sys.exit(2)
+
+
+def find_project_root(start: Path) -> Path:
+    cur = start.resolve()
+    for d in [cur] + list(cur.parents):
+        if (d / "frontend").is_dir() and (d / "content").is_dir():
+            return d
+    return Path("~/work/thought-leadership").expanduser()
+
+
+def resolve_input(arg: str, root: Path) -> Path:
+    p = Path(arg)
+    if p.is_file():
+        return p.resolve()
+    candidate = root / "frontend" / "articles" / f"{arg}.html"
+    if candidate.is_file():
+        return candidate
+    raise FileNotFoundError(f"could not resolve '{arg}' as a slug or path")
+
+
+def extract_metadata(article_html: str) -> dict:
+    soup = BeautifulSoup(article_html, "html.parser")
+    h1 = soup.find("h1")
+    title = h1.get_text(strip=True) if h1 else "Untitled"
+    category_label = ""
+    category_slug = "tprm"
+    for span in soup.find_all("span", class_="article-category"):
+        classes = span.get("class", [])
+        slug_class = next((c for c in classes if c.startswith("category-")), None)
+        if slug_class:
+            category_label = span.get_text(strip=True)
+            category_slug = slug_class[len("category-"):]
+            break
+    time_el = soup.find("time")
+    date_display = time_el.get_text(strip=True) if time_el else ""
+    meta = soup.find("meta", attrs={"name": "description"})
+    excerpt = meta["content"].strip() if meta and meta.get("content") else ""
+    return {
+        "title": title,
+        "category_label": category_label,
+        "category_slug": category_slug,
+        "date_display": date_display,
+        "excerpt": excerpt,
+    }
+
+
+def find_outgoing_internal_article_links(soup: BeautifulSoup) -> set[str]:
+    """Find slugs of articles linked from within the article body content."""
+    slugs = set()
+    # Look only inside the article body, not nav or footer
+    body = soup.find("div", class_="article-content") or soup.find("article")
+    if not body:
+        body = soup
+    for a in body.find_all("a", href=True):
+        href = a["href"].strip()
+        # Skip external, anchor-only, non-article paths
+        if href.startswith("http://") or href.startswith("https://"):
+            continue
+        if href.startswith("#") or href.startswith("mailto:"):
+            continue
+        # Match patterns like 'soc-2-cuec-problem.html', 'articles/foo.html', '../articles/foo.html'
+        m = re.search(r"([a-z0-9][a-z0-9\-_]+)\.html(?:#.*)?$", href)
+        if not m:
+            continue
+        slug = m.group(1)
+        # Skip non-article paths (index, about, etc.)
+        if slug in ("index", "about", "insights", "services", "federal", "analytics"):
+            continue
+        # Heuristic: if the href contains 'articles/' or is a bare slug, treat as article
+        if "articles/" in href or "/" not in href.lstrip("./"):
+            slugs.add(slug)
+    return slugs
+
+
+def build_card(slug: str, m: dict) -> str:
+    """Build the back-link card markup matching the existing Continue Reading style."""
+    return (
+        '                        <article class="article-card">\n'
+        f'                            <a href="{slug}.html" class="article-card-link">\n'
+        '                                <div class="article-card-content">\n'
+        f'                                    <span class="article-category {m["category_slug"]}">{m["category_label"]}</span>\n'
+        f'                                    <h3 class="article-title">{m["title"]}</h3>\n'
+        f'                                    <p class="article-excerpt">{m["excerpt"]}</p>\n'
+        '                                    <div class="article-meta">\n'
+        f'                                        <span class="article-date">{m["date_display"]}</span>\n'
+        '                                        <span class="article-read-more">Read more</span>\n'
+        '                                    </div>\n'
+        '                                </div>\n'
+        '                            </a>\n'
+        '                        </article>\n'
+    )
+
+
+def already_has_backlink(target_html: str, new_slug: str) -> bool:
+    """Idempotency check: does the target already have a card linking to the new slug?"""
+    pattern = re.compile(
+        rf'<a\s+href="{re.escape(new_slug)}\.html"[^>]*class="article-card-link"',
+        re.IGNORECASE,
+    )
+    return bool(pattern.search(target_html))
+
+
+def find_grid_close_pos(target_html: str, grid_start: int) -> int | None:
+    """Walk forward from grid_start (after the opening tag) to find the matching </div>."""
+    pos = grid_start
+    depth = 1
+    while pos < len(target_html) and depth > 0:
+        next_open = target_html.find("<div", pos)
+        next_close = target_html.find("</div>", pos)
+        if next_close == -1:
+            return None
+        if next_open != -1 and next_open < next_close:
+            depth += 1
+            pos = next_open + 4
+        else:
+            depth -= 1
+            if depth == 0:
+                return next_close
+            pos = next_close + 6
+    return None
+
+
+def patch_target(target_html: str, card: str) -> str:
+    """Insert the card immediately after the LAST </article> inside the Continue Reading grid.
+    Inserting after the last sibling preserves the existing indent on the grid's closing </div>."""
+    grid_open = re.search(r'<div\s+class="related-articles-grid">', target_html)
+    if not grid_open:
+        raise RuntimeError("could not locate Continue Reading .related-articles-grid")
+    grid_close = find_grid_close_pos(target_html, grid_open.end())
+    if grid_close is None:
+        raise RuntimeError("could not locate Continue Reading grid's closing </div>")
+    grid_content = target_html[grid_open.end():grid_close]
+    last_article_end = -1
+    for m in re.finditer(r'</article>', grid_content):
+        last_article_end = m.end()
+    if last_article_end == -1:
+        raise RuntimeError("no existing articles in Continue Reading grid to anchor insertion")
+    insert_pos = grid_open.end() + last_article_end
+    # Card has trailing newline; insert "\n" + card.rstrip("\n") so we land cleanly on a new line
+    # and the existing newline+indent before </div> is preserved as the trailing whitespace.
+    return target_html[:insert_pos] + "\n" + card.rstrip("\n") + target_html[insert_pos:]
+
+
+def render_diff(path: Path, before: str, after: str, n: int = 3) -> str:
+    import difflib
+    diff = difflib.unified_diff(
+        before.splitlines(keepends=True),
+        after.splitlines(keepends=True),
+        fromfile=f"{path} (before)",
+        tofile=f"{path} (after)",
+        n=n,
+    )
+    return "".join(diff)
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(
+        prog="article-backlink",
+        description="Append back-link cards to older articles' Continue Reading sections",
+    )
+    ap.add_argument("article", help="Slug or path of the new article")
+    ap.add_argument("--apply", action="store_true",
+                    help="Write the patches (default: dry-run preview)")
+    args = ap.parse_args()
+
+    root = find_project_root(Path.cwd())
+    try:
+        article_path = resolve_input(args.article, root)
+    except FileNotFoundError as e:
+        print(f"error: {e}", file=sys.stderr)
+        return 2
+
+    new_slug = article_path.stem
+    article_html = article_path.read_text(encoding="utf-8")
+    metadata = extract_metadata(article_html)
+    soup = BeautifulSoup(article_html, "html.parser")
+    targets = find_outgoing_internal_article_links(soup)
+    targets.discard(new_slug)  # Don't back-link to self
+
+    if not targets:
+        print(f"No outgoing internal article links found in {new_slug}.html")
+        return 1
+
+    print(f"Found {len(targets)} outgoing link(s) from {new_slug}: {sorted(targets)}")
+    print()
+
+    card = build_card(new_slug, metadata)
+    articles_dir = root / "frontend" / "articles"
+
+    applied = 0
+    skipped_existing = 0
+    skipped_no_section = 0
+    skipped_missing = 0
+
+    for target_slug in sorted(targets):
+        target_path = articles_dir / f"{target_slug}.html"
+        if not target_path.is_file():
+            print(f"  {target_slug}: SKIPPED (target file not found at {target_path})")
+            skipped_missing += 1
+            continue
+        target_html = target_path.read_text(encoding="utf-8")
+        if already_has_backlink(target_html, new_slug):
+            print(f"  {target_slug}: SKIPPED (already has back-link to {new_slug})")
+            skipped_existing += 1
+            continue
+        try:
+            patched = patch_target(target_html, card)
+        except RuntimeError as e:
+            print(f"  {target_slug}: SKIPPED ({e})")
+            skipped_no_section += 1
+            continue
+        if args.apply:
+            target_path.write_text(patched, encoding="utf-8")
+            print(f"  {target_slug}: APPLIED (back-link card appended to Continue Reading)")
+            applied += 1
+        else:
+            print(f"\n=== {target_slug} (proposed patch) ===")
+            print(render_diff(target_path, target_html, patched))
+            applied += 1
+
+    print()
+    print(f"{'APPLIED' if args.apply else 'DRY-RUN'}: "
+          f"{applied} back-link(s) {'written' if args.apply else 'proposed'}, "
+          f"{skipped_existing} already linked, "
+          f"{skipped_no_section} no Continue Reading section, "
+          f"{skipped_missing} target missing")
+    if not args.apply and applied > 0:
+        print("Re-run with --apply to write the changes.")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

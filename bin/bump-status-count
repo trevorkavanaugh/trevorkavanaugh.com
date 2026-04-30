@@ -1,0 +1,72 @@
+#!/usr/bin/env python3
+"""
+bump-status-count - increment article/newsletter count references across STATUS.md.
+
+Trivially scriptable replacement for the manual N-spot edits that happen on each publish.
+Finds occurrences of "<old> <noun>" in STATUS.md and replaces with "<new> <noun>".
+
+Usage:
+  bump-status-count <noun> <old> <new> [--file STATUS.md] [--apply]
+  bump-status-count articles 34 35
+  bump-status-count newsletters 22 23 --apply
+
+Default: dry-run, prints diff.
+"""
+import argparse
+import difflib
+import re
+import sys
+from pathlib import Path
+
+
+def find_root(start: Path) -> Path:
+    cur = start.resolve()
+    for d in [cur] + list(cur.parents):
+        if (d / "frontend").is_dir() and (d / "content").is_dir():
+            return d
+    return Path("~/work/thought-leadership").expanduser()
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(prog="bump-status-count")
+    ap.add_argument("noun", help='Noun like "articles" or "newsletters"')
+    ap.add_argument("old", type=int)
+    ap.add_argument("new", type=int)
+    ap.add_argument("--file", default="STATUS.md", help="File to edit (default: STATUS.md in project root)")
+    ap.add_argument("--apply", action="store_true")
+    args = ap.parse_args()
+
+    root = find_root(Path.cwd())
+    target = (Path(args.file) if Path(args.file).is_absolute() else root / args.file)
+    if not target.exists():
+        print(f"error: {target} not found", file=sys.stderr)
+        return 2
+
+    before = target.read_text(encoding="utf-8")
+    # Match the old number followed by the noun (case-insensitive on noun, exact on number)
+    pattern = re.compile(rf"\b{args.old}\s+{re.escape(args.noun)}\b", re.IGNORECASE)
+    matches = list(pattern.finditer(before))
+    if not matches:
+        print(f"no occurrences of '{args.old} {args.noun}' found in {target}", file=sys.stderr)
+        return 1
+    after = pattern.sub(lambda m: re.sub(rf"\b{args.old}\b", str(args.new), m.group(0)), before)
+
+    if args.apply:
+        target.write_text(after, encoding="utf-8")
+        print(f"updated {target}: {len(matches)} occurrence(s) of '{args.old} {args.noun}' -> '{args.new} {args.noun}'")
+    else:
+        print(f"=== {target} (proposed) ===")
+        diff = "".join(difflib.unified_diff(
+            before.splitlines(keepends=True),
+            after.splitlines(keepends=True),
+            fromfile=f"{target} (before)",
+            tofile=f"{target} (after)",
+            n=1,
+        ))
+        print(diff)
+        print(f"DRY-RUN: would update {len(matches)} occurrence(s). Re-run with --apply.")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
